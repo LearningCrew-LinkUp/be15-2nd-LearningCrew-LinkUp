@@ -13,25 +13,38 @@ import com.learningcrew.linkup.place.query.dto.response.PlaceReviewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PlaceReviewCommandService {
-    private final JpaMeetingParticipationHistoryRepository meetingParticipationHistoryRepository;
+    private final JpaMeetingParticipationHistoryRepository participationRepository;
     private final MeetingRepository meetingRepository;
     private final PlaceReviewRepository placeReviewRepository;
 
+
+    private static final int STATUS_REVIEW_WRITTEN = 2;
+
     public PlaceReviewResponse createReview(PlaceReviewCreateRequest request) {
-        MeetingParticipationHistory history = meetingParticipationHistoryRepository
-                .findByMemberIdAndMeetingIdAndStatusId(request.getMemberId(), request.getMeetingId(), 5)
-                .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_ALLOWED));
+        List<MeetingParticipationHistory> participationList =
+                participationRepository.findByMemberIdAndMeetingIdAndStatusId(
+                        request.getMemberId(), request.getMeetingId(), STATUS_REVIEW_WRITTEN
+                );
+
+        if (participationList.isEmpty()) {
+            throw new BusinessException(ErrorCode.REVIEW_NOT_ALLOWED, "해당 모임에서 유효한 참여 기록이 없습니다.");
+        }
+
+        MeetingParticipationHistory participation = participationList.get(0);
 
         Meeting meeting = meetingRepository.findById(request.getMeetingId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.MEETING_NOT_FOUND));
+
         PlaceReview review = PlaceReview.builder()
                 .memberId(request.getMemberId())
-                .participationId(history.getParticipationId())
+                .participationId(participation.getParticipationId())
                 .placeId(meeting.getPlaceId())
-                .statusId(2) // 작성 상태
+                .statusId(STATUS_REVIEW_WRITTEN)
                 .reviewContent(request.getReviewContent())
                 .reviewImageUrl(request.getReviewImageUrl())
                 .reviewScore(request.getReviewScore())

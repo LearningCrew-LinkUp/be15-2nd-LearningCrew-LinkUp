@@ -5,6 +5,7 @@ import com.learningcrew.linkup.meeting.command.application.dto.request.Intereste
 import com.learningcrew.linkup.meeting.command.application.dto.response.InterestedMeetingCommandResponse;
 import com.learningcrew.linkup.meeting.command.application.service.InterestedMeetingCommandService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +14,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name="모임 찜 관리", description = "모임 찜 등록 및 삭제 API")
 public class InterestedMeetingCommandController {
 
     private final InterestedMeetingCommandService service;
 
     @Operation(
             summary = "모임 찜 등록",
-            description = "관심 있는 모임을 모임 찜에 등록한다."
+            description = "회원이 관심 있는 모임을 모임 찜에 등록한다."
     )
     @PostMapping("/members/{memberId}/interested-meetings")
     public ResponseEntity<ApiResponse<InterestedMeetingCommandResponse>> createInterestedMeeting(
@@ -44,7 +46,7 @@ public class InterestedMeetingCommandController {
 
     @Operation(
             summary = "모임 찜 취소",
-            description = "모임 찜에 등록한 모임을 찜 취소한다."
+            description = "회원이 모임 찜에 등록한 모임을 찜 취소한다."
     )
     @DeleteMapping("/members/{memberId}/interested-meetings")
     public ResponseEntity<ApiResponse<InterestedMeetingCommandResponse>> deleteInterestedMeeting(

@@ -2,10 +2,7 @@ package com.learningcrew.linkup.meeting.command.domain.aggregate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
@@ -15,7 +12,9 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "meeting")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
+@Builder
 public class Meeting {
 
     @Id

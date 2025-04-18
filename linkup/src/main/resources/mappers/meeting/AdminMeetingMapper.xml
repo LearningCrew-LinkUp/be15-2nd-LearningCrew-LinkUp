@@ -5,108 +5,106 @@
 
 <mapper namespace="com.learningcrew.linkup.meeting.query.mapper.AdminMeetingMapper">
 
-    <!-- TEST-047: 관리자 - 전체 모임 목록 조회 -->
-    <select id="selectAllMeetings" resultType="MeetingDTO">
+    <select id="selectAllMeetings" resultType="com.learningcrew.linkup.meeting.query.dto.response.MeetingSummaryDTO">
         SELECT
-        meeting_id AS meetingId,
-        leader_id AS leaderId,
-        place_id AS placeId,
-        sport_id AS sportId,
-        status_id AS statusId,
-        meeting_title AS meetingTitle,
-        meeting_content AS meetingContent,
-        date,
-        start_time AS startTime,
-        end_time AS endTime,
-        min_user AS minUser,
-        max_user AS maxUser,
-        gender,
-        age_group AS ageGroup,
-        level,
-        custom_place_address AS customPlaceAddress,
-        latitude,
-        longitude
-        FROM meeting
+            m.meeting_id AS meetingId,
+            mem.nickname AS leaderNickname,
+            p.place_name AS placeName,
+            p.address AS placeAddress,
+            s.sport_name AS sportName,
+            m.status_id AS statusId,
+            m.meeting_title AS meetingTitle,
+            m.date,
+            m.start_time AS startTime,
+            m.end_time AS endTime,
+            m.min_user AS minUser,
+            m.max_user AS maxUser,
+            m.gender,
+            m.age_group AS ageGroup,
+            m.level,
+            m.custom_place_address AS customPlaceAddress
+        FROM meeting m
+        JOIN member mem ON m.leader_id = mem.member_id
+        LEFT JOIN place p ON m.place_id = p.place_id
+        JOIN sport_type s ON m.sport_id = s.sport_id
         WHERE 1 = 1
-        <if test="gender != null">AND gender = #{gender}</if>
-
+        <if test="gender != null">
+            AND m.gender = #{gender}
+        </if>
         <if test="ageGroups != null and ageGroups.size() > 0">
             AND (
             <foreach item="item" collection="ageGroups" separator=" OR ">
-                FIND_IN_SET(#{item}, age_group)
+                FIND_IN_SET(#{item}, m.age_group)
             </foreach>
             )
         </if>
-
         <if test="levels != null and levels.size() > 0">
             AND (
             <foreach item="item" collection="levels" separator=" OR ">
-                FIND_IN_SET(#{item}, level)
+                FIND_IN_SET(#{item}, m.level)
             </foreach>
             )
         </if>
-
         <if test="sportIds != null and sportIds.size() > 0">
-            AND sport_id IN
+            AND m.sport_id IN
             <foreach item="item" collection="sportIds" open="(" separator="," close=")">
                 #{item}
             </foreach>
         </if>
-
         <if test="statusIds != null and statusIds.size() > 0">
-            AND status_id IN
+            AND m.status_id IN
             <foreach item="item" collection="statusIds" open="(" separator="," close=")">
                 #{item}
             </foreach>
         </if>
-
-        <if test="minDate != null and maxDate != null">
-            AND date BETWEEN #{minDate} AND #{maxDate}
+        <if test="maxDate != null">
+            AND m.date <![CDATA[ <= ]]> #{maxDate}
         </if>
-
-        ORDER BY meeting_id
+        ORDER BY m.date DESC, m.start_time DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
-    <!-- TEST-047: 전체 모임 수 (페이징 카운트용) -->
     <select id="countAllMeetings" resultType="long">
         SELECT COUNT(*)
-        FROM meeting
+        FROM meeting m
+        JOIN member mem ON m.leader_id = mem.member_id
+        LEFT JOIN place p ON m.place_id = p.place_id
+        JOIN sport_type s ON m.sport_id = s.sport_id
         WHERE 1 = 1
-        <if test="gender != null">AND gender = #{gender}</if>
-
+        <if test="gender != null">
+            AND m.gender = #{gender}
+        </if>
         <if test="ageGroups != null and ageGroups.size() > 0">
             AND (
             <foreach item="item" collection="ageGroups" separator=" OR ">
-                FIND_IN_SET(#{item}, age_group)
+                FIND_IN_SET(#{item}, m.age_group)
             </foreach>
             )
         </if>
-
         <if test="levels != null and levels.size() > 0">
             AND (
             <foreach item="item" collection="levels" separator=" OR ">
-                FIND_IN_SET(#{item}, level)
+                FIND_IN_SET(#{item}, m.level)
             </foreach>
             )
         </if>
-
         <if test="sportIds != null and sportIds.size() > 0">
-            AND sport_id IN
+            AND m.sport_id IN
             <foreach item="item" collection="sportIds" open="(" separator="," close=")">
                 #{item}
             </foreach>
         </if>
-
         <if test="statusIds != null and statusIds.size() > 0">
-            AND status_id IN
+            AND m.status_id IN
             <foreach item="item" collection="statusIds" open="(" separator="," close=")">
                 #{item}
             </foreach>
         </if>
-
-        <if test="minDate != null and maxDate != null">
-            AND date BETWEEN #{minDate} AND #{maxDate}
+        <if test="maxDate != null">
+            AND m.date <![CDATA[ <= ]]> #{maxDate}
         </if>
     </select>
+
+
+
 </mapper>

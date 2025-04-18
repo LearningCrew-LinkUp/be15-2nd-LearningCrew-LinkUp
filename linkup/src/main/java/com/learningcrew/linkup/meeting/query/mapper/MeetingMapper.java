@@ -2,18 +2,32 @@ package com.learningcrew.linkup.meeting.query.mapper;
 
 import com.learningcrew.linkup.meeting.query.dto.request.MeetingSearchRequest;
 import com.learningcrew.linkup.meeting.query.dto.response.MeetingDTO;
+import com.learningcrew.linkup.meeting.query.dto.response.MeetingParticipationDTO;
 import com.learningcrew.linkup.meeting.query.dto.response.MeetingSummaryDTO;
+import com.learningcrew.linkup.meeting.query.dto.response.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Mapper
 public interface MeetingMapper {
-    /* 모임 ID로 모임 하나 조회 */
+
+    List<MeetingSummaryDTO> selectMeetings(MeetingSearchRequest request);
+    long countMeetings(MeetingSearchRequest request);
+
     MeetingDTO selectMeetingById(int meetingId);
+    List<MemberDTO> selectParticipantsByMeetingId(int meetingId);
 
-    /* 검색/페이징 조건을 전달 받아 모임 목록 조회 */
-    List<MeetingSummaryDTO> selectMeetings(MeetingSearchRequest meetingSearchRequest);
+    List<MeetingSummaryDTO> selectAcceptedMeetingsByUserId(int userId);
+    List<MeetingSummaryDTO> selectPastMeetingsByUserId(@Param("userId") int userId, @Param("now") LocalDate now);
 
-    long countMeetings(MeetingSearchRequest meetingSearchRequest);
+    List<MeetingSummaryDTO> selectInterestedMeetings(int userId);
+
+    /* 모임 ID와 status로 참가 내역 목록 조회 */
+    List<MeetingParticipationDTO> selectHistoriesByMeetingIdAndStatusId(int meetingId, int statusId);
+
+    List<MemberDTO> getPendingParticipantsByMeetingId(int meetingId);
+
 }

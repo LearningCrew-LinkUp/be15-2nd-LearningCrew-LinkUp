@@ -1,30 +1,33 @@
 package com.learningcrew.linkup.meeting.query.service;
 
 import com.learningcrew.linkup.common.dto.Pagination;
+import com.learningcrew.linkup.meeting.command.domain.aggregate.MeetingStatus;
 import com.learningcrew.linkup.meeting.query.dto.request.MeetingSearchRequest;
-import com.learningcrew.linkup.meeting.query.dto.response.MeetingDTO;
 import com.learningcrew.linkup.meeting.query.dto.response.MeetingListResponse;
 import com.learningcrew.linkup.meeting.query.dto.response.MeetingSummaryDTO;
-import com.learningcrew.linkup.meeting.query.dto.response.UserMeetingActivityResponse;
+import com.learningcrew.linkup.meeting.query.dto.response.ParticipantReviewDTO;
 import com.learningcrew.linkup.meeting.query.mapper.AdminMeetingMapper;
-import com.learningcrew.linkup.meeting.query.mapper.MeetingParticipationMapper;
+import com.learningcrew.linkup.meeting.query.mapper.ReviewMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MeetingManageServiceImpl implements MeetingManageService {
+public class AdminMeetingService {
 
     private final AdminMeetingMapper adminMeetingMapper;
-    private final MeetingParticipationMapper participationMapper;
+    private final ReviewMapper reviewMapper;
 
-    @Override
     public MeetingListResponse getAllMeetings(MeetingSearchRequest request) {
         List<MeetingSummaryDTO> meetings = adminMeetingMapper.selectAllMeetings(request);
         long totalItems = adminMeetingMapper.countAllMeetings(request);
+
+        meetings.forEach(m -> {
+            MeetingStatus status = MeetingStatus.fromId(m.getStatusId());
+            m.setStatusName(status.getLabel());
+        });
 
         return MeetingListResponse.builder()
                 .meetings(meetings)
@@ -36,17 +39,17 @@ public class MeetingManageServiceImpl implements MeetingManageService {
                 .build();
     }
 
-    @Override
-    public UserMeetingActivityResponse getUserMeetingActivity(int userId) {
-        LocalDate today = LocalDate.now();
-
-        List<MeetingDTO> pastMeetings = participationMapper.selectPastMeetingsByUserId(userId, today);
-        List<MeetingDTO> upcomingMeetings = participationMapper.selectUpcomingMeetingsByUserId(userId, today);
-
-        return UserMeetingActivityResponse.builder()
-                .pastMeetings(pastMeetings)
-                .upcomingMeetings(upcomingMeetings)
-                .build();
+    public List<ParticipantReviewDTO> getAllParticipantReviews() {
+        return reviewMapper.selectAllParticipantReviews();
     }
+
+    public List<ParticipantReviewDTO> getReviewsByReviewer(int memberId) {
+        return reviewMapper.selectReviewsByReviewer(memberId);
+    }
+
+    public List<ParticipantReviewDTO> getReviewsByReviewee(int memberId) {
+        return reviewMapper.selectReviewsByReviewee(memberId);
+    }
+
 
 }

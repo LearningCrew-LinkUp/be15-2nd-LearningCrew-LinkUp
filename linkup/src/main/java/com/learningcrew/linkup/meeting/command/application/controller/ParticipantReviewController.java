@@ -5,6 +5,7 @@ import com.learningcrew.linkup.meeting.command.application.dto.request.Participa
 import com.learningcrew.linkup.meeting.command.application.dto.response.ParticipantReviewCommandResponse;
 import com.learningcrew.linkup.meeting.command.application.service.ParticipantReviewCommandService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "참가자 평가", description = "참가자 평가 API")
 public class ParticipantReviewController {
 
     private final ParticipantReviewCommandService service;

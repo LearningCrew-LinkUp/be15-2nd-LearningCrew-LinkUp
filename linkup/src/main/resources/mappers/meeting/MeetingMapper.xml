@@ -5,140 +5,258 @@
 
 <mapper namespace="com.learningcrew.linkup.meeting.query.mapper.MeetingMapper">
 
-    <!-- TEST-051: 모임 상세 조회 -->
-    <select id="selectMeetingById" resultType="MeetingDTO">
-        SELECT a.meeting_id,
-        a.leader_id,
-        b.nickname AS leaderNickname,
-        a.place_id,
-        c.place_name AS placeName,
-        c.address AS placeAddress,
-        a.sport_id,
-        d.sport_name AS sportName,
-        a.status_id,
-        e.status_type AS statusType,
-        a.meeting_title,
-        a.meeting_content,
-        a.date,
-        a.start_time,
-        a.end_time,
-        a.min_user,
-        a.max_user,
-        a.created_at,
-        a.gender,
-        a.age_group,
-        a.level,
-        a.custom_place_address
+    <!-- 모임 목록 조회: 조건 검색 포함 -->
+    <select id="selectMeetings" resultType="com.learningcrew.linkup.meeting.query.dto.response.MeetingSummaryDTO">
+        SELECT
+            a.meeting_id AS meetingId,
+            b.nickname AS leaderNickname,
+            c.place_name AS placeName,
+            c.address AS placeAddress,
+            d.sport_name AS sportName,
+            a.status_id AS statusId,
+            a.meeting_title AS meetingTitle,
+            a.date,
+            a.start_time AS startTime,
+            a.end_time AS endTime,
+            a.min_user AS minUser,
+            a.max_user AS maxUser,
+            a.gender,
+            a.age_group AS ageGroup,
+            a.level,
+            a.custom_place_address AS customPlaceAddress
         FROM meeting a
         JOIN member b ON a.leader_id = b.member_id
-        LEFT JOIN place c ON COALESCE(a.place_id, 0) = COALESCE(c.place_id, 0)
+        LEFT JOIN place c ON a.place_id = c.place_id
         JOIN sport_type d ON a.sport_id = d.sport_id
-        JOIN status e ON a.status_id = e.status_id
-        WHERE a.meeting_id = #{meetingId}
-    </select>
-  
-    <!-- TEST-049, 050: 회원용 조건/목록 조회 -->
-    <select id="selectMeetings" resultType="MeetingSummaryDTO">
-        SELECT a.meeting_id,
-        b.nickname AS leaderNickname,
-        c.place_name AS placeName,
-        c.address AS placeAddress,
-        d.sport_name AS sportName,
-        e.status_type AS statusType,
-        a.meeting_title,
-        a.date,
-        a.start_time,
-        a.end_time,
-        a.min_user,
-        a.max_user,
-        a.gender,
-        a.age_group,
-        a.level,
-        a.custom_place_address
-        FROM meeting a
-        JOIN member b ON a.leader_id = b.member_id
-        LEFT JOIN place c ON COALESCE(a.place_id, 0) = COALESCE(c.place_id, 0)
-        JOIN sport_type d ON a.sport_id = d.sport_id
-        JOIN status e ON a.status_id = e.status_id
-        WHERE a.gender = #{ gender }
-        AND (
-        <foreach item="item" collection="ageGroups" separator=" OR ">
-            FIND_IN_SET(#{item}, age_group)
-        </foreach>
-        ) AND (
-        <foreach item="item" collection="levels" separator=" OR ">
-            FIND_IN_SET(#{item}, level)
-        </foreach>
-        )
-        AND a.sport_id IN
-        <foreach item="item" collection="sportIds" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-        AND a.status_id IN
-        <foreach item="item" collection="statusIds" open="(" separator="," close=")">
-            #{item}
-        </foreach>
+        WHERE 1=1
+
+        <if test="gender != null">
+            AND a.gender = #{gender}
+        </if>
+
+        <if test="ageGroups != null and ageGroups.size() > 0">
+            AND (
+            <foreach item="item" collection="ageGroups" separator=" OR ">
+                FIND_IN_SET(#{item}, a.age_group)
+            </foreach>
+            )
+        </if>
+
+        <if test="levels != null and levels.size() > 0">
+            AND (
+            <foreach item="item" collection="levels" separator=" OR ">
+                FIND_IN_SET(#{item}, a.level)
+            </foreach>
+            )
+        </if>
+
+        <if test="sportIds != null and sportIds.size() > 0">
+            AND a.sport_id IN
+            <foreach item="item" collection="sportIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+        <if test="statusIds != null and statusIds.size() > 0">
+            AND a.status_id IN
+            <foreach item="item" collection="statusIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
         <if test="minDate != null">
-            AND date <![CDATA[ >= ]]> #{minDate}
+            AND a.date <![CDATA[ >= ]]> #{minDate}
         </if>
 
         <if test="maxDate != null">
-            AND date <![CDATA[ <= ]]> #{maxDate}
+            AND a.date <![CDATA[ <= ]]> #{maxDate}
         </if>
+
         ORDER BY
-        CASE
-        WHEN a.status_id IN (1, 2)
+        CASE WHEN a.status_id IN (1, 2)
         AND a.date = CURDATE()
-        AND a.start_time <![CDATA[ >= ]]> CURTIME()
-        THEN 0
-        ELSE 1
-        END,
+        AND a.start_time >= CURTIME()
+        THEN 0 ELSE 1 END,
         a.date ASC,
         a.start_time ASC,
-        CASE
-        WHEN a.status_id IN (1, 2) THEN a.status_id
-        ELSE 3
-        END ASC
+        CASE WHEN a.status_id IN (1, 2) THEN a.status_id ELSE 3 END ASC
         LIMIT #{limit} OFFSET #{offset}
     </select>
-  
+
+    <!-- 모임 개수 (페이징용) -->
     <select id="countMeetings" resultType="long">
         SELECT COUNT(*)
         FROM meeting a
         JOIN member b ON a.leader_id = b.member_id
-        LEFT JOIN place c ON COALESCE(a.place_id, 0) = COALESCE(c.place_id, 0)
+        LEFT JOIN place c ON a.place_id = c.place_id
         JOIN sport_type d ON a.sport_id = d.sport_id
-        JOIN status e ON a.status_id = e.status_id
-        WHERE a.gender = #{ gender }
-        AND (
-        <foreach item="item" collection="ageGroups" separator=" OR ">
-            FIND_IN_SET(#{item}, a.age_group)
-        </foreach>
-        )
+        WHERE 1=1
 
-        AND (
-        <foreach item="item" collection="levels" separator=" OR ">
-            FIND_IN_SET(#{item}, a.level)
-        </foreach>
-        )
+        <if test="gender != null">
+            AND a.gender = #{gender}
+        </if>
 
-        AND a.sport_id IN
-        <foreach item="item" collection="sportIds" open="(" separator="," close=")">
-            #{item}
-        </foreach>
+        <if test="ageGroups != null and ageGroups.size() > 0">
+            AND (
+            <foreach item="item" collection="ageGroups" separator=" OR ">
+                FIND_IN_SET(#{item}, a.age_group)
+            </foreach>
+            )
+        </if>
 
-        AND a.status_id IN
-        <foreach item="item" collection="statusIds" open="(" separator="," close=")">
-            #{item}
-        </foreach>
+        <if test="levels != null and levels.size() > 0">
+            AND (
+            <foreach item="item" collection="levels" separator=" OR ">
+                FIND_IN_SET(#{item}, a.level)
+            </foreach>
+            )
+        </if>
+
+        <if test="sportIds != null and sportIds.size() > 0">
+            AND a.sport_id IN
+            <foreach item="item" collection="sportIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+        <if test="statusIds != null and statusIds.size() > 0">
+            AND a.status_id IN
+            <foreach item="item" collection="statusIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
 
         <if test="minDate != null">
-            AND date <![CDATA[ >= ]]> #{minDate}
+            AND a.date <![CDATA[ >= ]]> #{minDate}
         </if>
 
         <if test="maxDate != null">
-            AND date <![CDATA[ <= ]]> #{maxDate}
+            AND a.date <![CDATA[ <= ]]> #{maxDate}
         </if>
-
     </select>
+
+
+    <select id="selectParticipantsByMeetingId" resultType="com.learningcrew.linkup.meeting.query.dto.response.MemberDTO">
+        SELECT
+            m.member_id,
+            m.nickname,
+            m.gender,
+            m.birth_date,
+            m.introduction,
+            m.manner_temperature,
+            m.profile_image_url
+        FROM meeting_participation_history p
+        JOIN member m ON p.member_id = m.member_id
+        JOIN user u ON m.member_id = u.user_id
+        WHERE p.meeting_id = #{meetingId}
+        AND p.status_id = 2
+        AND u.status_id != 4
+    </select>
+
+    <select id="selectAcceptedMeetingsByUserId" resultType="com.learningcrew.linkup.meeting.query.dto.response.MeetingSummaryDTO">
+        SELECT
+            m.meeting_id AS meetingId,
+            u.nickname AS leaderNickname,
+            p.place_name AS placeName,
+            p.address AS placeAddress,
+            s.sport_name AS sportName,
+            m.status_id AS statusId,
+            m.meeting_title AS meetingTitle,
+            m.date,
+            m.start_time AS startTime,
+            m.end_time AS endTime,
+            m.min_user AS minUser,
+            m.max_user AS maxUser,
+            m.gender,
+            m.age_group AS ageGroup,
+            m.level,
+            m.custom_place_address AS customPlaceAddress
+        FROM meeting m
+        JOIN meeting_participation_history ph ON m.meeting_id = ph.meeting_id
+        JOIN member u ON m.leader_id = u.member_id
+        LEFT JOIN place p ON m.place_id = p.place_id
+        JOIN sport_type s ON m.sport_id = s.sport_id
+        WHERE ph.member_id = #{userId}
+        AND ph.status_id = 2
+    </select>
+
+    <select id="selectPastMeetingsByUserId" resultType="com.learningcrew.linkup.meeting.query.dto.response.MeetingSummaryDTO">
+        SELECT
+            m.meeting_id AS meetingId,
+            u.nickname AS leaderNickname,
+            p.place_name AS placeName,
+            p.address AS placeAddress,
+            s.sport_name AS sportName,
+            m.status_id AS statusId,
+            m.meeting_title AS meetingTitle,
+            m.date,
+            m.start_time AS startTime,
+            m.end_time AS endTime,
+            m.min_user AS minUser,
+            m.max_user AS maxUser,
+            m.gender,
+            m.age_group AS ageGroup,
+            m.level,
+            m.custom_place_address AS customPlaceAddress
+        FROM meeting m
+        JOIN meeting_participation_history ph ON m.meeting_id = ph.meeting_id
+        JOIN member u ON m.leader_id = u.member_id
+        LEFT JOIN place p ON m.place_id = p.place_id
+        JOIN sport_type s ON m.sport_id = s.sport_id
+        WHERE ph.member_id = #{userId}
+        AND m.date &lt; #{now}
+    </select>
+
+    <select id="selectInterestedMeetings" resultType="com.learningcrew.linkup.meeting.query.dto.response.MeetingSummaryDTO">
+        SELECT
+            m.meeting_id AS meetingId,
+            mem.nickname AS leaderNickname,
+            p.place_name AS placeName,
+            p.address AS placeAddress,
+            s.sport_name AS sportName,
+            m.status_id AS statusId,
+            m.meeting_title AS meetingTitle,
+            m.date,
+            m.start_time AS startTime,
+            m.end_time AS endTime,
+            m.min_user AS minUser,
+            m.max_user AS maxUser,
+            m.gender,
+            m.age_group AS ageGroup,
+            m.level,
+            m.custom_place_address AS customPlaceAddress
+        FROM interested_meeting im
+        JOIN meeting m ON im.meeting_id = m.meeting_id
+        JOIN member mem ON m.leader_id = mem.member_id
+        LEFT JOIN place p ON m.place_id = p.place_id
+        JOIN sport_type s ON m.sport_id = s.sport_id
+        WHERE im.member_id = #{userId}
+        AND m.status_id != 4
+        ORDER BY m.date ASC, m.start_time ASC
+    </select>
+
+    <select id="selectMeetingById" resultType="com.learningcrew.linkup.meeting.query.dto.response.MeetingDTO">
+        SELECT *
+        FROM meeting
+        WHERE meeting_id = #{meetingId}
+    </select>
+
+    <!-- 참가 요청 상태 (PENDING: status_id = 1)인 회원 조회 -->
+    <select id="getPendingParticipantsByMeetingId" resultType="MemberDTO">
+        SELECT
+        b.member_id,
+        b.gender,
+        b.nickname,
+        b.birth_date,
+        b.introduction,
+        b.manner_temperature,
+        b.profile_image_url
+        FROM meeting_participation_history a
+        JOIN member b ON a.member_id = b.member_id
+        JOIN user c ON b.member_id = c.user_id
+        WHERE a.meeting_id = #{meetingId}
+        AND a.status_id = 1
+        AND c.status_id != 4
+    </select>
+
 </mapper>

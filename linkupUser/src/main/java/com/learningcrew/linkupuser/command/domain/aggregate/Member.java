@@ -44,6 +44,10 @@ public class Member {
         this.nickname = nickname;
     }
 
+    public void setMannerTemperature(BigDecimal mannerTemperature) {
+        this.mannerTemperature = mannerTemperature;
+    }
+
     public void updateProfile(ProfileUpdateRequest request){
         if(StringUtils.hasText(request.getNickname())){
             this.nickname = request.getNickname();

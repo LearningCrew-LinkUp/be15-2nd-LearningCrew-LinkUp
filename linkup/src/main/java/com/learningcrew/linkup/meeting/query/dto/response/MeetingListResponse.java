@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @Builder
 public class MeetingListResponse {
-
-    private final List<MeetingSummaryDTO> meetings;
-    private final Pagination pagination;
+    private List<MeetingSummaryDTO> meetings;
+    private Pagination pagination;
 }

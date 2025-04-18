@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.learningcrew.linkup.meeting.query.mapper.ReviewMapper">
+
+    <select id="selectAllParticipantReviews" resultType="com.learningcrew.linkup.meeting.query.dto.response.ParticipantReviewDTO">
+        SELECT
+            r.review_id AS reviewId,
+            r.score,
+            r.created_at AS createdAt,
+            rv.nickname AS reviewerNickname,
+            re.nickname AS revieweeNickname,
+            m.meeting_title AS meetingTitle,
+            m.date AS meetingDate
+        FROM participant_review r
+        JOIN member rv ON r.reviewer_id = rv.member_id
+        JOIN member re ON r.reviewee_id = re.member_id
+        JOIN meeting m ON r.meeting_id = m.meeting_id
+        ORDER BY r.created_at DESC
+    </select>
+
+    <select id="selectReviewsByReviewer" resultType="com.learningcrew.linkup.meeting.query.dto.response.ParticipantReviewDTO">
+        SELECT
+        r.review_id AS reviewId,
+        r.score,
+        r.created_at AS createdAt,
+        rv.nickname AS reviewerNickname,
+        re.nickname AS revieweeNickname,
+        m.meeting_title AS meetingTitle,
+        m.date AS meetingDate
+        FROM participant_review r
+        JOIN member rv ON r.reviewer_id = rv.member_id
+        JOIN member re ON r.reviewee_id = re.member_id
+        JOIN meeting m ON r.meeting_id = m.meeting_id
+        WHERE r.reviewer_id = #{memberId}
+        ORDER BY r.created_at DESC
+    </select>
+
+    <select id="selectReviewsByReviewee" resultType="com.learningcrew.linkup.meeting.query.dto.response.ParticipantReviewDTO">
+        SELECT
+        r.review_id AS reviewId,
+        r.score,
+        r.created_at AS createdAt,
+        rv.nickname AS reviewerNickname,
+        re.nickname AS revieweeNickname,
+        m.meeting_title AS meetingTitle,
+        m.date AS meetingDate
+        FROM participant_review r
+        JOIN member rv ON r.reviewer_id = rv.member_id
+        JOIN member re ON r.reviewee_id = re.member_id
+        JOIN meeting m ON r.meeting_id = m.meeting_id
+        WHERE r.reviewee_id = #{memberId}
+        ORDER BY r.created_at DESC
+    </select>
+
+</mapper>
