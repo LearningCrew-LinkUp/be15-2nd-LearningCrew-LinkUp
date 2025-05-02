@@ -414,9 +414,11 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 │   ├── 📁 ddl                      # DDL 스크립트 (테이블 생성 등)
 │   │   └── 📄 linkup_ddL.sql
 │   ├── 📁 images                   # 이미지 자료 모음
-│   │   └── 📄 requirements         # UML 다이어그램, 요구사항 명세서 등
+│   │   ├── 📁 frontend
+│   │   └── 📁 backent
 │   └── 📁 test_cases               # 테스트 케이스 카테고리별 정리
-│       └── 📁 ...
+│       ├── 📁 frontend
+│       └── 📁 backent
 │
 ├── 📁 linkup
 │   ├── 📁 ...
@@ -801,7 +803,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 <details>
 <summary>테이블 정의서</summary>    
 
-🔗 [테이블 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vRunQplhnLkZI3XVY3Phoj7wQVirdkzOMEnkMLMfItG7qATPKMGKVSAPNOodzxhBgE6C86Ax5my7o9p/pubhtml?gid=763788645&single=true)
+🔗 [테이블 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS5z7lnFVoKhrHU0zT55KpMlmla72tCCbzkwDi_7PyI23dByzC5GMS2v7jT-7YjDzr9LlZDPXG-xev4/pubhtml?gid=1875790254&single=true)
 
 <details>
 <summary>🔹 기초 테이블 정의서 </summary>
@@ -965,21 +967,11 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 ### 8. 📑 Swagger 문서
 
-<details>
-<summary>백엔드 Swagger 문서</summary>
-
 [swagger_api.pdf](assets/api-docs/Swagger_API.pdf)
 
 <br>
 
 <img src="assets/api-docs/swagger_api.jpg" alt="rest_api" width="700"/>
-
-</details>
-
-<br>
-
-
-> 프론트엔드 테스트 케이스 정의서
 
 <br>
 
