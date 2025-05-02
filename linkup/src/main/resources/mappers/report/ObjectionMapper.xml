@@ -55,7 +55,7 @@
         <result property="penaltyId" column="penaltyId"/>
         <result property="memberId" column="memberId"/>
         <result property="userName" column="userName"/>
-        <result property="status" column="status"/>
+        <result property="statusId" column="statusId"/>
         <result property="reason" column="reason"/>
         <result property="createdAt" column="createdAt"/>
 

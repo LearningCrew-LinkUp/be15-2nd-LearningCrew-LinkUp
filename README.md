@@ -1,4 +1,4 @@
-<img src="assets/images/linkup_banner.png" alt="linkup_banner"/>
+<img src="assets/images/frontend/linkup_banner.png" alt="linkup_banner"/>
 <div align="center">
 
 <br>
@@ -12,28 +12,31 @@
 
 ---
 
+
 ## 📚 목차
 
-1. [✨ 한 줄 소개](#1--한-줄-소개)  
-2. [🏆 팀 소개](#2--팀-소개)  
-3. [📘 프로젝트 기획서](#3--프로젝트-기획서)  
-4. [🛠️ 기술 스택](#4--기술-스택)
-5. [📁 파일 구조](#5--파일-구조)  
-6. [📊 WBS (작업 분배 및 일정)](#6--wbs-작업-분배-및-일정)  
-7. [📄 요구사항 정의](#7--요구사항-정의)  
-8. [🔄 플로우 차트](#8--플로우-차트--uml)  
-9. [📦 DDD](#9--ddd)  
-10. [📌 ERD](#10--erd--테이블-정의서)    
-11. [⚙️ 시스템 아키텍쳐](#11--시스템-아키텍쳐)  
-12. [📒 테스트 케이스 정의서](#12--테스트-케이스-정의서)  
-13. [🧪 테스트 케이스 상세](#13--테스트-케이스-상세)  
-14. [🫂 팀원 회고](#14--팀원-회고)
+1. [🏆 팀 소개](#1--팀-소개)  
+2. [📘 프로젝트 기획서](#2--프로젝트-기획서)  
+3. [🛠️ 기술 스택](#3--기술-스택)  
+4. [📁 파일 구조](#4--파일-구조)  
+5. [📊 산출물](#5--산출물)  
+   - [📊 WBS](#1--wbs-작업-분배-및-일정)  
+   - [📄 요구사항 정의서](#2--요구사항-정의)  
+   - [🔄 플로우 차트](#3--플로우-차트--uml)  
+   - [📦 DDD](#4--ddd)  
+   - [📌 ERD](#5--erd--테이블-정의서)  
+   - [⚙️ 시스템 아키텍쳐](#6--시스템-아키텍쳐)  
+   - [🧩 기능 정의서](#7--기능-정의서)  
+   - [📑 Swagger 문서](#8--Swagger-문서)
+   - [📒 테스트 케이스 정의서](#9--테스트-케이스-정의서)  
+   - [🧪 테스트 케이스 상세](#10--테스트-케이스-상세)  
+6. [🫂 팀원 회고](#6--팀원-회고)  
 
 <br>
 
 ---
 
-## 1. ✨ 한 줄 소개
+## ✨ 한 줄 소개
 
 > **LinkUp**은 사용자가 자신의 **위치와 시간에 맞춰 운동 모임에 참여하거나 직접 개설할 수 있는 운동 모임 플랫폼**입니다.
 > 
@@ -44,7 +47,7 @@
 
 ---
 
-## 2. 🏆 팀 소개
+## 1. 🏆 팀 소개
 
 <br>
 
@@ -57,7 +60,10 @@
 
 ---
 
-## 3. 📘 프로젝트 기획서
+## 2. 📘 프로젝트 기획서
+
+<details>
+<summary>프로젝트 기획서</summary>
 
 <details>
 <summary>📌 1. 프로젝트 주제</summary>
@@ -237,41 +243,41 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 1. **사용자 측면 : 운동 참여의 지속성과 접근성 향상**
 
-	- **시간과 장소 제약을 최소화한 유연한 참여 환경**을 제공함으로써,
-	    
-	    바쁜 현대인도 꾸준한 운동 습관을 형성할 수 있습니다.
-	    
-	- 초보자도 **매너 기반의 신뢰 시스템과 맞춤형 필터링**을 통해 부담 없이 운동 모임에 참여할 수 있어,
-	    
-	    운동 진입 장벽이 낮아지고 **보다 다양한 사용자가 스포츠 활동에 접근**할 수 있게 됩니다.
+    - **시간과 장소 제약을 최소화한 유연한 참여 환경**을 제공함으로써,
+        
+        바쁜 현대인도 꾸준한 운동 습관을 형성할 수 있습니다.
+        
+    - 초보자도 **매너 기반의 신뢰 시스템과 맞춤형 필터링**을 통해 부담 없이 운동 모임에 참여할 수 있어,
+        
+        운동 진입 장벽이 낮아지고 **보다 다양한 사용자가 스포츠 활동에 접근**할 수 있게 됩니다.
 
 2. **사회적 측면: 지역 커뮤니티와 연결된 건강한 여가 문화 조성**
 
-	- 운동을 매개로 한 지역 중심의 만남은 **오프라인 커뮤니티 활성화**로 이어지며,
-	    
-	    **고립감 해소, 세대 간 교류, 건강한 사회적 연결**을 유도합니다.
-	    
-	- 이는 특히 **1인 가구, 이주민, 사회 초년생** 등에게 실질적인 **사회적 소속감과 심리적 안정**을 제공할 수 있습니다.
+    - 운동을 매개로 한 지역 중심의 만남은 **오프라인 커뮤니티 활성화**로 이어지며,
+        
+        **고립감 해소, 세대 간 교류, 건강한 사회적 연결**을 유도합니다.
+        
+    - 이는 특히 **1인 가구, 이주민, 사회 초년생** 등에게 실질적인 **사회적 소속감과 심리적 안정**을 제공할 수 있습니다.
 
 3. **플랫폼 측면: 신뢰 기반의 자율 생태계 구축**
 
-	- 매너온도 시스템을 통한 **정량적 신뢰도 평가**는
-	    
-	    건강한 사용자 행동을 유도하고, **재참여율과 플랫폼의 질적 수준을 향상**시킵니다.
-	    
-	- 사용자 주도의 모임 개설과 참여 구조는 **플랫폼 운영 부담을 줄이는 동시에 확장성과 자생력을 확보**할 수 있는 기반이 됩니다.
+    - 매너온도 시스템을 통한 **정량적 신뢰도 평가**는
+        
+        건강한 사용자 행동을 유도하고, **재참여율과 플랫폼의 질적 수준을 향상**시킵니다.
+        
+    - 사용자 주도의 모임 개설과 참여 구조는 **플랫폼 운영 부담을 줄이는 동시에 확장성과 자생력을 확보**할 수 있는 기반이 됩니다.
 
 4. **지역경제 측면: 유휴 체육시설의 활용도 제고 및 수익 창출**
 
-	- 플랫폼을 통해 공공 및 민간 체육시설의 **공백 시간대 예약과 활용을 유도**함으로써
-	    
-	    **유휴 자원의 효율적 운영과 지역 기반 수익 모델**이 가능해집니다.
-	    
-	- 특히 소규모 체육시설, 레저업체, 개인 사업자 등에게는
-	    
-	    **홍보·예약·정산까지 연동된 관리 편의성**을 제공하여
-	    
-	    **지역 소상공인의 수익 창출에도 긍정적인 효과**를 기대할 수 있습니다.
+    - 플랫폼을 통해 공공 및 민간 체육시설의 **공백 시간대 예약과 활용을 유도**함으로써
+        
+        **유휴 자원의 효율적 운영과 지역 기반 수익 모델**이 가능해집니다.
+        
+    - 특히 소규모 체육시설, 레저업체, 개인 사업자 등에게는
+        
+        **홍보·예약·정산까지 연동된 관리 편의성**을 제공하여
+        
+        **지역 소상공인의 수익 창출에도 긍정적인 효과**를 기대할 수 있습니다.
 
 </details>
 
@@ -343,6 +349,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 </details>
 
+</details>
 
 <br>
 
@@ -350,18 +357,28 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 ---
 
-## 4. 🛠️ 기술 스택
+## 3. 🛠️ 기술 스택
 
+### 💻 Backend
 <div>
 <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white" alt="">
-<img src="https://img.shields.io/badge/Gradle-02303A?style=flat&logo=Gradle&logoColor=white" alt="">
 <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=SpringBoot&logoColor=white" alt="">
-<img src="https://img.shields.io/badge/JPA-6DB33F?style=flat&logo=Hibernate&logoColor=white" alt="">
-<img src="https://img.shields.io/badge/MyBatis-000000?style=flat&logo=MyBatis&logoColor=white" alt="">
 <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat&logo=springsecurity&logoColor=white" alt="">
+<img src="https://img.shields.io/badge/JPA-6DB33F?style=flat&logo=Hibernate&logoColor=white" alt="">
+<img src="https://img.shields.io/badge/MyBatis-E9572B?style=flat&logo=MyBatis&logoColor=white" alt="">
 <img src="https://img.shields.io/badge/JWT-000000?style=flat&logo=JSON%20web%20tokens&logoColor=white" alt="">
 <img src="https://img.shields.io/badge/Junit5-25A162?style=flat&logo=JUnit5&logoColor=white" alt="">
-<img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=swagger&logoColor=white" alt="">
+<img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=swagger&logoColor=black" alt="">
+</div>
+
+### 🎨 Frontend
+<div>
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white" alt="">
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white" alt="">
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" alt="">
+<img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat&logo=vue.js&logoColor=white" alt="">
+<img src="https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white" alt="">
+<img src="https://img.shields.io/badge/Pinia-FFD300?style=flat&logo=pinia&logoColor=black" alt="">
 </div>
 
 ### 📦 DataBase
@@ -378,12 +395,16 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 <img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=Notion&logoColor=white" alt="">
 <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=Figma&logoColor=white" alt="">
 <img src="https://img.shields.io/badge/Miro-050038?style=flat&logo=Miro&logoColor=white" alt="">
+<img src="https://img.shields.io/badge/Gradle-02303A?style=flat&logo=Gradle&logoColor=white" alt="">
+<img src="https://img.shields.io/badge/Google Sheets-34A853?style=flat&logo=google-sheets&logoColor=white" alt="">
+<img src="https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white" alt="">
 </div>
 
+<br>
 
----
+<br>
 
-## 5. 📁 파일 구조
+## 4. 📁 파일 구조
 
 
 ```
@@ -407,6 +428,9 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 │   ├── 📁 ...
 │
 ├── 📁 linkupUser
+│   ├── 📁 ...
+│
+├── 📁 linkupFront
 │   ├── 📁 ...
 │
 └── 📄 README.md                     # 프로젝트 소개 및 사용법
@@ -566,55 +590,58 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 <br>
 
+<br>
 
 
 ---
 
-## 6. 📊 WBS (작업 분배 및 일정)
+## 5. 📊 산출물
+
+
+### 1. 📊 WBS (작업 분배 및 일정)
 
 
 🔗 [WBS 명세서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS5z7lnFVoKhrHU0zT55KpMlmla72tCCbzkwDi_7PyI23dByzC5GMS2v7jT-7YjDzr9LlZDPXG-xev4/pubhtml?gid=403982901&single=true)
 
-
-<img src="assets/images/wbs.jpg" alt="wbs" width="550"/>
+<img src="assets/images/frontend/wbs.jpg" alt="wbs" width="550"/>
 
 <br>
 
----
-
-## 7. 📄 요구사항 정의
+### 2. 📄 요구사항 정의서
 
 🔗 [요구사항 명세서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vR5o5viDNitHaRwGwl4o1biS6vLC52SPAyREVK2vDS9y13eXPo8N7CumbLhWDeejayHAh0Ji5Cmf2tf/pubhtml?gid=1583571973&single=true)
 
 
-<img src="assets/images/requirement_statement.jpg" alt="requirement_statement" width="550"/>
+<details>
+<summary>요구사항 정의서 미리보기</summary>
+<img src="assets/images/frontend/requirement_statement.jpg" alt="requirement_statement" width="550"/>
+</details>
 
 <br>
 
----
 
-## 8. 🔄 플로우 차트 & UML
+### 3. 🔄 플로우 차트 & UML
 
-### 사용자 흐름 시각화  
-<img src="assets/images/flowchart.png" alt="플로우차트" width="550"/>
 
-<br>
-
-### 유스케이스 다이어그램  
-<img src="assets/images/UML.png" alt="UML" width="700"/> 
+<details>
+<summary>사용자 흐름 시각화</summary>  
+<img src="assets/images/frontend/flowchart.png" alt="플로우차트" width="550"/>
+</details>
 
 <br>
 
----
 
-## 9. 📦 DDD
-
-> 도메인 주도 설계(Domain-Driven Design) 기반의 구조와 설계 원칙 설명  
-(예: 도메인 계층 구성, 집합체, 엔티티, 서비스 분리 등)
+<details>
+<summary>유스케이스 다이어그램</summary>  
+<img src="assets/images/frontend/UML.png" alt="UML" width="700"/> 
+</details>
 
 <br>
 
-<img src="assets/images/ddd-step8.jpg" alt="Step8 Policy" width="700"/>
+
+### 4. 📦 DDD
+
+<img src="assets/images/frontend/ddd-step8.jpg" alt="Step8 Policy" width="700"/>
 
 🔗 [DDD 전체 보기](https://miro.com/app/board/uXjVIIWm93c=/?share_link_id=312811606423)
 
@@ -634,7 +661,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 중복 제거 및 시간순 정렬  
 - 이슈/관심 사항은 빨간 포스트잇으로 표시  
 
-<img src="assets/images/ddd-step1.jpg" alt="Step1 Domain Event" width="700"/>
+<img src="assets/images/frontend/ddd-step1.jpg" alt="Step1 Domain Event" width="700"/>
 
 <br>
 
@@ -646,7 +673,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 결제 시스템, 이메일 발송, SMS 등 외부 시스템 정의  
 - 명사형으로 작성  
 
-<img src="assets/images/ddd-step2.jpg" alt="Step2 External System" width="700"/>
+<img src="assets/images/frontend/ddd-step2.jpg" alt="Step2 External System" width="700"/>
 
 <br>
 
@@ -658,7 +685,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 각 Domain Event를 유발하는 명령  
 - 현재형 & 명령형으로 작성  
 
-<img src="assets/images/ddd-step3.jpg" alt="Step3 Command" width="700"/>
+<img src="assets/images/frontend/ddd-step3.jpg" alt="Step3 Command" width="700"/>
 
 <br>
 
@@ -669,7 +696,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 궁금하거나 결정되지 않은 사항을 정리  
 
-<img src="assets/images/ddd-step4.jpg" alt="Step4 HotSpot" width="700"/>
+<img src="assets/images/frontend/ddd-step4.jpg" alt="Step4 HotSpot" width="700"/>
 
 <br>
 
@@ -681,7 +708,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 도메인 이벤트를 유발하는 주체  
 - 예: 사용자, 시스템, 외부 서비스 등  
 
-<img src="assets/images/ddd-step5.jpg" alt="Step5 Actor" width="700"/>
+<img src="assets/images/frontend/ddd-step5.jpg" alt="Step5 Actor" width="700"/>
 
 <br>
 
@@ -693,7 +720,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 하나의 단위로 간주되는 도메인 객체 집합  
 - 관계와 제약을 관리하는 중심 단위  
 
-<img src="assets/images/ddd-step6.jpg" alt="Step6 Aggregate" width="700"/>
+<img src="assets/images/frontend/ddd-step6.jpg" alt="Step6 Aggregate" width="700"/>
 
 <br>
 
@@ -704,7 +731,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 관련 애그리거트를 하나의 컨텍스트로 묶기  
 
-<img src="assets/images/ddd-step7.jpg" alt="Step7 Bounded Context" width="700"/>
+<img src="assets/images/frontend/ddd-step7.jpg" alt="Step7 Bounded Context" width="700"/>
 
 <br>
 
@@ -724,7 +751,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
   - 주문 생성: 3일 이내 결제  
   - 주문 취소: 상태 변경 + 재고 복구  
 
-<img src="assets/images/ddd-step8.png" alt="Step8 Policy" width="700"/>
+<img src="assets/images/frontend/ddd-step8.png" alt="Step8 Policy" width="700"/>
 
 <br>
 
@@ -736,7 +763,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - Bounded Context 간 상호작용 & 경계 정의  
 - 도메인 설계의 명확성 확보  
 
-<img src="assets/images/ddd-step9.png" alt="Step9 Context Mapping" width="700"/>
+<img src="assets/images/frontend/ddd-step9.png" alt="Step9 Context Mapping" width="700"/>
 
 <br>
 
@@ -752,23 +779,27 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 <br>
 
----
 
-## 10. 📌 ERD & 테이블 정의서
+### 5. 📌 ERD & 테이블 정의서
 
-### 논리 ERD  
-
-<img src="assets/images/logical_ERD.png" alt="logical_ERD"/>
-
-<br>
-
-### 물리 ERD  
-
-<img src="assets/images/physical_ERD.png" alt="physical_ERD"/>
+<details>
+<summary>논리 ERD</summary>    
+<img src="assets/images/frontend/logical_ERD.png" alt="logical_ERD"/>
+</details>
 
 <br>
 
-### 테이블 정의서
+
+<details>
+<summary>물리 ERD</summary>      
+<img src="assets/images/frontend/physical_ERD.png" alt="physical_ERD"/>
+</details>
+
+<br>
+
+
+<details>
+<summary>테이블 정의서</summary>    
 
 🔗 [테이블 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vRunQplhnLkZI3XVY3Phoj7wQVirdkzOMEnkMLMfItG7qATPKMGKVSAPNOodzxhBgE6C86Ax5my7o9p/pubhtml?gid=763788645&single=true)
 
@@ -779,7 +810,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 권한 테이블
 - 운동 종목 테이블
 
-<img src="assets/images/table_definition_init.jpg" alt="table_definition_init" width="700"/>
+<img src="assets/images/frontend/table_definition_init.jpg" alt="table_definition_init" width="700"/>
 
 <br>
 
@@ -793,8 +824,8 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 친구 관계 테이블
 - 선호 운동 테이블
 
-<img src="assets/images/table_definition_user_1.jpg" alt="table_definition_user_1" width="700"/>
-<img src="assets/images/table_definition_user_2.jpg" alt="table_definition_user_2" width="700"/>
+<img src="assets/images/frontend/table_definition_user_1.jpg" alt="table_definition_user_1" width="700"/>
+<img src="assets/images/frontend/table_definition_user_2.jpg" alt="table_definition_user_2" width="700"/>
 
 <br>
 
@@ -806,7 +837,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 계좌 테이블
 - 포인트 거래 내역 테이블
 
-<img src="assets/images/table_definition_point.jpg" alt="table_definition_point" width="700"/>
+<img src="assets/images/frontend/table_definition_point.jpg" alt="table_definition_point" width="700"/>
 
 <br>
 
@@ -822,8 +853,8 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 장소 예약 테이블
 - 장소 후기 테이블
 
-<img src="assets/images/table_definition_place_1.jpg" alt="table_definition_place_1" width="700"/>
-<img src="assets/images/table_definition_place_2.jpg" alt="table_definition_place_1" width="700"/>
+<img src="assets/images/frontend/table_definition_place_1.jpg" alt="table_definition_place_1" width="700"/>
+<img src="assets/images/frontend/table_definition_place_2.jpg" alt="table_definition_place_1" width="700"/>
 
 <br>
 
@@ -838,8 +869,8 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 베스트 플레이어 테이블
 - 모임 찜 테이블
 
-<img src="assets/images/table_definition_meeting_1.jpg" alt="table_definition_meeting_1" width="700"/>
-<img src="assets/images/table_definition_meeting_2.jpg" alt="table_definition_meeting_2" width="700"/>
+<img src="assets/images/frontend/table_definition_meeting_1.jpg" alt="table_definition_meeting_1" width="700"/>
+<img src="assets/images/frontend/table_definition_meeting_2.jpg" alt="table_definition_meeting_2" width="700"/>
 
 <br>
 
@@ -854,8 +885,8 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 댓글 테이블
 - 댓글 좋아요 테이블
 
-<img src="assets/images/table_definition_community_1.jpg" alt="table_definition_community_1" width="700"/>
-<img src="assets/images/table_definition_community_2.jpg" alt="table_definition_community_2" width="700"/>
+<img src="assets/images/frontend/table_definition_community_1.jpg" alt="table_definition_community_1" width="700"/>
+<img src="assets/images/frontend/table_definition_community_2.jpg" alt="table_definition_community_2" width="700"/>
 
 <br>
 
@@ -870,7 +901,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 도메인 타입 테이블
 - 알림 테이블
 
-<img src="assets/images/table_definition_notification.jpg" alt="table_definition_notification" width="700"/>
+<img src="assets/images/frontend/table_definition_notification.jpg" alt="table_definition_notification" width="700"/>
 
 <br>
 
@@ -885,8 +916,8 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 이의제기 테이블
 - 블랙리스트 테이블
 
-<img src="assets/images/table_definition_report.jpg" alt="table_definition_report" width="700"/>
-<img src="assets/images/table_definition_penalty.jpg" alt="table_definition_penalty" width="700"/>
+<img src="assets/images/frontend/table_definition_report.jpg" alt="table_definition_report" width="700"/>
+<img src="assets/images/frontend/table_definition_penalty.jpg" alt="table_definition_penalty" width="700"/>
 
 <br>
 
@@ -898,13 +929,13 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 - 인증 토큰 테이블
 - 리프레시 토큰 테이블
 
-<img src="assets/images/table_definition_token.jpg" alt="table_definition_token" width="700"/>
+<img src="assets/images/frontend/table_definition_token.jpg" alt="table_definition_token" width="700"/>
 
 <br>
 
 </details>
 
-
+</details>
 
 
 
@@ -912,27 +943,30 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 <br>
 
----
 
-## 11. ⚙️ 시스템 아키텍쳐
+### 6. ⚙️ 시스템 아키텍쳐
 
-> 전체 시스템 구성 다이어그램  
-
-<img src="assets/images/sysetem_architecture.jpg" alt="sysetem_architecture" width="700"/>
+<img src="assets/images/frontend/sysetem_architecture.jpg" alt="sysetem_architecture" width="700"/>
 
 <br>
 
-<img src="assets/images/gateway.png" alt="gateway" width="500"/>
+<img src="assets/images/frontend/gateway.png" alt="gateway" width="500"/>
 
 <br>
 
----
 
-## 12. 📒 REST API 설계 문서(Swagger 등)
+### 7. 🧩 기능 정의서
+(주요 기능 목록 및 설명: 예. 회원가입, 모임개설, 포인트 결제 등)
 
 <br>
 
->REST API 설계 문서
+<br>
+
+
+### 8. 📑 Swagger 문서
+
+<details>
+<summary>백엔드 Swagger 문서</summary>
 
 [swagger_api.pdf](assets/api-docs/Swagger_API.pdf)
 
@@ -940,63 +974,90 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 <img src="assets/api-docs/swagger_api.jpg" alt="rest_api" width="700"/>
 
+</details>
+
+<br>
+
+
+> 프론트엔드 테스트 케이스 정의서
+
 <br>
 
 <br>
+
+
+### 9. 📒 테스트 케이스 정의서
+
+<details>
+<summary>백엔드 테스트 케이스 정의서</summary>
 
 🔗 [테스트 케이스 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS5z7lnFVoKhrHU0zT55KpMlmla72tCCbzkwDi_7PyI23dByzC5GMS2v7jT-7YjDzr9LlZDPXG-xev4/pubhtml?gid=1875790254&single=true)
 
-<img src="assets/images/test_case_definition_1.jpg" alt="test_case_definition" width="550"/>
+<img src="assets/images/backend/test_case_definition_1.jpg" alt="test_case_definition" width="550"/>
 
-<img src="assets/images/test_case_definition_2.jpg" alt="test_case_definition" width="550"/>
+<img src="assets/images/backend/test_case_definition_2.jpg" alt="test_case_definition" width="550"/>
+
+<br>
+
+<br>
+
+</details>
+
+<br>
+
+
+> 프론트엔드 테스트 케이스 정의서
 
 <br>
 
 <br>
 
----
 
-## 13. 🧪 테스트 케이스 상세
+### 10. 🧪 테스트 케이스 상세
+
+<details>
+<summary>백엔드 테스트 케이스 상세</summary>
+
 
 - 예약 생성시 사업자 알림
 
-<img src="assets/test_cases/gif/place_reserve_owner.gif" alt="예약 생성시 사업자 알림" width="700"/>
+<img src="assets/test_cases/backend/gif/place_reserve_owner.gif" alt="예약 생성시 사업자 알림" width="700"/>
 
 <br>
 
 - 모임 신청자 발생 시 개설자 알림
 
-<img src="assets/test_cases/gif/meeting_builder_notification.gif" alt="모임 신청자 발생 시 개설자 알림" width="700"/>
+<img src="assets/test_cases/backend/gif/meeting_builder_notification.gif" alt="모임 신청자 발생 시 개설자 알림" width="700"/>
 
 <br>
 
 - 모임 참가 신청 승인 및 포인트 지불
 
-<img src="assets/test_cases/gif/meeting_participation_accept.gif" alt="모임 참가 신청 승인 및 포인트 지불" width="700"/>
+<img src="assets/test_cases/backend/gif/meeting_participation_accept.gif" alt="모임 참가 신청 승인 및 포인트 지불" width="700"/>
 
 <br>
 
 - 포인트 부족 상황에서의 모임 개설
 
-<img src="assets/test_cases/gif/point_meeting_fail.gif" alt="포인트 부족 상황에서의 모임 개설" width="700"/>
+<img src="assets/test_cases/backend/gif/point_meeting_fail.gif" alt="포인트 부족 상황에서의 모임 개설" width="700"/>
 
 <br>
 
 - 모임 개설 및 장소 대여비 지불 
 
-<img src="assets/test_cases/gif/meeting_place_point.gif" alt="모임 개설 및 장소 대여비 지불" width="700"/>
+<img src="assets/test_cases/backend/gif/meeting_place_point.gif" alt="모임 개설 및 장소 대여비 지불" width="700"/>
 
 <br>
 
 - 모임 취소로 인한 참여자 장소 대여비 반환 및 사업자 장소 예약 대금 반환
 
-<img src="assets/test_cases/gif/meeting_delete_refund.gif" alt="모임 참가 신청 승인 및 포인트 지불" width="700"/>
+<img src="assets/test_cases/backend/gif/meeting_delete_refund.gif" alt="모임 참가 신청 승인 및 포인트 지불" width="700"/>
 
 <br>
 
 - 최대 인원으로 인한 장소 대여비 차액 반환
 
-<img src="assets/test_cases/gif/max_people_point_refund.gif" alt="최대 인원으로 인한 장소 대여비 차액 반환" width="700"/>
+<img src="assets/test_cases/backend/gif/max_people_point_refund.gif" alt="최대 인원으로 인한 장소 대여비 차액 반환" width="700"/>
 
 <br>
 
@@ -1008,55 +1069,55 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 자체 회원가입
 
-<img src="assets/test_cases/user/Test_001.png" alt="계정 관리"/>
+<img src="assets/test_cases/backend/user/Test_001.png" alt="계정 관리"/>
 
 <br>
 
 - 자체 회원 로그인
 
-<img src="assets/test_cases/user/Test_002.png" alt="계정 관리"/>
+<img src="assets/test_cases/backend/user/Test_002.png" alt="계정 관리"/>
 
 <br>
 
 - 비밀번호 찾기
 
-<img src="assets/test_cases/user/Test_005.png" alt="계정 관리"/>
+<img src="assets/test_cases/backend/user/Test_005.png" alt="계정 관리"/>
 
 <br>
 
 - 이메일 인증
 
-<img src="assets/test_cases/user/Test_006.png" alt="계정 관리"/>
+<img src="assets/test_cases/backend/user/Test_006.png" alt="계정 관리"/>
 
 <br>
 
 - 비밀번호 재설정
 
-<img src="assets/test_cases/user/Test_007.png" alt="계정 관리"/>
+<img src="assets/test_cases/backend/user/Test_007.png" alt="계정 관리"/>
 
 <br>
 
 - 계정 복구 신청
 
-<img src="assets/test_cases/user/Test_008.png" alt="계정 관리"/>
+<img src="assets/test_cases/backend/user/Test_008.png" alt="계정 관리"/>
 
 <br>
 
 - 토큰 재발급
 
-<img src="assets/test_cases/user/Test_009.png" alt="계정 관리"/>
+<img src="assets/test_cases/backend/user/Test_009.png" alt="계정 관리"/>
 
 <br>
 
 - 로그아웃
 
-<img src="assets/test_cases/user/Test_010.png" alt="계정 관리"/>
+<img src="assets/test_cases/backend/user/Test_010.png" alt="계정 관리"/>
 
 <br>
 
 - 회원 탈퇴
 
-<img src="assets/test_cases/user/Test_011.png" alt="계정 관리"/>
+<img src="assets/test_cases/backend/user/Test_011.png" alt="계정 관리"/>
 
 <br>
 
@@ -1069,13 +1130,13 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 프로필 조회
 
-<img src="assets/test_cases/user/Test_012.png" alt="프로필 관리"/>
+<img src="assets/test_cases/backend/user/Test_012.png" alt="프로필 관리"/>
 
 <br>
 
 - 프로필 수정
 
-<img src="assets/test_cases/user/Test_013.png" alt="프로필 관리"/>
+<img src="assets/test_cases/backend/user/Test_013.png" alt="프로필 관리"/>
 
 <br>
 
@@ -1088,25 +1149,25 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 계좌 등록
 
-<img src="assets/test_cases/user/Test_015.png" alt="계좌 관리"/>
+<img src="assets/test_cases/backend/user/Test_015.png" alt="계좌 관리"/>
 
 <br>
 
 - 게좌 수정
 
-<img src="assets/test_cases/user/Test_016.png" alt="계좌 관리"/>
+<img src="assets/test_cases/backend/user/Test_016.png" alt="계좌 관리"/>
 
 <br>
 
 - 계좌 조회
 
-<img src="assets/test_cases/user/Test_017.png" alt="계좌 관리"/>
+<img src="assets/test_cases/backend/user/Test_017.png" alt="계좌 관리"/>
 
 <br>
 
 - 사업자 등록
 
-<img src="assets/test_cases/user/Test_018.png" alt="계좌 관리"/>
+<img src="assets/test_cases/backend/user/Test_018.png" alt="계좌 관리"/>
 
 <br>
 
@@ -1120,31 +1181,31 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 매너 온도 조회
 
-<img src="assets/test_cases/user/Test_021.png" alt="활동 관리"/>
+<img src="assets/test_cases/backend/user/Test_021.png" alt="활동 관리"/>
 
 <br>
 
 - 작성 게시글 조회
 
-<img src="assets/test_cases/user/Test_022.png" alt="활동 관리"/>
+<img src="assets/test_cases/backend/user/Test_022.png" alt="활동 관리"/>
 
 <br>
 
 - 작성 댓글 조회
 
-<img src="assets/test_cases/user/Test_023.png" alt="활동 관리"/>
+<img src="assets/test_cases/backend/user/Test_023.png" alt="활동 관리"/>
 
 <br>
 
 - 참가 모임 이력 조회
 
-<img src="assets/test_cases/user/Test_024.png" alt="활동 관리"/>
+<img src="assets/test_cases/backend/user/Test_024.png" alt="활동 관리"/>
 
 <br>
 
 - 포인트 조회
 
-<img src="assets/test_cases/user/Test_025.png" alt="활동 관리"/>
+<img src="assets/test_cases/backend/user/Test_025.png" alt="활동 관리"/>
 
 <br>
 
@@ -1159,37 +1220,37 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 친구 목록 조회
 
-<img src="assets/test_cases/user/Test_026.png" alt="친구 관리"/>
+<img src="assets/test_cases/backend/user/Test_026.png" alt="친구 관리"/>
 
 <br>
 
 - 친구 요청 신청
 
-<img src="assets/test_cases/user/Test_027.png" alt="친구 관리"/>
+<img src="assets/test_cases/backend/user/Test_027.png" alt="친구 관리"/>
 
 <br>
 
 - 친구 요청 수락
 
-<img src="assets/test_cases/user/Test_028.png" alt="친구 관리"/>
+<img src="assets/test_cases/backend/user/Test_028.png" alt="친구 관리"/>
 
 <br>
 
 - 친구 요청 거절 및 삭제
 
-<img src="assets/test_cases/user/Test_029.png" alt="친구 관리"/>
+<img src="assets/test_cases/backend/user/Test_029.png" alt="친구 관리"/>
 
 <br>
 
 - 친구 신청 목록 조회
 
-<img src="assets/test_cases/user/Test_030.png" alt="친구 관리"/>
+<img src="assets/test_cases/backend/user/Test_030.png" alt="친구 관리"/>
 
 <br>
 
 - 친구 개설 모임 조회
 
-<img src="assets/test_cases/user/Test_031.png" alt="친구 관리"/>
+<img src="assets/test_cases/backend/user/Test_031.png" alt="친구 관리"/>
 
 <br>
 
@@ -1202,25 +1263,25 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 회원 전체 목록 조회
 
-<img src="assets/test_cases/user/Test_032.png" alt="회원 관리"/>
+<img src="assets/test_cases/backend/user/Test_032.png" alt="회원 관리"/>
 
 <br>
 
 - 사업자 권한 신청 조회
 
-<img src="assets/test_cases/user/Test_033.png" alt="회원 관리"/>
+<img src="assets/test_cases/backend/user/Test_033.png" alt="회원 관리"/>
 
 <br>
 
 - 사업자 권한 승인
 
-<img src="assets/test_cases/user/Test_034.png" alt="회원 관리"/>
+<img src="assets/test_cases/backend/user/Test_034.png" alt="회원 관리"/>
 
 <br>
 
 - 사업자 권한 승인 거절
 
-<img src="assets/test_cases/user/Test_035.png" alt="회원 관리"/>
+<img src="assets/test_cases/backend/user/Test_035.png" alt="회원 관리"/>
 
 <br>
 
@@ -1233,23 +1294,23 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 알림 설정
 
-<img src="assets/test_cases/notification/Test_102_set.png" alt="알림 관리"/>
+<img src="assets/test_cases/backend/notification/Test_102_set.png" alt="알림 관리"/>
 
 <br>
 
-<img src="assets/test_cases/notification/Test_103_set.png" alt="알림 관리"/>
+<img src="assets/test_cases/backend/notification/Test_103_set.png" alt="알림 관리"/>
 
 <br>
 
 - 알림 내역 조회
 
-<img src="assets/test_cases/notification/Test_102.png" alt="알림 관리"/>
+<img src="assets/test_cases/backend/notification/Test_102.png" alt="알림 관리"/>
 
 <br>
 
 - 알림 확인 표시
 
-<img src="assets/test_cases/notification/Test_103.png" alt="알림 관리"/>
+<img src="assets/test_cases/backend/notification/Test_103.png" alt="알림 관리"/>
 
 <br>
 
@@ -1270,7 +1331,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 포인트 충전
 
-<img src="assets/test_cases/point/TEST-036.png" alt="포인트 충전"/>
+<img src="assets/test_cases/backend/point/TEST-036.png" alt="포인트 충전"/>
 
 <br>
 
@@ -1283,13 +1344,13 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 포인트 내역 조회
 
-<img src="assets/test_cases/point/TEST-041.png" alt="포인트 관리"/>
+<img src="assets/test_cases/backend/point/TEST-041.png" alt="포인트 관리"/>
 
 <br>
 
 - 잔여 포인트 환불
 
-<img src="assets/test_cases/point/TEST-042.png" alt="포인트 관리"/>
+<img src="assets/test_cases/backend/point/TEST-042.png" alt="포인트 관리"/>
 
 <br>
 
@@ -1302,13 +1363,13 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 월별 정산 대금 조회
 
-<img src="assets/test_cases/point/TEST-043.png" alt="포인트 정산"/>
+<img src="assets/test_cases/backend/point/TEST-043.png" alt="포인트 정산"/>
 
 <br>
 
 - 정산 내역 조회
 
-<img src="assets/test_cases/point/TEST-044.png" alt="포인트 정산"/>
+<img src="assets/test_cases/backend/point/TEST-044.png" alt="포인트 정산"/>
 
 <br>
 
@@ -1330,43 +1391,43 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 관리자 모임 내역 조회
 
-<img src="assets/test_cases/meeting/Test_46.png" alt="모임 조회"/>
+<img src="assets/test_cases/backend/meeting/Test_46.png" alt="모임 조회"/>
 
 <br>
 
 - 관리자 모임 내역 조회 (조건별)
 
-<img src="assets/test_cases/meeting/Test_46_1.png" alt="모임 조회"/>
+<img src="assets/test_cases/backend/meeting/Test_46_1.png" alt="모임 조회"/>
 
 <br>
 
 - 개설 모임 목록 조회
 
-<img src="assets/test_cases/meeting/Test_47.png" alt="모임 조회"/>
+<img src="assets/test_cases/backend/meeting/Test_47.png" alt="모임 조회"/>
 
 <br>
 
 - 개설 모임 조건 검색 조회
 
-<img src="assets/test_cases/meeting/Test_48.png" alt="모임 조회"/>
+<img src="assets/test_cases/backend/meeting/Test_48.png" alt="모임 조회"/>
 
 <br>
 
 - 회원별 참가 모임 조회
 
-<img src="assets/test_cases/meeting/Test_49.png" alt="모임 조회"/>
+<img src="assets/test_cases/backend/meeting/Test_49.png" alt="모임 조회"/>
 
 <br>
 
 - 회원별 모임 내역 조회
 
-<img src="assets/test_cases/meeting/Test_50.png" alt="모임 조회"/>
+<img src="assets/test_cases/backend/meeting/Test_50.png" alt="모임 조회"/>
 
 <br>
 
 - 모임 상세 조회
 
-<img src="assets/test_cases/meeting/Test_51.png" alt="모임 조회"/>
+<img src="assets/test_cases/backend/meeting/Test_51.png" alt="모임 조회"/>
 
 <br>
 
@@ -1380,36 +1441,36 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 모임 개설
 
-<img src="assets/test_cases/meeting/create_meeting_TEST-052.PNG" alt="모임 개설"/>
+<img src="assets/test_cases/backend/meeting/create_meeting_TEST-052.PNG" alt="모임 개설"/>
 
 <br>
 
 - 참가 요청 목록 확인
-<img src="assets/test_cases/meeting/Test_53.png" alt="모임 개설"/>
+<img src="assets/test_cases/backend/meeting/Test_53.png" alt="모임 개설"/>
 
 <br>
 
 - 참가 승인
 
-<img src="assets/test_cases/meeting/accept_participation_TEST-054.PNG" alt="모임 개설"/>
+<img src="assets/test_cases/backend/meeting/accept_participation_TEST-054.PNG" alt="모임 개설"/>
 
 <br>
 
 - 참가 거절
 
-<img src="assets/test_cases/meeting/reject_participation_TEST-055.PNG" alt="모임 개설"/>
+<img src="assets/test_cases/backend/meeting/reject_participation_TEST-055.PNG" alt="모임 개설"/>
 
 <br>
 
 - 개설자 참가 취소
 
-<img src="assets/test_cases/meeting/leader_update_TEST-056.PNG" alt="모임 개설"/>
+<img src="assets/test_cases/backend/meeting/leader_update_TEST-056.PNG" alt="모임 개설"/>
 
 <br>
 
 - 모임 취소
 
-<img src="assets/test_cases/meeting/cancel_meeting_TEST-057.PNG" alt="모임 개설"/>
+<img src="assets/test_cases/backend/meeting/cancel_meeting_TEST-057.PNG" alt="모임 개설"/>
 
 <br>
 
@@ -1422,25 +1483,25 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 참가자 목록 조회
 
-<img src="assets/test_cases/meeting/Test_58.png" alt="모임 참가"/>
+<img src="assets/test_cases/backend/meeting/Test_58.png" alt="모임 참가"/>
 
 <br>
 
 - 참가 신청 성공
 
-<img src="assets/test_cases/meeting/apply_participaiton_success_TEST-059.PNG" alt="모임 참가"/>
+<img src="assets/test_cases/backend/meeting/apply_participaiton_success_TEST-059.PNG" alt="모임 참가"/>
 
 <br>
 
 - 참가 신청 실패
 
-<img src="assets/test_cases/meeting/apply_participation_fail_TEST-059.PNG" alt="모임 참가"/>
+<img src="assets/test_cases/backend/meeting/apply_participation_fail_TEST-059.PNG" alt="모임 참가"/>
 
 <br>
 
 - 모임 참가 취소
 
-<img src="assets/test_cases/meeting/cancle_participation_TEST-060.PNG" alt="모임 참가"/>
+<img src="assets/test_cases/backend/meeting/cancle_participation_TEST-060.PNG" alt="모임 참가"/>
 
 <br>
 
@@ -1453,19 +1514,19 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 모임 찜 목록 조회
 
-<img src="assets/test_cases/meeting/Test_61.png" alt="모임 찜"/>
+<img src="assets/test_cases/backend/meeting/Test_61.png" alt="모임 찜"/>
 
 <br>
 
 - 모임 찜 등록
 
-<img src="assets/test_cases/meeting/create_interested_meeting_TEST-062.PNG" alt="모임 찜"/>
+<img src="assets/test_cases/backend/meeting/create_interested_meeting_TEST-062.PNG" alt="모임 찜"/>
 
 <br>
 
 - 모임 찜 취소
 
-<img src="assets/test_cases/meeting/delete_interested_meeting_TEST-063.PNG" alt="모임 찜"/>
+<img src="assets/test_cases/backend/meeting/delete_interested_meeting_TEST-063.PNG" alt="모임 찜"/>
 
 <br>
 
@@ -1479,31 +1540,31 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 참가자 평가 내역 조회
 
-<img src="assets/test_cases/meeting/Test_64.png" alt="모임 조회"/>
+<img src="assets/test_cases/backend/meeting/Test_64.png" alt="모임 조회"/>
 
 <br>
 
 - 평가자별 참가자 평가 내역 조회
 
-<img src="assets/test_cases/meeting/Test_65.png" alt="모임 조회"/>
+<img src="assets/test_cases/backend/meeting/Test_65.png" alt="모임 조회"/>
 
 <br>
 
 - 대상자별 참가자 평가 내역 조회
 
-<img src="assets/test_cases/meeting/Test_66.png" alt="모임 조회"/>
+<img src="assets/test_cases/backend/meeting/Test_66.png" alt="모임 조회"/>
 
 <br>
 
 - 참가자 평가 작성 성공
 
-<img src="assets/test_cases/meeting/participant_review_success_TEST-067.PNG" alt="모임 조회"/>
+<img src="assets/test_cases/backend/meeting/participant_review_success_TEST-067.PNG" alt="모임 조회"/>
 
 <br>
 
 - 참가자 평가 작성 실패
 
-<img src="assets/test_cases/meeting/participant_review_fail_TEST-067.PNG" alt="모임 조회"/>
+<img src="assets/test_cases/backend/meeting/participant_review_fail_TEST-067.PNG" alt="모임 조회"/>
 
 </details>
 
@@ -1522,49 +1583,49 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 장소 전체 목록 조회
 
-<img src="assets/test_cases/place/TEST-069.png" alt="장소 목록"/>
+<img src="assets/test_cases/backend/place/TEST-069.png" alt="장소 목록"/>
 
 <br>
 
 - 사업자 장소 목록 조회
 
-<img src="assets/test_cases/place/Test_70.png" alt="장소 목록"/>
+<img src="assets/test_cases/backend/place/Test_70.png" alt="장소 목록"/>
 
 <br>
 
 - 예약 장소 목록 조회
 
-<img src="assets/test_cases/place/TEST-071.png" alt="장소 목록"/>
+<img src="assets/test_cases/backend/place/TEST-071.png" alt="장소 목록"/>
 
 <br>
 
 - 장소 상세 조회
 
-<img src="assets/test_cases/place/TEST-072.png" alt="장소 목록"/>
+<img src="assets/test_cases/backend/place/TEST-072.png" alt="장소 목록"/>
 
 <br>
 
 - 운동/지역 별 장소 조회
 
-<img src="assets/test_cases/place/TEST-073.png" alt="장소 목록"/>
+<img src="assets/test_cases/backend/place/TEST-073.png" alt="장소 목록"/>
 
 <br>
 
 - 장소 즐겨찾기 조회
 
-<img src="assets/test_cases/place/TEST-074.png" alt="장소 목록"/>
+<img src="assets/test_cases/backend/place/TEST-074.png" alt="장소 목록"/>
 
 <br>
 
 - 장소 즐겨찾기 등록
 
-<img src="assets/test_cases/place/TEST-075.png" alt="장소 목록"/>
+<img src="assets/test_cases/backend/place/TEST-075.png" alt="장소 목록"/>
 
 <br>
 
 - 장소 즐겨찾기 해제
 
-<img src="assets/test_cases/place/TEST-076.png" alt="장소 목록"/>
+<img src="assets/test_cases/backend/place/TEST-076.png" alt="장소 목록"/>
 
 </details>
 
@@ -1575,25 +1636,25 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 장소 등록 
 
-<img src="assets/test_cases/place/TEST-077.png" alt="장소 관리"/>
+<img src="assets/test_cases/backend/place/TEST-077.png" alt="장소 관리"/>
 
 <br>
 
 - 장소 수정
 
-<img src="assets/test_cases/place/TEST-078.png" alt="장소 관리"/>
+<img src="assets/test_cases/backend/place/TEST-078.png" alt="장소 관리"/>
 
 <br>
 
 - 운영시간 수정
 
-<img src="assets/test_cases/place/TEST-079.png" alt="장소 관리"/>
+<img src="assets/test_cases/backend/place/TEST-079.png" alt="장소 관리"/>
 
 <br>
 
 - 장소 사진 수정
 
-<img src="assets/test_cases/place/TEST-080.png" alt="장소 관리"/>
+<img src="assets/test_cases/backend/place/TEST-080.png" alt="장소 관리"/>
 
 </details>
 
@@ -1604,13 +1665,13 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 사업자별 예약 전체 조회
 
-<img src="assets/test_cases/place/TEST-081.png" alt="예약"/>
+<img src="assets/test_cases/backend/place/TEST-081.png" alt="예약"/>
 
 <br>
 
 - 사업자/상태별 예약 조회
 
-<img src="assets/test_cases/place/TEST-082.png" alt="예약"/>
+<img src="assets/test_cases/backend/place/TEST-082.png" alt="예약"/>
 
 </details>
 
@@ -1629,61 +1690,61 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 게시글 전체 내역 조회
 
-<img src="assets/test_cases/community/Test_83.png" alt="게시글"/>
+<img src="assets/test_cases/backend/community/Test_83.png" alt="게시글"/>
 
 <br>
 
 - 회원별 게시글 내역 조회
 
-<img src="assets/test_cases/community/Test_84.png" alt="게시글"/>
+<img src="assets/test_cases/backend/community/Test_84.png" alt="게시글"/>
 
 <br>
 
 - 게시글 목록 조회
 
-<img src="assets/test_cases/community/Test_85.png" alt="게시글"/>
+<img src="assets/test_cases/backend/community/Test_85.png" alt="게시글"/>
 
 <br>
 
 - 게시글 검색
 
-<img src="assets/test_cases/community/Test_86.png" alt="게시글"/>
+<img src="assets/test_cases/backend/community/Test_86.png" alt="게시글"/>
 
 <br>
 
 - 게시글 상세 조회
 
-<img src="assets/test_cases/community/Test_87.png" alt="게시글"/>
+<img src="assets/test_cases/backend/community/Test_87.png" alt="게시글"/>
 
 <br>
 
 - 공지사항 등록
 
-<img src="assets/test_cases/community/Test_88.png" alt="게시글"/>
+<img src="assets/test_cases/backend/community/Test_88.png" alt="게시글"/>
 
 <br>
 
-<img src="assets/test_cases/community/Test_88_1.png" alt="게시글"/>
+<img src="assets/test_cases/backend/community/Test_88_1.png" alt="게시글"/>
 
 <br>
 
 
 - 게시글 작성
 
-<img src="assets/test_cases/community/TEST-089.jpg" alt="게시글"/>
+<img src="assets/test_cases/backend/community/TEST-089.jpg" alt="게시글"/>
 
 <br>
 
 
 - 게시글 수정
 
-<img src="assets/test_cases/community/TEST-091.jpg" alt="게시글"/>
+<img src="assets/test_cases/backend/community/TEST-091.jpg" alt="게시글"/>
 
 <br>
 
 - 게시글 삭제
 
-<img src="assets/test_cases/community/TEST-093.jpg" alt="게시글"/>
+<img src="assets/test_cases/backend/community/TEST-093.jpg" alt="게시글"/>
 
 <br>
 
@@ -1696,25 +1757,25 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 댓글 전체 내역 조회
 
-<img src="assets/test_cases/community/TEST-094.png" alt="댓글"/>
+<img src="assets/test_cases/backend/community/TEST-094.png" alt="댓글"/>
 
 <br>
 
 - 회원 별 댓글 내역 조회
 
-<img src="assets/test_cases/community/TEST-095.png" alt="댓글"/>
+<img src="assets/test_cases/backend/community/TEST-095.png" alt="댓글"/>
 
 <br>
 
 - 댓글 작성
 
-<img src="assets/test_cases/community/TEST-096.jpg" alt="댓글"/>
+<img src="assets/test_cases/backend/community/TEST-096.jpg" alt="댓글"/>
 
 <br>
 
 - 댓글 삭제
 
-<img src="assets/test_cases/community/TEST-097.jpg" alt="댓글"/>
+<img src="assets/test_cases/backend/community/TEST-097.jpg" alt="댓글"/>
 
 </details>
 
@@ -1725,25 +1786,25 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 게시글 좋아요
 
-<img src="assets/test_cases/community/TEST-098.png" alt="좋아요"/>
+<img src="assets/test_cases/backend/community/TEST-098.png" alt="좋아요"/>
 
 <br>
 
 - 게시글 좋아요 취소
 
-<img src="assets/test_cases/community/TEST-099.png" alt="좋아요"/>
+<img src="assets/test_cases/backend/community/TEST-099.png" alt="좋아요"/>
 
 <br>
 
 - 댓글 좋아요
 
-<img src="assets/test_cases/community/TEST-100.png" alt="좋아요"/>
+<img src="assets/test_cases/backend/community/TEST-100.png" alt="좋아요"/>
 
 <br>
 
 - 댓글 좋아요 취소
 
-<img src="assets/test_cases/community/TEST-101.png" alt="좋아요"/>
+<img src="assets/test_cases/backend/community/TEST-101.png" alt="좋아요"/>
 
 </details>
 
@@ -1760,67 +1821,67 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 전체 신고 내역 조회
 
-<img src="assets/test_cases/report/Test_124.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_124.png" alt="관리자"/>
 
 <br>
 
 - 신고 유형별 내역 조회
 
-<img src="assets/test_cases/report/Test_125.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_125.png" alt="관리자"/>
 
 <br>
 
 - 누적 신고 횟수별 신고자 목록 조회
 
-<img src="assets/test_cases/report/Test_126.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_126.png" alt="관리자"/>
 
 <br>
 
 - 누적 신고 점수별 피신고자 목록 조회
 
-<img src="assets/test_cases/report/Test_127.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_127.png" alt="관리자"/>
 
 <br>
 
 - 신고자별 신고 내역 조회
 
-<img src="assets/test_cases/report/Test_128.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_128.png" alt="관리자"/>
 
 <br>
 
 - 피신고자별 신고 내역 조회
 
-<img src="assets/test_cases/report/Test_129.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_129.png" alt="관리자"/>
 
 <br>
 
 - 사용자 신고
 
-<img src="assets/test_cases/report/Test_130.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_130.png" alt="관리자"/>
 
 <br>
 
 - 게시글 신고
 
-<img src="assets/test_cases/report/Test_131.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_131.png" alt="관리자"/>
 
 <br>
 
 - 댓글 신고
 
-<img src="assets/test_cases/report/Test_132.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_132.png" alt="관리자"/>
 
 <br>
 
 - 허위 신고 처리
 
-<img src="assets/test_cases/report/Test_133.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_133.png" alt="관리자"/>
 
 <br>
 
 - 신고 처리
 
-<img src="assets/test_cases/report/Test_134.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_134.png" alt="관리자"/>
 
 </details>
 
@@ -1830,55 +1891,55 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 제재 내역 전체 조회
 
-<img src="assets/test_cases/report/Test_135.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_135.png" alt="관리자"/>
 
 <br>
 
 - 종류별 제재 내역 조회
 
-<img src="assets/test_cases/report/Test_136.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_136.png" alt="관리자"/>
 
 <br>
 
 - 사용자별 제재 내역 조회
 
-<img src="assets/test_cases/report/Test_137.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_137.png" alt="관리자"/>
 
 <br>
 
 - 사용자 및 종류별 제재 내역 조회
 
-<img src="assets/test_cases/report/Test_138.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_138.png" alt="관리자"/>
 
 <br>
 
 - 게시글 제재
 
-<img src="assets/test_cases/report/Test_139.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_139.png" alt="관리자"/>
 
 <br>
 
 - 댓글 제재
 
-<img src="assets/test_cases/report/Test_140.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_140.png" alt="관리자"/>
 
 <br>
 
 - 장소 후기 제재 요청
 
-<img src="assets/test_cases/report/Test_141.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_141.png" alt="관리자"/>
 
 <br>
 
 - 장소 후기 제재 확정
 
-<img src="assets/test_cases/report/Test_142.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_142.png" alt="관리자"/>
 
 <br>
 
 - 제재 철회
 
-<img src="assets/test_cases/report/Test_143.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_143.png" alt="관리자"/>
 
 </details>
 
@@ -1890,49 +1951,49 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 이의 제기 전체 내역 조회
 
-<img src="assets/test_cases/report/Test_144.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_144.png" alt="관리자"/>
 
 <br>
 
 - 상태별 이의 내역 조회
 
-<img src="assets/test_cases/report/Test_145.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_145.png" alt="관리자"/>
 
 <br>
 
 - 사용자별 이의 내역 조회
 
-<img src="assets/test_cases/report/Test_146.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_146.png" alt="관리자"/>
 
 <br>
 
 - 장소 후기 이의 신청
 
-<img src="assets/test_cases/report/Test_147.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_147.png" alt="관리자"/>
 
 <br>
 
 - 댓글 제재 이의 신청
 
-<img src="assets/test_cases/report/Test_148.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_148.png" alt="관리자"/>
 
 <br>
 
 - 댓글 제재 이의 신청
 
-<img src="assets/test_cases/report/Test_149.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_149.png" alt="관리자"/>
 
 <br>
 
 - 이의 제기 승인
 
-<img src="assets/test_cases/report/Test_150.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_150.png" alt="관리자"/>
 
 <br>
 
 - 이의 제기 거절
 
-<img src="assets/test_cases/report/Test_151.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_151.png" alt="관리자"/>
 
 </details>
 
@@ -1944,19 +2005,19 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 - 블랙리스트 조회
 
-<img src="assets/test_cases/report/Test_152.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_152.png" alt="관리자"/>
 
 <br>
 
 - 블랙리스트 등록
 
-<img src="assets/test_cases/report/Test_153.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_153.png" alt="관리자"/>
 
 <br>
 
 - 블랙리스트 해제
 
-<img src="assets/test_cases/report/Test_154.png" alt="관리자"/>
+<img src="assets/test_cases/backend/report/Test_154.png" alt="관리자"/>
 
 
 </details>
@@ -1967,8 +2028,23 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 ---
 
-## 14. 🫂 팀원 회고
+</details>
 
+<br>
+
+
+> 프론트엔드 테스트 케이스 상세
+
+<br>
+
+<br>
+
+---
+
+## 6. 🫂 팀원 회고
+
+<details>
+<summary>백엔드 회고</summary>
 
 |**곽진웅**|
 |------|
@@ -2022,5 +2098,14 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 > 프로젝트를 하며 처음에 어디서부터 해나가야 할지 감도 잡히지 않았는데 직접 부딪히며 하다 보니 어느 정도의 방향성을 잡아나갈 수 있었습니다. 이슈 생성도 해보고 코드 작성도 해보면서 배운 내용들을 적용해 나가다 보니 어느 부분을 모르고 어떻게 해결해야 하는지에 대해 공부하며 정리해나갈 수 있었습니다. 코드 오류의 연속이었지만 포스트맨으로 성공한 걸 보면 신기하면서도 조금씩 성장해가는 느낌을 받았습니다.  프로젝트를 하며 부족한 점을 몸소 느꼈고 프로젝트 준비 기간이 조금만 더 있었으면 하는 마음이 컸습니다. 이번 프로젝트를 통해 많이 배웠고 성장해나갈 수 있는 좋은 기회였습니다. 프로젝트 준비 열심히 해준 팀원분들 고생 많으셨고 모르는 부분 잘 알려주셔서 감사했습니다
 
 <br>
+
+---
+
+</details>
+
+<br>
+
+> 프론트엔드 회고
+
 
 ---
