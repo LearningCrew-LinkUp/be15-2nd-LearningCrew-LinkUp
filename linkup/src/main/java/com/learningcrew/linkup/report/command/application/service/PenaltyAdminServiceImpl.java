@@ -70,8 +70,8 @@ public class PenaltyAdminServiceImpl implements PenaltyAdminService {
     public PenaltyResponse penalizeComment(Long commentId, PenaltyRequest request) {
         // TODO: commentRepository 사용 가능 시 아래 주석 해제
         /*
-        var comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
+        var comment = commentRepository.findById(BigInteger.valueOf(commentId))
+            .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
 
         if (penaltyRepository.existsByCommentId(commentId)) {
             throw new BusinessException(ErrorCode.PENALTY_ALREADY_EXISTS);
@@ -81,15 +81,20 @@ public class PenaltyAdminServiceImpl implements PenaltyAdminService {
         comment.setPostCommentDeletedAt(LocalDateTime.now());
         reportRepository.updateStatusByCommentId(commentId);
 
+        // 신고 처리 상태 업데이트
+        reportRepository.updateStatusByCommentId(BigInteger.valueOf(commentId));
+
+        // 제재 이력 저장
         var penalty = penaltyRepository.save(UserPenaltyHistory.builder()
-                .userId(comment.getPostCommentUserId())
-                .commentId(commentId)
+                .userId(comment.getUserId())
+                .commentId(BigInteger.valueOf(commentId))
                 .penaltyType(PenaltyType.COMMENT)
                 .reason(request.getReason())
                 .createdAt(LocalDateTime.now())
                 .isActive("Y")
                 .build());
 
+        // 응답 생성
         return PenaltyResponse.builder()
                 .penaltyId(penalty.getId())
                 .userId(penalty.getUserId())
