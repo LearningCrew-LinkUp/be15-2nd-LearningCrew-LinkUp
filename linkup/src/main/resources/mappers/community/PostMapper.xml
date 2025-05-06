@@ -57,19 +57,29 @@
         p.is_notice AS isNotice,
         p.created_at AS createdAt,
         p.updated_at AS updatedAt,
-        p.is_deleted AS isDeleted
+        p.is_deleted AS isDeleted,
+
+        -- ❤️ 좋아요 수
+        (SELECT COUNT(*) FROM post_like pl WHERE pl.post_id = p.post_id) AS likeCount,
+
+        -- 💬 댓글 수
+        (SELECT COUNT(*) FROM community_comment cc WHERE cc.post_id = p.post_id) AS commentCount
+
         FROM community_post p
         JOIN member m ON p.user_id = member_id
         WHERE p.is_deleted = 'N' AND p.is_notice = 'N'
+
         <if test="keyword != null and keyword != ''">
             AND (p.title LIKE CONCAT('%', #{keyword}, '%') OR p.content LIKE CONCAT('%', #{keyword}, '%'))
         </if>
         <if test="userId != null">
             AND p.user_id = #{userId}
         </if>
+
         ORDER BY p.created_at DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
+
 
 
     <!-- 게시글 상세 조회 -->

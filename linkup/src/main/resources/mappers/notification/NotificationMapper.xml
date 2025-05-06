@@ -16,7 +16,6 @@
         FROM notification
         WHERE receiver_id = #{userId}
         ORDER BY created_at DESC
-        LIMIT 5
     </select>
 
 </mapper>

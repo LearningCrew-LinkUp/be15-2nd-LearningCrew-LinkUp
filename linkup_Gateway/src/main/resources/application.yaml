@@ -19,6 +19,22 @@ spring:
             - Path=/api/v1/common-service/**
           filters:
             - RewritePath=/api/v1/common-service/(?<segment>.*), /${segment}
+      default-filters:
+        # 중복된 Access-Control-Allow-Origin 및 Access-Control-Allow-Credentials 헤더를 제거
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        cors-configurations:
+          '[/**]': # 모든 경로에 대해 CORS 설정
+            allowedOrigins: 'http://localhost:5174'  # 허용할 출처 (CORS 요청을 보낼 수 있는 도메인)
+            allow-credentials: true  # 자격 증명(예: 쿠키 등)을 허용할지 여부
+            allowedHeaders: '*'  # 허용할 요청 헤더 (모든 헤더 허용)
+            allowedMethods: # 허용할 HTTP 메서드
+              - PUT  # PUT 메서드 허용
+              - GET  # GET 메서드 허용
+              - POST # POST 메서드 허용
+              - DELETE  # DELETE 메서드 허용
+              - OPTIONS  # OPTIONS 메서드 허용 (사전 요청에 사용)
+
 
 eureka:
   client:

@@ -26,7 +26,7 @@ public class NotificationQueryController {
      * 특정 사용자의 최신 알림 목록을 조회합니다.
      * 최근 5건의 알림 데이터를 반환합니다.
      */
-    @Operation(summary = "최근 알림 조회", description = "특정 유저의 최신 알림 목록(5건)을 조회합니다.")
+    @Operation(summary = "최근 알림 조회", description = "특정 유저의 최신 알림 목록을 조회합니다.")
     @GetMapping("/{userId}")
     public ResponseEntity<List<NotificationResponse>> getRecentNotifications(
             @Parameter(description = "조회할 유저 ID") @PathVariable Integer userId) {

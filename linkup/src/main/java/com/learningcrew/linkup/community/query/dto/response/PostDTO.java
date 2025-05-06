@@ -19,6 +19,7 @@ public class PostDTO {
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
     private String isDeleted;
-
+    private Integer likeCount;
+    private Integer commentCount;
 
 }
