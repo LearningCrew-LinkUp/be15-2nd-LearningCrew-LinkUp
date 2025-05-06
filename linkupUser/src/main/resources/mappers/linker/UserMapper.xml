@@ -114,4 +114,46 @@
           JOIN status s ON s.status_id = u.status_id
          WHERE user_id = #{userId}
     </select>
+
+    <select id="findUserList" resultType="UserListResponse">
+        SELECT
+            u.user_id,
+            u.user_name,
+            u.email,
+            m.nickname,
+            r.role_name,
+            s.status_type,
+            u.point_balance,
+            u.contact_number
+        FROM user u
+        LEFT JOIN member m ON m.member_id = u.user_id
+        LEFT JOIN role r ON u.role_id = r.role_id
+        LEFT JOIN status s ON u.status_id = s.status_id
+        <where>
+            <if test="roleName != null">
+                AND r.role_name = #{roleName}
+            </if>
+            <if test="statusName != null">
+                AND s.status_type = #{statusName}
+            </if>
+        </where>
+        ORDER BY u.user_id DESC
+    </select>
+
+    <select id="findUser" resultType="UserDetailResponse">
+        SELECT
+            u.user_id,
+            u.user_name,
+            u.email,
+            m.nickname,
+            r.role_name,
+            s.status_type,
+            u.point_balance,
+            u.contact_number
+        FROM user u
+        LEFT JOIN member m ON m.member_id = u.user_id
+        LEFT JOIN role r ON u.role_id = r.role_id
+        LEFT JOIN status s ON u.status_id = s.status_id
+        WHERE u.user_id = #{userId}
+    </select>
 </mapper>

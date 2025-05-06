@@ -14,7 +14,7 @@ public interface AuthCommandService {
 
     TokenResponse refreshToken(String providedRefreshToken);
 
-    void logout(@Valid RefreshTokenRequest request);
+    void logout(String refreshToken);
 
     void sendPasswordResetLink(@Valid FindPasswordRequest request);
 

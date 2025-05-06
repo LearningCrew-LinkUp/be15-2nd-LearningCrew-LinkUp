@@ -41,4 +41,52 @@
         WHERE owner_id = #{ownerId}
         ORDER BY requested_at DESC
     </select>
+    <select id="findPointTransactions" resultType="com.learningcrew.linkup.point.query.dto.response.PointTransactionResponse">
+        SELECT
+            pt.point_transaction_id AS pointTransactionId,
+            u.user_id AS userId,
+            u.user_name AS userName,
+            r.role_name AS roleName,
+            pt.amount,
+            pt.transaction_type AS transactionType,
+            pt.created_at AS createdAt
+        FROM point_transaction pt
+        JOIN user u ON pt.user_id = u.user_id
+        JOIN role r ON u.role_id = r.role_id
+        <where>
+            <if test="userId != null">
+                AND u.user_id = #{userId}
+            </if>
+            <if test="roleName != null">
+                AND r.role_name = #{roleName}
+            </if>
+            <if test="transactionType != null">
+                AND pt.transaction_type = #{transactionType}
+            </if>
+            <if test="startDate != null">
+                AND pt.created_at &gt;= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND pt.created_at &lt;= #{endDate}
+            </if>
+        </where>
+        ORDER BY pt.created_at DESC
+    </select>
+    <select id="findUserPointTransactions" resultType="UserPointTransactionResponse">
+        SELECT
+            pt.point_transaction_id,
+            pt.amount,
+            pt.transaction_type,
+            pt.created_at
+        FROM point_transaction pt
+        WHERE pt.user_id = #{userId}
+        <if test="transactionType != null">
+            AND pt.transaction_type = #{transactionType}
+        </if>
+        <if test="year != null and month != null">
+            AND YEAR(pt.created_at) = #{year}
+            AND MONTH(pt.created_at) = #{month}
+        </if>
+        ORDER BY pt.created_at DESC
+    </select>
 </mapper>

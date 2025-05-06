@@ -57,10 +57,13 @@ image:
   default-profile: ${DEFAULT_PROFILE_IMAGE}
 
 springdoc:
-  api-docs:
-    path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: method
+    display-request-duration: true
+  api-docs:
+    path: /v3/api-docs
 
 logging:
   level:
@@ -68,3 +71,9 @@ logging:
     feign.Logger: DEBUG
     feign.Request: DEBUG
     feign.Response: DEBUG
+
+pagehelper:
+  helper-dialect: mariadb
+  reasonable: true        # 페이지 번호가 0보다 작으면 0으로
+  support-methods-arguments: true # 메서드 파라미터로 pageNum/pageSize를 받을 수 있도록
+  params: count=countSql

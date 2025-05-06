@@ -2,20 +2,22 @@ package com.learningcrew.linkupuser.command.application.service;
 
 import com.learningcrew.linkupuser.command.application.dto.request.FindPasswordRequest;
 import com.learningcrew.linkupuser.command.application.dto.request.LoginRequest;
-import com.learningcrew.linkupuser.command.application.dto.request.RefreshTokenRequest;
 import com.learningcrew.linkupuser.command.application.dto.request.ResetPasswordRequest;
 import com.learningcrew.linkupuser.command.application.dto.response.TokenResponse;
+import com.learningcrew.linkupuser.command.domain.aggregate.Member;
 import com.learningcrew.linkupuser.command.domain.aggregate.RefreshToken;
 import com.learningcrew.linkupuser.command.domain.aggregate.User;
 import com.learningcrew.linkupuser.command.domain.aggregate.VerificationToken;
 import com.learningcrew.linkupuser.command.domain.constants.EmailTokenType;
 import com.learningcrew.linkupuser.command.domain.constants.LinkerStatusType;
+import com.learningcrew.linkupuser.command.domain.repository.MemberRepository;
 import com.learningcrew.linkupuser.command.domain.repository.RefreshtokenRepository;
 import com.learningcrew.linkupuser.command.domain.repository.UserRepository;
 import com.learningcrew.linkupuser.command.domain.repository.VerificationTokenRepository;
 import com.learningcrew.linkupuser.command.domain.service.TokenDomainService;
 import com.learningcrew.linkupuser.command.domain.service.UserDomainServiceImpl;
 import com.learningcrew.linkupuser.command.domain.service.UserValidatorServiceImpl;
+import com.learningcrew.linkupuser.common.util.DefaultImageProperties;
 import com.learningcrew.linkupuser.exception.BusinessException;
 import com.learningcrew.linkupuser.exception.ErrorCode;
 import com.learningcrew.linkupuser.exception.security.CustomJwtException;
@@ -37,7 +39,9 @@ public class AuthCommandServiceImpl implements AuthCommandService {
     private final UserRepository userRepository;
     private final VerificationTokenRepository verificationTokenRepository;
     private final UserDomainServiceImpl userDomainService;
+    private final MemberRepository memberRepository;
     private final EmailService emailService;
+    private final DefaultImageProperties defaultImageProperties;
 
     /* 로그인 기능 */
     @Transactional
@@ -62,10 +66,17 @@ public class AuthCommandServiceImpl implements AuthCommandService {
         //refresh token 저장
         tokenDomainService.saveRefreshToken(user.getUserId(),user.getEmail(), refreshToken);
 
+        // member 테이블 조회
+        String profileImageUrl = memberRepository.findById(user.getUserId())
+                .map(Member::getProfileImageUrl)      // 있으면 해당 프로필
+                .orElse(defaultImageProperties.getDefaultProfileImage());      // 없으면 기본 프로필
+
         return TokenResponse
                 .builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .userName(user.getUserName())
+                .profileImageUrl(profileImageUrl)
                 .build();
     }
 
@@ -96,19 +107,25 @@ public class AuthCommandServiceImpl implements AuthCommandService {
         //refresh token 저장
         tokenDomainService.saveRefreshToken(user.getUserId(), user.getEmail(), refreshToken);
 
+        // member 테이블 조회
+        String profileImageUrl = memberRepository.findById(user.getUserId())
+                .map(Member::getProfileImageUrl)      // 있으면 해당 프로필
+                .orElse(defaultImageProperties.getDefaultProfileImage());      // 없으면 기본 프로필
+        
         return TokenResponse
                 .builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .userName(user.getUserName())
+                .profileImageUrl(profileImageUrl)
                 .build();
     }
 
     /* 로그아웃 */
     @Transactional
-    public void logout(RefreshTokenRequest request) {
-        String token = request.getRefreshToken();
-        jwtTokenProvider.validateToken(request.getRefreshToken());
-        String userId = jwtTokenProvider.getUserIdFromJWt(token);
+    public void logout(String refreshToken) {
+        jwtTokenProvider.validateToken(refreshToken);
+        String userId = jwtTokenProvider.getUserIdFromJWt(refreshToken);
         refreshtokenRepository.deleteById(Integer.parseInt(userId));
     }
 

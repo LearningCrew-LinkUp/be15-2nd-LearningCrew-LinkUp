@@ -43,4 +43,18 @@ public class ApiResponse<T> {
                 .data(null)
                 .build();
     }
+    public static <T> ApiResponse<PageResponse<T>> pagination(PageResponse<T> pageResponse) {
+        return ApiResponse.<PageResponse<T>>builder()
+                .success(true)
+                .data(pageResponse)
+                .message("요청에 성공했습니다.")
+                .build();
+    }
+    public static <T> ApiResponse<PageResponse<T>> pagination(PageResponse<T> pageResponse, String message) {
+        return ApiResponse.<PageResponse<T>>builder()
+                .success(true)
+                .data(pageResponse)
+                .message(message)
+                .build();
+    }
 }

@@ -15,22 +15,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("")
+@RequestMapping("/point")
 @Tag(name="포인트 충전" , description = "포인트 충전 API")
 public class PointCommandController {
     private final PointCommandService pointCommandService;
 
+    /* 포인트 충전 */
     @Operation(
             summary = "포인트 충전",
             description = "회원은 포인트를 충전한다."
     )
-    @PostMapping("/transaction")
+    @PostMapping("/charge")
     public ResponseEntity<PointTransactionResponse> createPointTransaction(
             @RequestBody PointTransactionRequest request
     ){
         PointTransactionResponse response = pointCommandService.createPointTransaction(request);
         return ResponseEntity.ok(response);
     }
+
+    /* 포인트 환급 */
     @PostMapping("/refund")
     public ResponseEntity<PointTransactionResponse> refundPointTransaction(
             @RequestBody WithdrawRequest request
@@ -39,4 +42,6 @@ public class PointCommandController {
         PointTransactionResponse response = pointCommandService.withdrawPoint(request);
         return ResponseEntity.ok(response);
     }
+
+    /* 정산 출금 */
 }

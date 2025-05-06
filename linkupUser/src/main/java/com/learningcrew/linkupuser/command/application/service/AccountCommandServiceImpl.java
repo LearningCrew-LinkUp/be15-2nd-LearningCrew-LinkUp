@@ -37,7 +37,7 @@ public class AccountCommandServiceImpl implements AccountCommandService {
 
     private final MemberRepository memberRepository;
 
-    /* 유저 생성 - 회원 가입 */
+    /* 회원 가입 */
     @Transactional
     public RegisterResponse registerUser(@Valid UserCreateRequest request) {
 
@@ -50,7 +50,7 @@ public class AccountCommandServiceImpl implements AccountCommandService {
             }
 
             if (currentStatus.getStatusType().equals(LinkerStatusType.PENDING.name())) {
-                throw new BusinessException(ErrorCode.BEREADY_USER);
+                throw new BusinessException(ErrorCode.SIGNUP_PENDING);
             }
         }
 

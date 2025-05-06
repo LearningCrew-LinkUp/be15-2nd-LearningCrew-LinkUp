@@ -16,7 +16,7 @@ public class PaymentQueryServiceImpl implements PaymentQueryService {
     @Override
     public UserPointDto findUserPoint(int userId) {
         return userMapper.findPointByUserId(userId).orElseThrow(
-                () -> new BusinessException(ErrorCode.BAD_REQUEST)
+                () -> new BusinessException(ErrorCode.NOT_FOUND_POINT)
         );
     }
 }

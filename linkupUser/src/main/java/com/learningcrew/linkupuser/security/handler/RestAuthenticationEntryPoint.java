@@ -27,7 +27,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         /* ErrorResponse 생성 */
         ErrorResponse errorResponse = (jwtEx != null)
                 ? ErrorResponse.of(jwtEx.getErrorCode())
-                : ErrorResponse.of(ErrorCode.UNAUTHORIZED);
+                : ErrorResponse.of(ErrorCode.UNAUTHORIZED_USER);
 
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

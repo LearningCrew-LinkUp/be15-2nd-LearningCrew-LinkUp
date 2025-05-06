@@ -2,56 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learningcrew.linkup.place.query.mapper.OwnerMapper">
-    <resultMap id="OwnerResponseMap" type="OwnerResponse">
-        <id property="ownerId" column="owner_id"/>
-        <result property="statusId" column="status_id"/>
-        <result property="businessRegistrationDocumentUrl" column="business_registration_document_url"/>
-        <result property="authorizedAt" column="authorized_at"/>
-        <result property="rejectionReason" column="rejection_reason"/>
-    </resultMap>
 
-    <select id="findByOwnerId" resultMap="OwnerResponseMap">
+    <select id="findByOwnerId" resultType="OwnerResponse">
         SELECT
                 o.owner_id
-              , o.status_id
+              , u.user_name as ownerName
+              , s.status_type
               , o.business_registration_document_url
               , o.authorized_at
               , o.rejection_reason
           FROM owner o
-          JOIN status s
+          JOIN status s ON s.status_id = o.status_id
+          JOIN user u ON u.user_id = o.owner_id
          WHERE owner_id = #{ownerId}
-           AND s.status_id = (SELECT status_id
-                                FROM status
-                               WHERE status_type = "PENDING")
-
     </select>
 
-    <select id="findAllWithPending" resultMap="OwnerResponseMap">
+
+    <select id="findAllOwners" resultType="OwnerResponse">
         SELECT
               o.owner_id
-            , o.status_id
+            , u.user_name as ownerName
+            , s.status_type
             , o.business_registration_document_url
             , o.authorized_at
             , o.rejection_reason
          FROM owner o
          JOIN status s ON s.status_id = o.status_id
-        WHERE s.status_id = (SELECT status_id
-                               FROM status
-                              WHERE status_type = "PENDING")
-    </select>
-
-    <select id="findAllAccepted" resultMap="OwnerResponseMap">
-        SELECT
-              o.owner_id
-            , o.status_id
-            , o.business_registration_document_url
-            , o.authorized_at
-            , o.rejection_reason
-         FROM owner o
-         JOIN status s ON s.status_id = o.status_id
-        WHERE s.status_id = (SELECT status_id
-                               FROM status
-                              WHERE status_type = "ACCEPTED")
+         JOIN user u ON u.user_id = o.owner_id
+        <if test="roleName != null">
+            WHERE s.status_type = #{statusName}
+        </if>
     </select>
 
 </mapper>

@@ -44,6 +44,20 @@ public class UserAccountCommandController {
                 .body(ApiResponse.success(response, "회원 가입 요청에 성공했습니다. 이메일 인증을 완료해주세요."));
     }
 
+    /* 사업자 회원가입 */
+    @PostMapping("/register-business")
+    @Operation(
+            summary = "회원가입", description = "이메일과 비밀번호, 전화번호 등의 정보를 입력하여 회원으로 가입할 수 있다."
+    )
+    public ResponseEntity<ApiResponse<RegisterResponse>> businessRegister(@Valid @RequestBody UserCreateRequest request) {
+
+        RegisterResponse response = userCommandService.registerUser(request);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(ApiResponse.success(response, "회원 가입 요청에 성공했습니다. 이메일 인증을 완료해주세요."));
+    }
+
     /* 회원 탈퇴 */
     @DeleteMapping("/withdraw")
     @Operation(

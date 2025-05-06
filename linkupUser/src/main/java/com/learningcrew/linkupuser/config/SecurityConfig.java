@@ -67,7 +67,9 @@ public class SecurityConfig {
                 "/users/recover",
                 "/auth/refresh",
                 "/auth/verify-email",
-                "/register/success"
+                "/register/success",
+                "/sse/connect/**",
+                "/test/alert"
         ).permitAll();
     }
 

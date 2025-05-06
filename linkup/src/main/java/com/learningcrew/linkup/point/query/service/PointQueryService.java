@@ -1,10 +1,11 @@
 package com.learningcrew.linkup.point.query.service;
 
-import com.learningcrew.linkup.point.query.dto.response.AccountResponse;
-import com.learningcrew.linkup.point.query.dto.response.MonthlySettlementResponse;
-import com.learningcrew.linkup.point.query.dto.response.PointHistoryResponse;
-import com.learningcrew.linkup.point.query.dto.response.SettlementDetailResponse;
+import com.learningcrew.linkup.common.dto.PageResponse;
+import com.learningcrew.linkup.point.query.dto.query.PointTransactionSearchCondition;
+import com.learningcrew.linkup.point.query.dto.response.*;
+import org.springframework.data.domain.Pageable;
 
+import java.time.YearMonth;
 import java.util.List;
 
 public interface PointQueryService {
@@ -15,4 +16,8 @@ public interface PointQueryService {
     List<SettlementDetailResponse> getAllSettlements(int i);
 
     MonthlySettlementResponse getMonthlySettlement(int i, int year, int month);
+
+    PageResponse<PointTransactionResponse> getUsersPointTransactions(PointTransactionSearchCondition condition, Pageable pageable);
+
+    PageResponse<UserPointTransactionResponse> getMyPointTransactions(int i, YearMonth yearMonth, String transactionType, Pageable pageable);
 }

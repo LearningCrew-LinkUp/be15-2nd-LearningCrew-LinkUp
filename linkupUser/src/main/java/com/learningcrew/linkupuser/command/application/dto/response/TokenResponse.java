@@ -14,4 +14,8 @@ public class TokenResponse {
     private final String accessToken;
     @Schema(description = "Refresh Token")
     private final String refreshToken;
+    @Schema(description = "회원명")
+    private final String userName;
+    @Schema(description = "프로필 이미지 경로")
+    private final String profileImageUrl;
 }

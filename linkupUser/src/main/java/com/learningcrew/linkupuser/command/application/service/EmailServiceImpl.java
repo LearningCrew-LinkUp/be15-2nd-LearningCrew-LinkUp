@@ -25,6 +25,7 @@ public class EmailServiceImpl implements EmailService {
     private final VerificationTokenServiceImpl verificationTokenService;
 
     private static final int codeValidTime = 10; // 인증 코드 유효 시간 (10분)
+
     /* 회원가입 인증코드 전송 */
     public void sendVerificationCode(int userId, String email, String userName, String tokenType) {
         log.info("========인증코드 발송 서비스 - sendSignUpEmail : email: {}, userName: {}, tokenType: {} ========", email,userName,tokenType );
@@ -73,7 +74,7 @@ public class EmailServiceImpl implements EmailService {
             mailSender.send(message);
 
         }catch (MessagingException e){
-            throw new BusinessException(ErrorCode.SEND_MAIL_FAIL);
+            throw new BusinessException(ErrorCode.FAIL_TO_SEND_EMAIL);
         }
 
     }

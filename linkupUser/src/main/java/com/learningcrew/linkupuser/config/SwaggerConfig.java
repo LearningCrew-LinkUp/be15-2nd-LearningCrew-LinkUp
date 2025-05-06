@@ -2,6 +2,7 @@ package com.learningcrew.linkupuser.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,5 +19,12 @@ public class SwaggerConfig {
                 .title("Linkup API") //서비스명
                 .description("운동 매칭 플랫폼 Linkup의 User Service API 명세입니다.")
                 .version("1.0.0");
+    }
+    @Bean
+    public GroupedOpenApi api() {
+        return GroupedOpenApi.builder()
+                .group("linkupuser")  // 서비스별 그룹 이름
+                .pathsToMatch("/**")
+                .build();
     }
 }

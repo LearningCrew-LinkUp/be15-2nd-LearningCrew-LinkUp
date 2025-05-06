@@ -45,8 +45,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleAccessDeniedException(Exception e) {
         log.warn("[AccessDenied] {}", e.getMessage());
         return ResponseEntity
-                .status(ErrorCode.FORBIDDEN.getStatus())
-                .body(ErrorResponse.of(ErrorCode.FORBIDDEN));
+                .status(ErrorCode.FORBIDDEN_ACCESS.getStatus())
+                .body(ErrorResponse.of(ErrorCode.FORBIDDEN_ACCESS));
     }
 
     /* 유효성 검사 예외 처리 핸들러 */
@@ -61,8 +61,8 @@ public class GlobalExceptionHandler {
 
         log.warn("[ValidationException] {}", errorMessage);
         return ResponseEntity
-                .status(ErrorCode.BAD_REQUEST.getStatus())
-                .body(ErrorResponse.of(ErrorCode.BAD_REQUEST, errorMessage));
+                .status(ErrorCode.INVALID_INPUT.getStatus())
+                .body(ErrorResponse.of(ErrorCode.INVALID_INPUT, errorMessage));
     }
 
     /* 예상하지 못한 모든 예외 처리 */

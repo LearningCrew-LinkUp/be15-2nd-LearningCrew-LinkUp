@@ -5,10 +5,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DefaultImageProperties {
-    @Value("${image.default-profile}")
-    private String defaultProfileImage;
 
     public String getDefaultProfileImage() {
-        return defaultProfileImage;
+        return "https://api.dicebear.com/9.x/thumbs/svg?seed=profile";
     }
 }

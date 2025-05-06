@@ -10,6 +10,5 @@ import java.util.Optional;
 @Mapper
 public interface OwnerMapper {
     Optional<OwnerResponse> findByOwnerId(@Param("ownerId") int ownerId);
-    List<OwnerResponse> findAllWithPending();
-    List<OwnerResponse> findAllAccepted();
+    List<OwnerResponse> findAllOwners(String statusName);
 }

@@ -1,5 +1,8 @@
 package com.learningcrew.linkup.place.query.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.learningcrew.linkup.common.dto.PageResponse;
 import com.learningcrew.linkup.exception.BusinessException;
 import com.learningcrew.linkup.exception.ErrorCode;
 import com.learningcrew.linkup.place.query.dto.response.OwnerResponse;
@@ -27,14 +30,14 @@ public class OwnerQueryServiceImpl implements OwnerQueryService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OwnerResponse> findAllOwners() {
-        //status가 accpted 상태인 사업자만 조회
-        return ownerMapper.findAllAccepted();
+    public PageResponse<OwnerResponse> findAllOwners(String statusName, int page, int size) {
+        PageHelper.startPage(page, size);
+
+        List<OwnerResponse> list = ownerMapper.findAllOwners(statusName);
+
+        PageInfo<OwnerResponse> pageInfo = new PageInfo<>(list);
+
+        return PageResponse.from(pageInfo);
     }
 
-    @Override
-    public List<OwnerResponse> findAllPendedOwners() {
-        //status가 pending 상태인 사업자만 조회
-        return ownerMapper.findAllWithPending();
-    }
 }

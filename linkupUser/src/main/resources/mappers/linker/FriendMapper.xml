@@ -46,6 +46,7 @@
                , m.custom_place_address AS customPlaceAddress
                , m.latitude
                , m.longitude
+               , p.rental_cost / CASE WHEN m.min_user = 0 THEN 1 ELSE m.min_user END AS price
           FROM friend f
           JOIN member u ON (
             (f.requester_id = #{userId} AND f.addressee_id = u.member_id) OR

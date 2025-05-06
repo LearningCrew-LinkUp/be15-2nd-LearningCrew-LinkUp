@@ -1,19 +1,21 @@
 package com.learningcrew.linkup.point.query.controller;
 
 import com.learningcrew.linkup.common.dto.ApiResponse;
-import com.learningcrew.linkup.point.query.dto.response.AccountResponse;
-import com.learningcrew.linkup.point.query.dto.response.MonthlySettlementResponse;
-import com.learningcrew.linkup.point.query.dto.response.PointHistoryResponse;
-import com.learningcrew.linkup.point.query.dto.response.SettlementDetailResponse;
+import com.learningcrew.linkup.common.dto.PageResponse;
+import com.learningcrew.linkup.point.query.dto.query.PointTransactionSearchCondition;
+import com.learningcrew.linkup.point.query.dto.response.*;
 import com.learningcrew.linkup.point.query.service.PointQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.YearMonth;
 import java.util.List;
 
 @RestController
@@ -39,6 +41,29 @@ public class PointQueryController {
     ) {
         List<PointHistoryResponse> response = pointQueryService.getPointHistory(Integer.parseInt(userId));
         return ResponseEntity.ok(ApiResponse.success(response, "포인트 내역 조회 성공"));
+    }
+
+    /* 관리자 포인트 내역 조회*/
+    @GetMapping("/admin/users/point/transaction")
+    public ResponseEntity<ApiResponse<PageResponse<PointTransactionResponse>>> getUsersPointTransactions(
+            PointTransactionSearchCondition condition,
+            Pageable pageable
+    ) {
+        PageResponse<PointTransactionResponse> response = pointQueryService.getUsersPointTransactions(condition, pageable);
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    /* 회원 포인트 내역 조회*/
+    @GetMapping("/user/point/transaction")
+    @Operation(summary = "내 포인트 내역 조회", description = "월별, 거래 유형별 포인트 내역 조회")
+    public ResponseEntity<ApiResponse<PageResponse<UserPointTransactionResponse>>> getUserPointTransactions(
+            @AuthenticationPrincipal String userId,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM") YearMonth yearMonth,
+            @RequestParam(required = false) String transactionType,
+            Pageable pageable
+    ) {
+        PageResponse<UserPointTransactionResponse> response = pointQueryService.getMyPointTransactions(Integer.parseInt(userId), yearMonth, transactionType, pageable);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     @Operation(summary = "전체 정산 내역 조회", description = "사업자의 모든 정산 내역을 조회합니다.")

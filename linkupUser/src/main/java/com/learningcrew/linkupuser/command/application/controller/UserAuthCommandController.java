@@ -13,10 +13,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
+import static com.learningcrew.linkupuser.command.application.utility.CookieUtils.createDeleteRefreshTokenCookie;
+import static com.learningcrew.linkupuser.command.application.utility.CookieUtils.createRefreshTokenCookie;
 
 @Slf4j
 @RestController
@@ -33,8 +34,9 @@ public class UserAuthCommandController {
         log.info("로그인 요청: email={}", request.getEmail());
         TokenResponse token = userAuthCommandService.login(request);
         log.info("로그인 성공: accessToken 발급 완료");
-        return ResponseEntity.ok(ApiResponse.success(token));
+        return buildTokenResponse(token);
     }
+
 
     /* 이메일 인증 */
     @Operation(summary = "이메일 인증")
@@ -50,21 +52,32 @@ public class UserAuthCommandController {
     /* 토큰 재발급 */
     @Operation(summary = "토큰 재발급")
     @PostMapping("/refresh")
-    public ResponseEntity<ApiResponse<TokenResponse>> getAccessTokenByRefreshToken(@Valid @RequestBody RefreshTokenRequest request){
-        log.info("토큰 재발급 요청: refreshToken={}", request.getRefreshToken());
-        TokenResponse response = userAuthCommandService.refreshToken(request.getRefreshToken());
+    public ResponseEntity<ApiResponse<TokenResponse>> getAccessTokenByRefreshToken(
+            @CookieValue(name = "refreshToken", required = false) String refreshToken // HttpOnly 쿠키에서 읽어옴
+    ){
+        log.info("토큰 재발급 요청: refreshToken={}", refreshToken);
+        if(refreshToken == null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); //401 에러 반환
+        }
+        TokenResponse token = userAuthCommandService.refreshToken(refreshToken);
         log.info("토큰 재발급 성공: accessToken 및 refreshToken 갱신 완료");
-        return ResponseEntity.ok(ApiResponse.success(response));
+        return buildTokenResponse(token);
     }
 
     /* 로그아웃 */
     @Operation(summary = "로그아웃")
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<Void>> logout(@Valid @RequestBody RefreshTokenRequest request){
-        log.info("로그아웃 요청: refreshToken={}", request.getRefreshToken());
-        userAuthCommandService.logout(request);
+    public ResponseEntity<ApiResponse<Void>> logout(
+            @CookieValue(name = "refreshToken", required = false) String refreshToken // HttpOnly 쿠키에서 읽어옴
+    ){
+        if (refreshToken != null) {
+            userAuthCommandService.logout(refreshToken);
+        }
         log.info("로그아웃 처리 완료: refreshToken 삭제됨");
-        return ResponseEntity.ok(ApiResponse.success(null));
+        ResponseCookie deleteCookie = createDeleteRefreshTokenCookie(); // 만료용 쿠키 생성
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, deleteCookie.toString())
+                .body(ApiResponse.success(null));
     }
 
     /* 비밀번호 찾기 - 비밀번호 재설정 url 발송 */
@@ -82,6 +95,14 @@ public class UserAuthCommandController {
         log.info("비밀번호 재설정 요청: email={}, token={}, password={}", request.getEmail(), request.getToken(), request.getNewPassword());
         userAuthCommandService.resetPassword(request);
         return ResponseEntity.ok(ApiResponse.success(null, "비밀번호가 변경되었습니다."));
+    }
+
+    /* accessToken 과 refreshToken을 body와 쿠키에 담아 반환 */
+    private ResponseEntity<ApiResponse<TokenResponse>> buildTokenResponse(TokenResponse tokenResponse) {
+        ResponseCookie cookie = createRefreshTokenCookie(tokenResponse.getRefreshToken());  // refreshToken 쿠키 생성
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(ApiResponse.success(tokenResponse));
     }
 
 }

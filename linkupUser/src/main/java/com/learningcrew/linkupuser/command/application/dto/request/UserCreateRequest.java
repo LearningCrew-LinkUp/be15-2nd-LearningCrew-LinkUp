@@ -43,4 +43,10 @@ public class UserCreateRequest {
 
     @Schema(description = "자기소개", example = "안녕하세요! 반갑습니다!", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private final String introduction;
+
+    @Schema(description = "프로필 이미지", example = "프로필 이미지 url", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    private final String profileImageUrl;
+
+    @Schema(description = "선호하는 운동 종류", example = "[축구, 농구]", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    private final String[] desiredSports;
 }

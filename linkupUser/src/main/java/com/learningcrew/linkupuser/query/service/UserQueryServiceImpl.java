@@ -1,11 +1,15 @@
 package com.learningcrew.linkupuser.query.service;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.learningcrew.linkupuser.common.dto.PageResponse;
 import com.learningcrew.linkupuser.common.dto.query.RoleDTO;
 import com.learningcrew.linkupuser.common.query.mapper.RoleMapper;
 import com.learningcrew.linkupuser.exception.BusinessException;
 import com.learningcrew.linkupuser.exception.ErrorCode;
 import com.learningcrew.linkupuser.query.dto.query.*;
+import com.learningcrew.linkupuser.query.dto.response.UserDetailResponse;
 import com.learningcrew.linkupuser.query.dto.response.UserListResponse;
 import com.learningcrew.linkupuser.query.dto.response.UserProfileResponse;
 import com.learningcrew.linkupuser.query.dto.response.UserStatusResponse;
@@ -36,40 +40,29 @@ public class UserQueryServiceImpl implements UserQueryService {
     }
 
     @Override
-    public UserListResponse getUserList() {
-        int roleId = getRoleIdByRoleName("USER");
-        List<UserProfileDto> userProfileDTOList = userMapper.findAllUsers(roleId);
-        return UserListResponse
-                .builder()
-                .userProfileDTOList(userProfileDTOList)
-                .build();
-    }
+    public PageResponse<UserListResponse> getUserList(String roleName, String statusName, int page, int size) {
+        PageHelper.startPage(page, size);
 
-    @Override
-    public int getRoleIdByRoleName(String roleName) {
-        RoleDTO role = roleMapper.roleByRoleName(roleName).orElseThrow(
-                () -> new BusinessException(ErrorCode.INVALID_ROLE)
-        );
-        return role.getRoleId();
+        List<UserListResponse> list = userMapper.findUserList(roleName, statusName);
+
+        PageInfo<UserListResponse> pageInfo = new PageInfo<>(list);
+
+        return PageResponse.from(pageInfo);
     }
 
     /* 매너 온도 조회 */
     @Override
     public UserMannerTemperatureDto getMannerTemperature(int userId) {
         return memberMapper.findUserMannerTemperature(userId).orElseThrow(
-                () -> new BusinessException(ErrorCode.BAD_REQUEST)
+                () -> new BusinessException(ErrorCode.NOT_FOUND_MANNER_TEMPERATURE)
         );
     }
 
-    @Override
-    public UserInfoResponse getUserInfo(int userId) {
-        return userMapper.findUserInfoById(userId);
-    }
 
     @Override
     public MeetingMemberDto getMeetingMember(int memberId) {
         return userMapper.findMeetingMemberById(memberId).orElseThrow(
-                () -> new BusinessException(ErrorCode.BAD_REQUEST)
+                () -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER)
         );
     }
 
@@ -81,28 +74,33 @@ public class UserQueryServiceImpl implements UserQueryService {
 
     @Override
     public String getUserEmail(int userId) {
-        return userMapper.findUserEmailByUserId(userId).orElseThrow(() -> new BusinessException(ErrorCode.BAD_REQUEST));
+        return userMapper.findUserEmailByUserId(userId).orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     }
 
     @Override
     public String getUserNameByUserId(int userId) {
         return userMapper.findUserNameByUserId(userId).orElseThrow(
-                ()->new BusinessException(ErrorCode.BAD_REQUEST)
+                ()->new BusinessException(ErrorCode.USER_NOT_FOUND)
         );
     }
 
     @Override
     public int getPointBalance(int userId) {
         return userMapper.findPointByUserId(userId).orElseThrow(
-                () -> new BusinessException(ErrorCode.BAD_REQUEST)
+                () -> new BusinessException(ErrorCode.NOT_FOUND_POINT)
         ).getTotalPoints();
     }
 
     @Override
     public UserStatusResponse getUserStatus(int userId) {
         return userMapper.findStatusByUserId(userId).orElseThrow(
-                () -> new BusinessException(ErrorCode.BAD_REQUEST)
+                () -> new BusinessException(ErrorCode.NOT_FOUND_STATUS)
         );
+    }
+
+    @Override
+    public UserDetailResponse getUser(int userId) {
+        return userMapper.findUser(userId);
     }
 
 

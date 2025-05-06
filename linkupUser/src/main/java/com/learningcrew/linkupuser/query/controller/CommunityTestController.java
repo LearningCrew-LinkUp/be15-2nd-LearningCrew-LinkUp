@@ -28,7 +28,7 @@ public class CommunityTestController {
     }
 
     /**
-     * 작성한 댓글 테스트 조회
+     * 작성한 댓글 테스트 조회ㅌ
      */
     @GetMapping("/user/{userId}/comments")
     public ApiResponse<List<UserCommentDto>> getUserComments(@PathVariable int userId) {
