@@ -61,4 +61,5 @@ public class Post {
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<PostImage> postImages;
+
 }

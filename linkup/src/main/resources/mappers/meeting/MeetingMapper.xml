@@ -10,6 +10,7 @@
         SELECT
             a.meeting_id AS meetingId,
             b.nickname AS leaderNickname,
+            c.place_id AS placeId,
             c.place_name AS placeName,
             c.address AS placeAddress,
             d.sport_name AS sportName,

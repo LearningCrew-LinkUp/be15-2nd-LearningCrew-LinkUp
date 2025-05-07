@@ -1,6 +1,7 @@
 package com.learningcrew.linkup.meeting.query.dto.response;
 
 import com.learningcrew.linkup.common.dto.query.MeetingMemberDto;
+import com.learningcrew.linkup.place.query.dto.response.PlaceDetailResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,8 @@ public class MeetingDTO {
     private String leaderNickname;
     private MeetingMemberDto leader;
     private Integer placeId;
+    private PlaceDetailResponse place;
+    private double participationFee;
     private String placeName;
     private String placeAddress;
     private int sportId;

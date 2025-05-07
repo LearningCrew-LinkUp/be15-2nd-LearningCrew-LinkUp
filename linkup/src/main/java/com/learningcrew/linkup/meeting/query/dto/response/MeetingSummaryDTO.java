@@ -1,5 +1,7 @@
 package com.learningcrew.linkup.meeting.query.dto.response;
 
+import com.learningcrew.linkup.place.query.dto.response.PlaceDetailResponse;
+import com.learningcrew.linkup.place.query.dto.response.PlaceDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +13,8 @@ import java.time.LocalTime;
 public class MeetingSummaryDTO {
     private int meetingId;
     private String leaderNickname;
+    private Integer placeId;
+    private PlaceDetailResponse place;
     private String placeName;
     private String placeAddress;
     private String sportName;

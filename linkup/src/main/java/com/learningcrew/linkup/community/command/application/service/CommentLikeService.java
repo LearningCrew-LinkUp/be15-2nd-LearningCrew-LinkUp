@@ -19,7 +19,7 @@ public class CommentLikeService {
 
     @Transactional
     public void likeComment(int commentId, int userId) {
-        PostComment postComment = postCommentRepository.findById(commentId)
+        PostComment postComment = postCommentRepository.findById(Long.valueOf(commentId))
                 .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
 
         // 중복 좋아요 방지
@@ -34,7 +34,7 @@ public class CommentLikeService {
 
     @Transactional
     public void unlikeComment(int commentId, int userId) {
-        PostComment postComment = postCommentRepository.findById(commentId)
+        PostComment postComment = postCommentRepository.findById(Long.valueOf(commentId))
                 .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
 
         PostCommentLike postCommentLike = commentLikeRepository.findByPostCommentAndUserId(postComment, userId)

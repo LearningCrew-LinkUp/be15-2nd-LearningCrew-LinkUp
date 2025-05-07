@@ -25,7 +25,7 @@ public class ObjectionCommandServiceImpl implements ObjectionCommandService {
 
     @Override
     public ObjectionRegisterResponse submitReviewObjection(Integer reviewId, ReviewObjectionRequest request) {
-        var penalty = penaltyRepository.findByReviewIdAndIsActive(reviewId, "Y")
+        var penalty = penaltyRepository.findByReviewIdAndStatusId(reviewId, 2)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PENALTY_NOT_FOUND));
 
         if (objectionRepository.existsByPenaltyIdAndMemberId(penalty.getId(), request.getMemberId())) {

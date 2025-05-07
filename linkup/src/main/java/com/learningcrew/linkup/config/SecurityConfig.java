@@ -78,7 +78,8 @@ public class SecurityConfig {
                 "/places",
                 "/place/{placeId}",
                 "/meetings",                    // 모임 목록 조회
-                "/posts"                         // 커뮤니티 게시글 목록 조회
+                "/posts",                         // 커뮤니티 게시글 목록 조회
+                "/report/types"
         ).permitAll();
     }
 

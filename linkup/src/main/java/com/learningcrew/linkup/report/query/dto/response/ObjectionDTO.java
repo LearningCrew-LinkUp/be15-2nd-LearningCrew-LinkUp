@@ -24,8 +24,8 @@ public class ObjectionDTO {
     @Schema(description = "사용자 이름", example = "사용자")
     private String userName;
 
-    @Schema(description = "이의제기 상태 (PENDING, APPROVED, REJECTED)", example = "PENDING")
-    private String statusId;
+    @Schema(description = "이의제기 상태 (PENDING, APPROVED, REJECTED)", example = "1")
+    private Integer statusId;
 
     @Schema(description = "이의제기 사유", example = "부당한 제재로 인해 이의 제기합니다.")
     private String reason;

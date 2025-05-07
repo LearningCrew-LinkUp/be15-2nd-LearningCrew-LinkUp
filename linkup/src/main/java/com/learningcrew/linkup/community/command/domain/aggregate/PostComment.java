@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "community_comment")
 @Getter
@@ -19,39 +20,38 @@ public class PostComment {
     @Column(name = "comment_id")
     private BigInteger commentId;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
+    @Column(name = "user_id", nullable = false)
     private int userId;
 
-    @Column(name = "content")
-    private String commentContent;
+    @Column(name = "content", nullable = false)
+    private String content;
 
-    @Column(name = "is_deleted")
-    private String commentIsDeleted = "N";
+    @Builder.Default
+    @Column(name = "is_deleted", nullable = false)
+    private String isDeleted = "N";
 
-    @Column(name = "created_at")
-    private LocalDateTime postCommentCreatedAt;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    public PostComment(Post post, int userId, String commentContent) {
+    // 생성자 (생성 시점 설정 포함)
+    public PostComment(Post post, int userId, String content) {
         this.post = post;
         this.userId = userId;
-        this.commentContent = commentContent;
+        this.content = content;
+        this.isDeleted = "N";
+        this.createdAt = LocalDateTime.now();
     }
 
+    // 논리 삭제 처리
     public void softDelete() {
-        this.commentIsDeleted = "Y";
+        this.isDeleted = "Y";
         this.deletedAt = LocalDateTime.now();
-    }
-
-    public void softDeleteComment(int postId, BigInteger commentId, int userId) {
-    }
-
-    public void setCommentDeletedAt(LocalDateTime now) {
-        this.deletedAt = now;
     }
 }

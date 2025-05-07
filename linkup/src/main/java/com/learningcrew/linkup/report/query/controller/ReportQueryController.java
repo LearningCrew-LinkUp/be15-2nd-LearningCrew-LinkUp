@@ -5,6 +5,7 @@ import com.learningcrew.linkup.report.query.dto.request.ReportTargetSearchReques
 import com.learningcrew.linkup.report.query.dto.request.ReporteeSearchRequest;
 import com.learningcrew.linkup.report.query.dto.request.ReporterSearchRequest;
 import com.learningcrew.linkup.report.query.dto.response.*;
+import com.learningcrew.linkup.report.query.dto.response.ReportTypeDTO;
 import com.learningcrew.linkup.report.query.service.ReportQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -13,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/report")
@@ -36,6 +39,13 @@ public class ReportQueryController {
         // 신고 ID에 해당하는 신고 내역 상세 조회 요청
         return ResponseEntity.ok(reportQueryService.getReportById(reportId));
     }
+
+    @GetMapping("/types")
+    @Operation(summary = "신고 유형 목록 조회", description = "신고 가능한 유형과 심각도 레벨 목록을 조회한다.")
+    public ResponseEntity<List<ReportTypeDTO>> getReportTypes() {
+        return ResponseEntity.ok(reportQueryService.getReportTypes());
+    }
+
 
     @GetMapping("/target")
     @Operation(summary = "신고 대상별 목록 조회", description = "대상 유형, 대상 ID, 활성화 상태별로 신고 대상 목록을 조회한다.")

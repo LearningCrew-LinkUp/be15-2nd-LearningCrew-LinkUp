@@ -83,4 +83,3 @@ logging:
     feign.Request: DEBUG
     feign.Response: DEBUG
 
-

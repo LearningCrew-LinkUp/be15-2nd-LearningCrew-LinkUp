@@ -18,13 +18,13 @@ public interface JpaUserPenaltyHistoryRepository extends JpaRepository<UserPenal
 
     boolean existsByReviewId(Integer reviewId);
 
-    Optional<UserPenaltyHistory> findByPostIdAndIsActive(Integer postId, String isActive);
+    Optional<UserPenaltyHistory> findByPostIdAndStatusId(Integer postId, Integer statusId);
 
-    Optional<UserPenaltyHistory> findByCommentIdAndIsActive(Long commentId, String isActive);
+    Optional<UserPenaltyHistory> findByCommentIdAndStatusId(Long commentId, Integer statusId);
 
-    Optional<UserPenaltyHistory> findByReviewIdAndIsActive(Integer reviewId, String isActive);
+    Optional<UserPenaltyHistory> findByReviewIdAndStatusId(Integer reviewId, Integer statusId);
 
     // 선택적으로 기본 조회도 재사용 가능
-    Optional<UserPenaltyHistory> findByPostId(Integer postId);  // isActive 조건 없이도
+    Optional<UserPenaltyHistory> findByPostId(Integer postId);  // statusId 조건 없이도
     Optional<UserPenaltyHistory> findByCommentId(Long commentId);
 }
