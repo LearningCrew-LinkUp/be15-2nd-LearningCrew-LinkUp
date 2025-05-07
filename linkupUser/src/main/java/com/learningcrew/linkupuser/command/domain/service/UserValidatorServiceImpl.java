@@ -82,7 +82,7 @@ public class UserValidatorServiceImpl {
 
     public void validateUserStatus(String providedStatus, String targetStatus) {
         if(!(providedStatus.equals(targetStatus))) {
-            throw new BusinessException(ErrorCode.NOT_AUTHORIZED_USER_EMAIL);
+            throw new BusinessException(ErrorCode.INVALID_STATUS);
         }
     }
 

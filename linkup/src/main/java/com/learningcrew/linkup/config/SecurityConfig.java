@@ -87,7 +87,6 @@ public class SecurityConfig {
     private void userEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auths) {
         auths.requestMatchers(
                 "/users/**",
-                "/accounts/**",
                 "/auth/**",
                 "/friends/**",
                 "/payments/**",
@@ -150,6 +149,9 @@ public class SecurityConfig {
                 "/admin/places",
                 "/owner/{ownerId}/places",
                 "/owner/{ownerId}/reserve",
+
+                "/users/accounts",
+                "/settlements/users",
 
                 // 커뮤니티 관리
                 "/posts/list",

@@ -37,4 +37,6 @@ public interface UserMapper {
     UserMypageResponse findUserMypageById(int userId);
 
     BusinessMypageResponse findBusinessMypageById(int userId);
+
+    List<MeetingHistoryResponse> findMeetingHistory(MeetingHistorySearchCondition condition);
 }
