@@ -29,7 +29,7 @@ public class ReportSimpleDTO {
     private LocalDateTime createdAt;
 
     @Schema(description = "신고 처리 상태 (PENDING, APPROVED, REJECTED)", example = "PENDING")
-    private String status;
+    private Integer statusId;
 
     @Schema(description = "신고 활성 상태 (Y: 활성, N: 비활성)", example = "Y")
     private String isActive;

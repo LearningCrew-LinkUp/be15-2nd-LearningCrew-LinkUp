@@ -72,6 +72,11 @@ public class ReportQueryServiceImpl implements ReportQueryService {
     }
 
 
+    @Override
+    public List<ReportTypeDTO> getReportTypes() {
+        return reportMapper.selectAllReportTypes();
+    }
+
     // 신고 대상별 목록 조회
     @Override
     public ReportTargetListResponse getReportTargetList(ReportTargetSearchRequest request) {

@@ -1,6 +1,7 @@
 package com.learningcrew.linkup.report.command.domain.repository;
 
 import com.learningcrew.linkup.report.command.domain.aggregate.ReportHistory;
+import com.learningcrew.linkup.report.command.domain.aggregate.UserPenaltyHistory;
 
 import java.util.Optional;
 
@@ -20,8 +21,8 @@ public interface ReportHistoryRepository {
 
     void updateStatusByPostId(Integer postId);
 
-    void updateStatusByCommentId(Long commentId);
-
     void markAllReportsHandledByMemberId(Integer memberId);
+
+    void updateStatusByCommentId(Long commentId, Integer statusId, String reason);
 
 }

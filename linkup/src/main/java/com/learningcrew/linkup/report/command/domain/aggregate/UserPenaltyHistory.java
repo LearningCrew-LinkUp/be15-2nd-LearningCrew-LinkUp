@@ -42,7 +42,6 @@ public class UserPenaltyHistory {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Builder.Default
-    @Column(name = "is_active", columnDefinition = "ENUM('Y','N')")
-    private String isActive = "Y";
+    @Column(name = "status_id", nullable = false)
+    private Integer statusId;
 }

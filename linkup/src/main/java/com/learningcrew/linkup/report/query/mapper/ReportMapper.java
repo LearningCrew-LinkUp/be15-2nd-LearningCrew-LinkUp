@@ -1,11 +1,7 @@
 package com.learningcrew.linkup.report.query.mapper;
 
 import com.learningcrew.linkup.report.query.dto.request.ReportSearchRequest;
-import com.learningcrew.linkup.report.query.dto.response.ReportDTO;
-import com.learningcrew.linkup.report.query.dto.response.ReportTargetDTO;
-import com.learningcrew.linkup.report.query.dto.response.ReportUserCountDTO;
-import com.learningcrew.linkup.report.query.dto.response.ReportUserScoreDTO;
-import com.learningcrew.linkup.report.query.dto.response.ReportSimpleDTO;
+import com.learningcrew.linkup.report.query.dto.response.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -73,4 +69,7 @@ public interface ReportMapper {
 
     // 피신고자 목록 전체 건수 조회
     long countReporteeListByScore(@Param("reporteeId") Long reporteeId);
+
+    // 신고 종류 조회
+    List<ReportTypeDTO> selectAllReportTypes();
 }

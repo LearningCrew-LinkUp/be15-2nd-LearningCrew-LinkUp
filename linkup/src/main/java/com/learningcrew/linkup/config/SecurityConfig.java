@@ -78,7 +78,8 @@ public class SecurityConfig {
                 "/places",
                 "/place/{placeId}",
                 "/meetings",                    // 모임 목록 조회
-                "/posts"                         // 커뮤니티 게시글 목록 조회
+                "/posts",                         // 커뮤니티 게시글 목록 조회
+                "/report/types"
         ).permitAll();
     }
 
@@ -101,6 +102,7 @@ public class SecurityConfig {
                 "/meetings/{meetingId}/participation_request",
                 "/meetings/{meetingId}/participation/{memberId}/accept",
                 "/meetings/{meetingId}/participation/{memberId}/reject",
+                "/my/meetings/{meetingId}/participation",
                 "/meetings/{meetingId}/change-leader/{memberId}",
                 "/meetings/{meetingId}/cancel",
                 "/meetings/{meetingId}/participation",

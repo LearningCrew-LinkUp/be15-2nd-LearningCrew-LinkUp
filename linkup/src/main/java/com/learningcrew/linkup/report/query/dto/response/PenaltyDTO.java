@@ -27,8 +27,8 @@ public class PenaltyDTO {
     @Schema(description = "제재 생성 날짜", example = "2025-04-30T10:20:00")
     private String createdAt;
 
-    @Schema(description = "제재 활성 여부 (Y: 활성, N: 해제됨)", example = "Y")
-    private String isActive;
+    @Schema(description = "제재 상태 (PENDING, APPROVED, REJECTED)", example = "1")
+    private Integer statusId;
 
     @Schema(description = "관련 게시글 ID (해당되는 경우만)", example = "301", nullable = true)
     private Long postId;

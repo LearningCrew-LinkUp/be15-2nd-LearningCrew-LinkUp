@@ -55,7 +55,7 @@ public class ReportAdminServiceImpl implements ReportAdminService {
                 .penaltyType(request.getPenaltyType())
                 .reason(request.getReason())
                 .createdAt(LocalDateTime.now())
-                .isActive("Y")
+                .statusId(2)
                 .build();
 
         userPenaltyHistoryRepository.save(penalty);

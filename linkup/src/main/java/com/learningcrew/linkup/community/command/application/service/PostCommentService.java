@@ -41,7 +41,7 @@ public class PostCommentService {
 
         // 3. 댓글 생성
         PostComment postComment = new PostComment(post, userId, commentRequest.getCommentContent());
-        postComment.setPostCommentCreatedAt(LocalDateTime.now());
+        postComment.setCreatedAt(LocalDateTime.now());
 
         // 4. 저장
         PostComment savedComment = postCommentRepository.save(postComment);
@@ -56,15 +56,15 @@ public class PostCommentService {
     }
 
     public void softDeleteComment(int postId, BigInteger commentId, int userId) {
-        PostComment comment = postCommentRepository.findBycommentIdAndPost_PostId(commentId, postId)
+        PostComment comment = postCommentRepository.findByCommentIdAndPost_PostId(commentId, postId)
                 .orElseThrow(() -> new BusinessException((ErrorCode.COMMENT_NOT_FOUND)));
 
         if (comment.getUserId() != userId) {
             throw new BusinessException((ErrorCode.FORBIDDEN_ACCESS));
         }
 
-        comment.setCommentIsDeleted("Y");  // soft delete
-        comment.setCommentDeletedAt(LocalDateTime.now());
+        comment.setIsDeleted("Y");  // soft delete
+        comment.setDeletedAt(LocalDateTime.now());
 
         postCommentRepository.save(comment);
     }

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -24,8 +25,13 @@ public interface JpaReportHistoryRepository extends JpaRepository<ReportHistory,
     void updateStatusByPostId(@Param("postId") Integer postId);
 
     @Modifying
-    @Query("UPDATE ReportHistory r SET r.statusId = 2 WHERE r.commentId = :commentId AND r.statusId <> 2")
-    void updateStatusByCommentId(@Param("commentId") Long commentId);
+    @Transactional
+    @Query("UPDATE ReportHistory r SET r.statusId = :statusId, r.reason = :reason WHERE r.commentId = :commentId")
+    void updateStatusByCommentId(
+            @Param("commentId") Long commentId,
+            @Param("statusId") Integer statusId,
+            @Param("reason") String reason
+    );
 
     @Modifying
     @Query("UPDATE ReportHistory r SET r.statusId = 2 WHERE r.targetId = :memberId AND r.statusId <> 2")

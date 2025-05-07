@@ -6,6 +6,8 @@ import com.learningcrew.linkup.report.query.dto.request.ReporterSearchRequest;
 import com.learningcrew.linkup.report.query.dto.request.ReportTargetSearchRequest;
 import com.learningcrew.linkup.report.query.dto.response.*;
 
+import java.util.List;
+
 public interface ReportQueryService {
 
     // 신고 내역 조회 (페이징 및 필터링 처리)
@@ -25,4 +27,6 @@ public interface ReportQueryService {
 
     // 피신고자 목록 조회 (누적 신고 점수 기준)
     ReportUserListResponse<ReportUserScoreDTO> getReporteeListByScore(ReporteeSearchRequest request);
+
+    List<ReportTypeDTO> getReportTypes();
 }

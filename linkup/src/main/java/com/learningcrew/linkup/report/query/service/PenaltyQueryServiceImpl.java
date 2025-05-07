@@ -39,7 +39,7 @@ public class PenaltyQueryServiceImpl implements PenaltyQueryService {
         List<PenaltyDTO> penalties = penaltyMapper.selectPenalties(
                 request.getPenaltyType(),
                 request.getUserId(),
-                request.getIsActive(),
+                request.getStatusId(),
                 size,
                 offset
         );
@@ -48,7 +48,7 @@ public class PenaltyQueryServiceImpl implements PenaltyQueryService {
         long totalItems = penaltyMapper.countPenalties(
                 request.getPenaltyType(),
                 request.getUserId(),
-                request.getIsActive()
+                request.getStatusId()
         );
 
         // 페이징 정보 계산

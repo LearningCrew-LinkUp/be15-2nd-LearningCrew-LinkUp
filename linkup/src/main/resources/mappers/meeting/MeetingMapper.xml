@@ -236,8 +236,34 @@
     </select>
 
     <select id="selectMeetingById" resultType="com.learningcrew.linkup.meeting.query.dto.response.MeetingDTO">
-        SELECT *
-        FROM meeting
+    SELECT
+        m.meeting_id,
+        m.leader_id,
+        mem.nickname AS leaderNickname,
+        m.place_id,
+        p.place_name AS placeName,
+        p.address AS placeAddress,
+        m.sport_id,
+        s.sport_name AS sportName,
+        m.status_id,
+        st.status_type,
+        m.meeting_title,
+        m.meeting_content,
+        m.date,
+        m.start_time,
+        m.end_time,
+        m.min_user,
+        m.max_user,
+        m.created_at,
+        m.gender,
+        m.age_group,
+        m.level,
+        m.custom_place_address
+        FROM meeting m
+        JOIN member mem ON m.leader_id = mem.member_id
+        LEFT JOIN place p ON m.place_id = p.place_id
+        JOIN sport_type s ON m.sport_id = s.sport_id
+        JOIN status st on m.status_id = st.status_id
         WHERE meeting_id = #{meetingId}
     </select>
 

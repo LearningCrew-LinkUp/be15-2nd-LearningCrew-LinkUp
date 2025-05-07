@@ -20,8 +20,8 @@ public class PenaltySearchRequest {
     @Schema(description = "사용자 ID (제재 대상자)", example = "42")
     private Long userId;
 
-    @Schema(description = "제재 상태 (Y=진행중, N=해제됨)", example = "Y")
-    private String isActive;
+    @Schema(description = "제재 상태 ID (예: 1=처리중, 2=처리완료, 3=제재철회)", example = "1")
+    private Integer statusId;
 
     public int getOffset() {
         return (page - 1) * size;

@@ -34,7 +34,7 @@ public class ReportDTO {
     private String reportType;
 
     @Schema(description = "신고 상태 (PENDING, APPROVED, REJECTED)", example = "PENDING")
-    private String status;
+    private Integer statusId;
 
     @Schema(description = "신고 사유", example = "게시글에 부적절한 내용이 포함됨")
     private String reason;

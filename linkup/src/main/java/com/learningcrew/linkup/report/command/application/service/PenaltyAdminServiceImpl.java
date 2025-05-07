@@ -1,5 +1,8 @@
 package com.learningcrew.linkup.report.command.application.service;
 
+import com.learningcrew.linkup.community.command.domain.aggregate.PostComment;
+import com.learningcrew.linkup.community.command.domain.repository.PostCommentRepository;
+import com.learningcrew.linkup.community.command.domain.repository.PostRepository;
 import com.learningcrew.linkup.exception.BusinessException;
 import com.learningcrew.linkup.exception.ErrorCode;
 import com.learningcrew.linkup.place.command.domain.repository.PlaceReviewRepository;
@@ -21,15 +24,13 @@ import java.time.LocalDateTime;
 public class PenaltyAdminServiceImpl implements PenaltyAdminService {
 
     private final UserPenaltyHistoryRepository penaltyRepository;
-    // private final PostRepository postRepository; // TODO: postRepository 구현 후 주석 해제
-    // private final CommentRepository commentRepository; // TODO: commentRepository 구현 후 주석 해제
+    private final PostRepository postRepository;
+    private final PostCommentRepository commentRepository;
     private final PlaceReviewRepository reviewRepository;
     private final ReportHistoryRepository reportRepository;
 
     @Override
     public PenaltyResponse penalizePost(Integer postId, PenaltyRequest request) {
-        // TODO: postRepository 사용 가능 시 아래 주석 해제
-        /*
         var post = postRepository.findById(postId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.POST_NOT_FOUND));
 
@@ -37,39 +38,32 @@ public class PenaltyAdminServiceImpl implements PenaltyAdminService {
             throw new BusinessException(ErrorCode.PENALTY_ALREADY_EXISTS);
         }
 
-        post.setPostIsDeleted("Y");
+        post.setIsDelete("Y");
         post.setPostDeletedAt(LocalDateTime.now());
         reportRepository.updateStatusByPostId(postId);
 
-        var penalty = penaltyRepository.save(UserPenaltyHistory.builder()
-                .userId(post.getUserId())
-                .postId(postId)
-                .penaltyType(PenaltyType.POST)
-                .reason(request.getReason())
-                .createdAt(LocalDateTime.now())
-                .isActive("Y")
-                .build());
+        var penalty = savePenalty(
+                PenaltyType.POST,
+                post.getUserId(),
+                request.getReason(),
+                2,
+                postId,
+                null,
+                null
+        );
 
         return PenaltyResponse.builder()
                 .penaltyId(penalty.getId())
                 .userId(penalty.getUserId())
                 .penaltyType(PenaltyType.POST)
                 .postId(postId)
+                .statusId(penalty.getStatusId())
                 .resultMessage("게시글 제재 완료")
-                .build();
-        */
-
-        // 임시 응답 처리
-        return PenaltyResponse.builder()
-                .postId(postId)
-                .resultMessage("게시글 제재 (임시 처리)")
                 .build();
     }
 
     @Override
     public PenaltyResponse penalizeComment(Long commentId, PenaltyRequest request) {
-        // TODO: commentRepository 사용 가능 시 아래 주석 해제
-        /*
         var comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
 
@@ -77,32 +71,28 @@ public class PenaltyAdminServiceImpl implements PenaltyAdminService {
             throw new BusinessException(ErrorCode.PENALTY_ALREADY_EXISTS);
         }
 
-        comment.setPostCommentIsDeleted("Y");
-        comment.setPostCommentDeletedAt(LocalDateTime.now());
-        reportRepository.updateStatusByCommentId(commentId);
+        comment.setIsDeleted("Y");
+        comment.setDeletedAt(LocalDateTime.now());
 
-        var penalty = penaltyRepository.save(UserPenaltyHistory.builder()
-                .userId(comment.getPostCommentUserId())
-                .commentId(commentId)
-                .penaltyType(PenaltyType.COMMENT)
-                .reason(request.getReason())
-                .createdAt(LocalDateTime.now())
-                .isActive("Y")
-                .build());
+        reportRepository.updateStatusByCommentId(commentId, 2, request.getReason());
+
+        var penalty = savePenalty(
+                PenaltyType.COMMENT,
+                comment.getUserId(),
+                request.getReason(),
+                2,
+                null,
+                commentId,
+                null
+        );
 
         return PenaltyResponse.builder()
                 .penaltyId(penalty.getId())
                 .userId(penalty.getUserId())
                 .penaltyType(PenaltyType.COMMENT)
                 .commentId(commentId)
+                .statusId(penalty.getStatusId())
                 .resultMessage("댓글 제재 완료")
-                .build();
-        */
-
-        // 임시 응답 처리
-        return PenaltyResponse.builder()
-                .commentId(commentId)
-                .resultMessage("댓글 제재 (임시 처리)")
                 .build();
     }
 
@@ -115,22 +105,24 @@ public class PenaltyAdminServiceImpl implements PenaltyAdminService {
             throw new BusinessException(ErrorCode.PENALTY_ALREADY_EXISTS);
         }
 
-        review.setStatusId(1); // 상태: 검토중
+        review.setStatusId(1); // 검토중
 
-        var penalty = penaltyRepository.save(UserPenaltyHistory.builder()
-                .userId(review.getMemberId())
-                .reviewId(reviewId)
-                .penaltyType(PenaltyType.REVIEW)
-                .reason(request.getReason())
-                .createdAt(LocalDateTime.now())
-                .isActive("Y")
-                .build());
+        var penalty = savePenalty(
+                PenaltyType.REVIEW,
+                review.getMemberId(),
+                request.getReason(),
+                1,
+                null,
+                null,
+                reviewId
+        );
 
         return PenaltyResponse.builder()
                 .penaltyId(penalty.getId())
                 .userId(penalty.getUserId())
                 .penaltyType(PenaltyType.REVIEW)
                 .reviewId(reviewId)
+                .statusId(penalty.getStatusId())
                 .resultMessage("장소 후기 제재 요청 완료")
                 .build();
     }
@@ -144,7 +136,10 @@ public class PenaltyAdminServiceImpl implements PenaltyAdminService {
             throw new BusinessException(ErrorCode.PENALTY_ALREADY_CONFIRMED);
         }
 
-        review.setStatusId(3); // 상태: 제재 확정 (삭제 처리)
+        review.setStatusId(2); // 제재 확정
+
+        penaltyRepository.findByReviewId(reviewId)
+                .ifPresent(p -> p.setStatusId(2)); // 제재 확정 처리
 
         return PenaltyResponse.builder()
                 .reviewId(reviewId)
@@ -157,33 +152,28 @@ public class PenaltyAdminServiceImpl implements PenaltyAdminService {
         var penalty = penaltyRepository.findById(penaltyId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PENALTY_NOT_FOUND));
 
-        if ("N".equals(penalty.getIsActive())) {
+        Integer statusId = penalty.getStatusId();
+        if (statusId != null && statusId == 3) {
             throw new BusinessException(ErrorCode.PENALTY_ALREADY_CANCELED);
         }
 
-        penalty.setIsActive("N");
+        penalty.setStatusId(2);
 
         switch (penalty.getPenaltyType()) {
             case POST -> {
-                // TODO: postRepository 사용 가능 시 복구
-                /*
                 var post = postRepository.findById(penalty.getPostId())
                         .orElseThrow(() -> new BusinessException(ErrorCode.POST_NOT_FOUND));
-                post.setPostIsDeleted("N");
-                */
+                post.setIsDeleted("N");
             }
             case COMMENT -> {
-                // TODO: commentRepository 사용 가능 시 복구
-                /*
                 var comment = commentRepository.findById(penalty.getCommentId())
                         .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
-                comment.setPostCommentIsDeleted("N");
-                */
+                comment.setIsDeleted("N");
             }
             case REVIEW -> {
                 var review = reviewRepository.findById(penalty.getReviewId())
                         .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_FOUND));
-                review.setStatusId(2); // 복구 상태
+                review.setStatusId(2); // 복구
             }
         }
 
@@ -191,7 +181,29 @@ public class PenaltyAdminServiceImpl implements PenaltyAdminService {
                 .penaltyId(penalty.getId())
                 .userId(penalty.getUserId())
                 .penaltyType(penalty.getPenaltyType())
+                .statusId(penalty.getStatusId())
                 .resultMessage("제재 철회 완료")
                 .build();
+    }
+
+    private UserPenaltyHistory savePenalty(
+            PenaltyType type,
+            Integer userId,
+            String reason,
+            Integer statusId,
+            Integer postId,
+            Long commentId,
+            Integer reviewId
+    ) {
+        return penaltyRepository.save(UserPenaltyHistory.builder()
+                .userId(userId)
+                .penaltyType(type)
+                .reason(reason)
+                .statusId(statusId)
+                .postId(postId)
+                .commentId(commentId)
+                .reviewId(reviewId)
+                .createdAt(LocalDateTime.now())
+                .build());
     }
 }

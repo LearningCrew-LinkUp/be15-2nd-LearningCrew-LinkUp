@@ -52,6 +52,8 @@ public class NotificationCommandServiceImpl implements NotificationCommandServic
 
         Map<String, String> variables = request.getVariables();
 
+        log.info("🧪 전달된 변수 확인: {}", request.getVariables());
+
         String processedTitle = NotificationTemplateProcessor.process(notificationType.getNotificationType(), variables);
         String processedContent = NotificationTemplateProcessor.process(notificationType.getNotificationTemplate(), variables);
 

@@ -5,9 +5,7 @@ import com.learningcrew.linkupuser.command.domain.aggregate.User;
 import com.learningcrew.linkupuser.common.dto.ApiResponse;
 import com.learningcrew.linkupuser.common.dto.PageResponse;
 import com.learningcrew.linkupuser.query.dto.query.*;
-import com.learningcrew.linkupuser.query.dto.response.UserDetailResponse;
-import com.learningcrew.linkupuser.query.dto.response.UserListResponse;
-import com.learningcrew.linkupuser.query.dto.response.UserStatusResponse;
+import com.learningcrew.linkupuser.query.dto.response.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.http.ResponseEntity;
 
@@ -35,4 +33,8 @@ public interface UserMapper {
     List<UserListResponse> findUserList(String roleName, String statusName);
 
     UserDetailResponse findUser(int userId);
+
+    UserMypageResponse findUserMypageById(int userId);
+
+    BusinessMypageResponse findBusinessMypageById(int userId);
 }

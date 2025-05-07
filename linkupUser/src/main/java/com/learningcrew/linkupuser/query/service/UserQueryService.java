@@ -3,10 +3,7 @@ package com.learningcrew.linkupuser.query.service;
 import com.learningcrew.linkupuser.common.dto.PageResponse;
 import com.learningcrew.linkupuser.query.dto.query.MeetingMemberDto;
 import com.learningcrew.linkupuser.query.dto.query.UserMannerTemperatureDto;
-import com.learningcrew.linkupuser.query.dto.response.UserDetailResponse;
-import com.learningcrew.linkupuser.query.dto.response.UserListResponse;
-import com.learningcrew.linkupuser.query.dto.response.UserProfileResponse;
-import com.learningcrew.linkupuser.query.dto.response.UserStatusResponse;
+import com.learningcrew.linkupuser.query.dto.response.*;
 
 
 public interface UserQueryService {
@@ -28,4 +25,8 @@ public interface UserQueryService {
     UserStatusResponse getUserStatus(int userId);
 
     UserDetailResponse getUser(int userId);
+
+    UserMypageResponse getUserMypage(int userId);
+
+    BusinessMypageResponse getBusinessMypage(int userId);
 }

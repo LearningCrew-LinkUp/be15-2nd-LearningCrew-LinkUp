@@ -11,11 +11,7 @@
         ph.penalty_type AS penaltyType,
         ph.reason,
         ph.created_at,
-        CASE ph.is_active
-        WHEN 'Y' THEN '활성'
-        WHEN 'N' THEN '비활성'
-        ELSE '알 수 없음'
-        END AS status,
+        ph.status_id AS statusId,
         ph.post_id,
         ph.comment_id,
         ph.review_id
@@ -27,6 +23,9 @@
         </if>
         <if test="userId != null">
             AND ph.user_id = #{userId}  <!-- 사용자 ID 필터링 -->
+        </if>
+        <if test="statusId != null">
+            AND ph.status_id = #{statusId}  <!-- 상태별 필터링 추가 -->
         </if>
         ORDER BY ph.created_at DESC
         LIMIT #{size} OFFSET #{offset}
@@ -44,6 +43,9 @@
         <if test="userId != null">
             AND ph.user_id = #{userId}
         </if>
+        <if test="statusId != null">
+            AND ph.status_id = #{statusId}  <!-- 상태별 필터링 추가 -->
+        </if>
     </select>
 
     <!-- 제재 상세 조회 -->
@@ -55,11 +57,7 @@
         ph.penalty_type AS penaltyType,
         ph.reason,
         ph.created_at,
-        CASE ph.is_active
-        WHEN 'Y' THEN '활성'
-        WHEN 'N' THEN '비활성'
-        ELSE '알 수 없음'
-        END AS status,
+        ph.status_id AS statusId,
         ph.post_id,
         ph.comment_id,
         ph.review_id

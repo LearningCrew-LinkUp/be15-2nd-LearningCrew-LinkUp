@@ -27,8 +27,8 @@ public class PenaltyInfoDTO {
     @Schema(description = "제재 사유", example = "욕설이 포함된 댓글 작성")
     private String reason;
 
-    @Schema(description = "제재 활성 여부 (Y=진행중, N=해제됨)", example = "Y")
-    private String isActive;
+    @Schema(description = "제재 상태 (PENDING, APPROVED, REJECTED)", example = "1")
+    private Integer statusId;
 
     @Schema(description = "제재 생성 일시", example = "2025-04-30T10:15:30")
     private LocalDateTime createdAt;
