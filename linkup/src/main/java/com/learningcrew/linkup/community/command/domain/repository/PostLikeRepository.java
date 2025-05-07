@@ -1,5 +1,6 @@
 package com.learningcrew.linkup.community.command.domain.repository;
 
+import com.learningcrew.linkup.community.command.domain.aggregate.Post;
 import com.learningcrew.linkup.community.command.domain.aggregate.PostLike;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -17,5 +18,7 @@ public interface PostLikeRepository extends JpaRepository<PostLike, Integer> {
     // 게시글 좋아요 삭제
     void deleteByPost_PostIdAndUserId(int postId, int userId);
 
+    // 좋아요 존재 여부를 Optional로 반환하는 메소드 (예외 처리용)
+    Optional<PostLike> findByPostAndUserId(Post post, int userId);
 }
  

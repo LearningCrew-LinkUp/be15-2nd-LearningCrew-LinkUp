@@ -2,6 +2,7 @@ package com.learningcrew.linkup.community.command.domain.aggregate;
 
 //import com.learningcrew.linkup.common.Image;
 //import com.learningcrew.linkup.community.command.domain.constants.PostIsNotice;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learningcrew.linkup.community.command.domain.PostIsNotice;
 import jakarta.persistence.*;
 import lombok.*;
@@ -58,5 +59,6 @@ public class Post {
     }
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<PostImage> postImages;
 }

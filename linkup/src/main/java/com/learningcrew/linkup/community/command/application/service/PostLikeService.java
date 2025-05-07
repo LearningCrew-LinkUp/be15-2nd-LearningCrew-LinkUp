@@ -1,4 +1,4 @@
-        package com.learningcrew.linkup.community.command.application.service;
+package com.learningcrew.linkup.community.command.application.service;
 
 import com.learningcrew.linkup.community.command.domain.aggregate.Post;
 import com.learningcrew.linkup.community.command.domain.aggregate.PostLike;

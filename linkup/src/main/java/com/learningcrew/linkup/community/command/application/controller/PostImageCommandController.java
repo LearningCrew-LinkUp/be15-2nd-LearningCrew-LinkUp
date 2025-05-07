@@ -20,7 +20,7 @@ public class PostImageCommandController {
     @PutMapping("/posts/{postId}/images")
     public ResponseEntity<ApiResponse<PostImageResponse>> updatePostImages(
             @PathVariable int postId,
-            @RequestPart(name = "postImgs", required = false) List<MultipartFile> postImgs) {
+            @RequestParam(name = "postImgs", required = false) List<MultipartFile> postImgs) {
 
         PostImageResponse response = postImageCommandService.updatePostImages(postId, postImgs);
         return ResponseEntity.ok(ApiResponse.success(response));
