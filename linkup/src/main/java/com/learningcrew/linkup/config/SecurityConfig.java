@@ -101,6 +101,7 @@ public class SecurityConfig {
                 "/meetings/{meetingId}/participation_request",
                 "/meetings/{meetingId}/participation/{memberId}/accept",
                 "/meetings/{meetingId}/participation/{memberId}/reject",
+                "/my/meetings/{meetingId}/participation",
                 "/meetings/{meetingId}/change-leader/{memberId}",
                 "/meetings/{meetingId}/cancel",
                 "/meetings/{meetingId}/participation",

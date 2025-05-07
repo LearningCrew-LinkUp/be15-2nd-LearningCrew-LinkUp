@@ -23,7 +23,7 @@ public class NotificationHelper {
      * @param notificationTypeId 알림 유형 ID
      * @param domainTypeId 알림 도메인 구분 ID
      */
-    public void sendNotification(Integer receiverId, Integer notificationTypeId, Integer domainTypeId) {
+    public void sendBasicNotification(Integer receiverId, Integer notificationTypeId, Integer domainTypeId) {
         EventNotificationRequest request = new EventNotificationRequest();
         request.setReceiverId(receiverId);
         request.setNotificationTypeId(notificationTypeId);
@@ -38,5 +38,6 @@ public class NotificationHelper {
      */
     public void sendNotification(EventNotificationRequest request) {
         notificationCommandService.sendEventNotification(request);
+
     }
 }

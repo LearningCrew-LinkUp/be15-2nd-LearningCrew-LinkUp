@@ -1,0 +1,79 @@
+server:
+  port: 8124
+
+spring:
+  application:
+    name: LINKUPUSER
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  mail:
+    host: ${STMP_HOST}
+    port: ${STMP_PORT}
+    username: ${STMP_USERNAME}
+    password: ${STMP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:/mappers/**/*.xml
+  type-aliases-package: com.learningcrew.linkupuser.query.dto
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_ACCESS_EXPIRATION}
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION}
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.instance.instance-id:${random.value}}
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+image:
+  image-dir: ${IMAGE_DIR}
+  image-url: ${IMAGE_URL}
+  default-profile: ${DEFAULT_PROFILE_IMAGE}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: method
+    display-request-duration: true
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    com.learningcrew.linkupuser.client.com.learningcrew.linkupuser.client.CommunityClient: DEBUG
+    feign.Logger: DEBUG
+    feign.Request: DEBUG
+    feign.Response: DEBUG
+
+pagehelper:
+  helper-dialect: mariadb
+  reasonable: true        # 페이지 번호가 0보다 작으면 0으로
+  support-methods-arguments: true # 메서드 파라미터로 pageNum/pageSize를 받을 수 있도록
+  params: count=countSql

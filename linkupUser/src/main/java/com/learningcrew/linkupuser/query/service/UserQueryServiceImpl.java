@@ -3,16 +3,17 @@ package com.learningcrew.linkupuser.query.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.learningcrew.linkupuser.command.domain.constants.LinkerStatusType;
+import com.learningcrew.linkupuser.common.domain.Status;
 import com.learningcrew.linkupuser.common.dto.PageResponse;
 import com.learningcrew.linkupuser.common.dto.query.RoleDTO;
 import com.learningcrew.linkupuser.common.query.mapper.RoleMapper;
+import com.learningcrew.linkupuser.common.util.SecurityUtils;
 import com.learningcrew.linkupuser.exception.BusinessException;
 import com.learningcrew.linkupuser.exception.ErrorCode;
+import com.learningcrew.linkupuser.query.dto.constants.RoleType;
 import com.learningcrew.linkupuser.query.dto.query.*;
-import com.learningcrew.linkupuser.query.dto.response.UserDetailResponse;
-import com.learningcrew.linkupuser.query.dto.response.UserListResponse;
-import com.learningcrew.linkupuser.query.dto.response.UserProfileResponse;
-import com.learningcrew.linkupuser.query.dto.response.UserStatusResponse;
+import com.learningcrew.linkupuser.query.dto.response.*;
 import com.learningcrew.linkupuser.query.mapper.MemberMapper;
 import com.learningcrew.linkupuser.query.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -101,6 +102,42 @@ public class UserQueryServiceImpl implements UserQueryService {
     @Override
     public UserDetailResponse getUser(int userId) {
         return userMapper.findUser(userId);
+    }
+
+    @Override
+    public UserMypageResponse getUserMypage(int userId) {
+
+        /* 활성화된 회원인지 확인 */
+        UserStatusResponse status = userMapper.findStatusByUserId(userId).orElseThrow(
+                () -> new BusinessException(ErrorCode.NOT_FOUND_STATUS)
+        );
+
+        if(!status.getStatus().getStatusType().equals(LinkerStatusType.ACCEPTED.name())){
+            throw new BusinessException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+
+        return userMapper.findUserMypageById(userId);
+    }
+
+    @Override
+    public BusinessMypageResponse getBusinessMypage(int userId) {
+
+        /* 활성화된 회원인지 확인(pending 포함) */
+        UserStatusResponse status = userMapper.findStatusByUserId(userId).orElseThrow(
+                () -> new BusinessException(ErrorCode.NOT_FOUND_STATUS)
+        );
+
+        List<String> allowedStatuses = List.of(
+                LinkerStatusType.ACCEPTED.name(),
+                LinkerStatusType.PENDING.name()
+        );
+
+        String statusType = status.getStatus().getStatusType();
+        if (!allowedStatuses.contains(statusType)) {
+            throw new BusinessException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+
+        return userMapper.findBusinessMypageById(userId);
     }
 
 

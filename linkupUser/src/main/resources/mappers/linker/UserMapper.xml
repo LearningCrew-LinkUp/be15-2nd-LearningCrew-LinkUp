@@ -156,4 +156,27 @@
         LEFT JOIN status s ON u.status_id = s.status_id
         WHERE u.user_id = #{userId}
     </select>
+
+    <!-- 일반 회원 마이페이지 정보 조회 -->
+    <select id="findUserMypageById" resultType="UserMypageResponse">
+        SELECT
+            m.profile_image_url AS profileImageUrl,
+            u.user_name AS userName,
+            m.manner_temperature AS mannerTemperature,
+            u.point_balance AS point
+        FROM user u
+        JOIN member m ON m.member_id = u.user_id
+        WHERE u.user_id = #{userId}
+    </select>
+
+    <!-- 사업자 마이페이지 정보 조회 -->
+    <select id="findBusinessMypageById" resultType="BusinessMypageResponse">
+        SELECT
+            u.user_name AS userName,
+            s.status_type AS businessStatus
+        FROM user u
+        JOIN owner o ON u.user_id = o.owner_id
+        JOIN status s ON s.status_id = o.status_id
+        WHERE u.user_id = #{userId}
+    </select>
 </mapper>

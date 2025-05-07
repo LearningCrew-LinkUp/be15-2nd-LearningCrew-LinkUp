@@ -176,16 +176,18 @@ public class MeetingParticipationCommandServiceImpl implements MeetingParticipat
 
 
         // 3. 포인트 차감 및 트랜잭션 기록
-        Place place = placeQueryService.getPlaceById(meeting.getPlaceId());
-        int rentalCost = place.getRentalCost();
-        int minUser = meeting.getMinUser();
-        int costPerUser = rentalCost / minUser;
+        Integer placeId = meeting.getPlaceId();
+        if (placeId != null) {
+            Place place = placeQueryService.getPlaceById(meeting.getPlaceId());
+            int rentalCost = place.getRentalCost();
+            int minUser = meeting.getMinUser();
+            int costPerUser = rentalCost / minUser;
 
-        int pointBalance = userFeignClient.getPointBalance(memberId);
+            int pointBalance = userFeignClient.getPointBalance(memberId);
 
-        // 포인트 트랜잭션(PAYMENT) 기록
-        pointCommandService.paymentTransaction(memberId, costPerUser);
-
+            // 포인트 트랜잭션(PAYMENT) 기록
+            pointCommandService.paymentTransaction(memberId, costPerUser);
+        }
         participation.setStatusId(STATUS_ACCEPTED);
 
         meetingParticipationHistoryRepository.save(participation);

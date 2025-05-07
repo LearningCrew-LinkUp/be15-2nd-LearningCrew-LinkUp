@@ -66,10 +66,14 @@ public class AuthCommandServiceImpl implements AuthCommandService {
         //refresh token 저장
         tokenDomainService.saveRefreshToken(user.getUserId(),user.getEmail(), refreshToken);
 
-        // member 테이블 조회
-        String profileImageUrl = memberRepository.findById(user.getUserId())
-                .map(Member::getProfileImageUrl)      // 있으면 해당 프로필
-                .orElse(defaultImageProperties.getDefaultProfileImage());      // 없으면 기본 프로필
+        // 프로필 이미지 처리
+        String profileImageUrl = null;
+
+        if ("USER".equalsIgnoreCase(user.getRole().getRoleName())) {
+            profileImageUrl = memberRepository.findById(user.getUserId())
+                    .map(Member::getProfileImageUrl)
+                    .orElse(defaultImageProperties.getDefaultProfileImage());
+        }
 
         return TokenResponse
                 .builder()

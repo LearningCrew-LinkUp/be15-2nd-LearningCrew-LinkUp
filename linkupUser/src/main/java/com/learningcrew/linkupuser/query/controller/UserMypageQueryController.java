@@ -3,11 +3,10 @@ package com.learningcrew.linkupuser.query.controller;
 
 import com.learningcrew.linkupuser.common.dto.ApiResponse;
 import com.learningcrew.linkupuser.query.dto.query.*;
+import com.learningcrew.linkupuser.query.dto.response.BusinessMypageResponse;
+import com.learningcrew.linkupuser.query.dto.response.UserMypageResponse;
 import com.learningcrew.linkupuser.query.dto.response.UserProfileResponse;
-import com.learningcrew.linkupuser.query.service.CommunityQueryService;
-import com.learningcrew.linkupuser.query.service.MeetingQueryService;
-import com.learningcrew.linkupuser.query.service.PaymentQueryService;
-import com.learningcrew.linkupuser.query.service.UserQueryServiceImpl;
+import com.learningcrew.linkupuser.query.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "유저 활동 조회", description = "유저의 프로필, 게시글, 댓글, 모임, 포인트, 친구 관련 이력을 조회합니다.")
 public class UserMypageQueryController {
-    private final UserQueryServiceImpl userQueryService;
+    private final UserQueryService userQueryService;
     private final CommunityQueryService communityQueryService;
     private final MeetingQueryService meetingQueryService;
     private final PaymentQueryService paymentQueryService;
@@ -88,7 +87,19 @@ public class UserMypageQueryController {
     }
 
     /* 회원 마이페이지 조회 */
+    @GetMapping("/mypage")
+    @Operation(summary = "회원 마이페이지 조회", description = "회원 마이페이지 조회에 필요한 정보들을 조회합니다")
+    public ResponseEntity<ApiResponse<UserMypageResponse>> getUserMypage(@AuthenticationPrincipal String userId) {
+        UserMypageResponse mypageResp = userQueryService.getUserMypage(Integer.parseInt(userId));
+        return ResponseEntity.ok(ApiResponse.success(mypageResp, "마이페이지 회원 조회에 성공했습니다. "));
+    }
 
     /* 사업자 마이페이지 조회 */
+    @GetMapping("/mypage/business")
+    @Operation(summary = "사업자 마이페이지 조회", description = "사업자 마이페이지 조회에 필요한 정보들을 조회힙니다")
+    public ResponseEntity<ApiResponse<BusinessMypageResponse>> getBusinessMypage(@AuthenticationPrincipal String userId) {
+        BusinessMypageResponse mypageResp = userQueryService.getBusinessMypage(Integer.parseInt(userId));
+        return ResponseEntity.ok(ApiResponse.success(mypageResp, "사업자 마이페이지 조회에 성공했습니다. "));
+    }
 
 }
