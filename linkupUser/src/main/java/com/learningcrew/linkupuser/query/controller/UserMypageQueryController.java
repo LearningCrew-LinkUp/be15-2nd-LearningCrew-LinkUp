@@ -47,9 +47,9 @@ public class UserMypageQueryController {
         return ResponseEntity.ok(ApiResponse.success(userProfileResponse));
     }
 
-    /* 프로필 조회 */
-    @GetMapping("/profile")
-    @Operation(summary = "프로필 조회", description = "특정 회원의 프로필을 조회합니다")
+    /* 타 회원 프로필 조회 */
+    @GetMapping("/profile/other")
+    @Operation(summary = "타 회원 프로필 조회", description = "특정 회원의 프로필을 조회합니다")
     public ResponseEntity<ApiResponse<UserProfileResponse>> getSingleUserProfile(
             @RequestParam(required = false) int targetId
     ){

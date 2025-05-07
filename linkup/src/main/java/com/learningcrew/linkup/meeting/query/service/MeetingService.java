@@ -36,6 +36,8 @@ public class MeetingService {
             if (m.getPlaceId() != null) {
                 m.setPlace(placeQueryService.getPlaceDetails(m.getPlaceId()));
             }
+            m.setParticipantCount(getParticipantCount(m.getMeetingId()));
+            m.setInterestedCount(getInterestedCount(m.getMeetingId()));
         });
 
         return MeetingListResponse.builder()
@@ -52,6 +54,8 @@ public class MeetingService {
         // 모임 정보 조회
         MeetingDTO meeting = meetingMapper.selectMeetingById(meetingId);
         meeting.setLeader(memberQueryClient.getMemberById(meeting.getLeaderId()).getData());
+        meeting.setParticipantCount(getParticipantCount(meetingId));
+        meeting.setInterestedCount(getInterestedCount(meetingId));
 
         Integer placeId = meeting.getPlaceId();
         if (placeId != null) {
@@ -179,5 +183,13 @@ public class MeetingService {
                 .meetings(meetings)
                 .pagination(null)
                 .build();
+    }
+
+    public int getParticipantCount(int meetingId) {
+        return meetingMapper.countParticipantsByMeetingId(meetingId);
+    }
+
+    public int getInterestedCount(int meetingId) {
+        return meetingMapper.countInterestedMembersByMeetingId(meetingId);
     }
 }
