@@ -34,4 +34,7 @@ public interface MeetingMapper {
 
     List<MeetingSummaryDTO> selectCreatedMeetingsByUserId(int userId);
 
+    int countParticipantsByMeetingId(int meetingId);
+
+    int countInterestedMembersByMeetingId(int meetingId);
 }

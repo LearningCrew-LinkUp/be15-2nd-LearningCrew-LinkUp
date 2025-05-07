@@ -86,7 +86,7 @@ public class SecurityConfig {
                 "/accounts/**",
                 "/auth/logout",
                 "/users/withdraw",
-                "users/me/mypage"
+                "/users/me/mypage"
         ).hasAuthority("USER");
 
         auths.requestMatchers(
