@@ -39,6 +39,14 @@ public class PlaceQueryController {
         PlaceDetailResponse detailResponse = placeQueryService.getPlaceDetails(placeId);
         return ResponseEntity.ok(ApiResponse.success(detailResponse));
     }
+
+    @GetMapping("/api/v1/common-service/places/{placeId}")
+    @Operation(summary = "장소 상세 (단순 정보) 조회", description = "프론트 예약용 모달 등에서 사용하는 장소 기본 정보 및 운영 시간만 조회합니다.")
+    public ResponseEntity<ApiResponse<PlaceDetailResponse>> getPlaceDetailById(@PathVariable("placeId") int placeId) {
+        PlaceDetailResponse detail = placeQueryService.getPlaceDetailById(placeId);
+        return ResponseEntity.ok(ApiResponse.success(detail));
+    }
+
     @GetMapping("/admin/places")
     @Operation(summary = "관리자 장소 목록 조회", description = "관리자가 서비스에 등록된 모든 장소의 목록을 조회한다.")
     public ResponseEntity<ApiResponse<AdminPlaceListResponse>> getPlacesByAdmin(AdminPlaceListRequest placeListRequest) {

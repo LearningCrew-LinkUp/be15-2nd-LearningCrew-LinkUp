@@ -78,4 +78,6 @@ public class MeetingParticipationController {
                 .participationId(participationId)
                 .build()));
     }
+
+
 }

@@ -3,7 +3,6 @@ package com.learningcrew.linkupuser.command.application.controller;
 
 import com.learningcrew.linkupuser.command.application.dto.request.FindPasswordRequest;
 import com.learningcrew.linkupuser.command.application.dto.request.LoginRequest;
-import com.learningcrew.linkupuser.command.application.dto.request.RefreshTokenRequest;
 import com.learningcrew.linkupuser.command.application.dto.request.ResetPasswordRequest;
 import com.learningcrew.linkupuser.command.application.dto.response.TokenResponse;
 import com.learningcrew.linkupuser.command.application.service.AuthCommandService;

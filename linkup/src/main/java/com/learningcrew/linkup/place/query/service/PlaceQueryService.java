@@ -12,7 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -109,5 +112,34 @@ public class PlaceQueryService {
                         .totalItems(totalItems)
                         .build())
                 .build();
+    }
+    // ✅ 새로 추가된 null-safe 상세 조회 메서드
+    @Transactional(readOnly = true)
+    public PlaceDetailResponse getPlaceDetailById(int placeId) {
+        PlaceDetailResponse detail = placeMapper.selectBasicPlaceDetail(placeId);
+        if (detail == null) {
+            throw new IllegalArgumentException("PLACE_NOT_FOUND");
+        }
+
+        List<String> images = placeMapper.selectImages(placeId);
+        detail.setImageUrl(images != null ? images : Collections.emptyList());
+
+        List<OperationTimeResponse> times = placeMapper.selectOperationTimes(placeId);
+        detail.setOperationTimes(times != null ? times : Collections.emptyList());
+
+        List<PlaceReviewResponse> reviews = placeMapper.selectReviews(placeId);
+        if (reviews == null) {
+            detail.setPlaceReviews(Collections.emptyList());
+        } else {
+            List<PlaceReviewResponse> safeReviews = reviews.stream().map(r -> new PlaceReviewResponse(
+                    Optional.ofNullable(r.getReviewContent()).orElse(""),
+                    Optional.ofNullable(r.getReviewImageUrl()).orElse(""),
+                    Optional.ofNullable(r.getReviewScore()).orElse(0)
+            )).collect(Collectors.toList());
+
+            detail.setPlaceReviews(safeReviews);
+        }
+
+        return detail;
     }
 }

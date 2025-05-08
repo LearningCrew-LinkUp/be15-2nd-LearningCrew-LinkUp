@@ -85,4 +85,6 @@ public class PointQueryController {
         MonthlySettlementResponse response = pointQueryService.getMonthlySettlement(Integer.parseInt(userId), year, month);
         return ResponseEntity.ok(ApiResponse.success(response, "월별 정산 대금 조회 성공"));
     }
+
+
 }
