@@ -30,4 +30,6 @@ public class MeetingSummaryDTO {
     private String ageGroup;
     private String level;
     private String customPlaceAddress;
+    private int participantCount;
+    private int interestedCount;
 }

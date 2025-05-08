@@ -37,4 +37,6 @@ public class MeetingDTO {
     private String ageGroup;
     private String level;
     private String customPlaceAddress;
+    private int participantCount;
+    private int interestedCount;
 }
