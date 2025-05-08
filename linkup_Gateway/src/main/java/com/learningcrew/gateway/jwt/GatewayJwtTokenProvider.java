@@ -29,7 +29,6 @@ public class GatewayJwtTokenProvider {
     }
 
 
-
     public boolean validateToken(String token) {
         try{
             Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);

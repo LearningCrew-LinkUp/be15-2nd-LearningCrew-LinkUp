@@ -179,4 +179,23 @@
         JOIN status s ON s.status_id = o.status_id
         WHERE u.user_id = #{userId}
     </select>
+
+    <select id="findMeetingHistory" resultType="MeetingHistoryResponse">
+        SELECT
+            mph.meeting_id AS meetingId,
+            m.meeting_title AS title,
+            m.date,
+            p.address AS location,
+            s.status_type AS status
+        FROM meeting_participation_history mph
+        JOIN meeting m ON mph.meeting_id = m.meeting_id
+        JOIN place p ON p.place_id = m.place_id
+        JOIN status s ON s.status_id = mph.status_id
+        WHERE mph.member_id = #{userId}
+        <if test="status != null">
+            AND s.status_type = #{status}
+        </if>
+        ORDER BY mph.participated_at DESC
+    </select>
+
 </mapper>

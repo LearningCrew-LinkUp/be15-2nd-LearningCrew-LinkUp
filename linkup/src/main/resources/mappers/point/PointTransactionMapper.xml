@@ -28,18 +28,18 @@
           AND MONTH(pt.created_at) = #{month}
         GROUP BY pt.user_id
     </select>
-    <select id="findAllByOwnerId" resultType="SettlementDetailResponse">
+    <select id="findSettlementByOwnerId" resultType="SettlementHistory">
         SELECT
             settlement_id AS settlementId,
             owner_id AS ownerId,
             amount,
-            status_id AS statusId,
-            requested_at AS requestedAt,
-            completed_at AS completedAt,
-            rejection_reason AS rejectionReason
-         FROM settlement
-        WHERE owner_id = #{ownerId}
-        ORDER BY requested_at DESC
+            u.user_name as ownerName,
+            completed_at AS completedAt
+        FROM settlement s
+        JOIN owner o ON o.owner_id = s.owner_id
+        JOIN user u ON u.user_id = o.owner_id
+        WHERE s.owner_id = #{userId}
+        ORDER BY completed_at DESC
     </select>
     <select id="findPointTransactions" resultType="com.learningcrew.linkup.point.query.dto.response.PointTransactionResponse">
         SELECT
@@ -67,7 +67,7 @@
                 AND pt.created_at &gt;= #{startDate}
             </if>
             <if test="endDate != null">
-                AND pt.created_at &lt;= #{endDate}
+                AND pt.created_at &gt; #{endDate}
             </if>
         </where>
         ORDER BY pt.created_at DESC
@@ -89,4 +89,28 @@
         </if>
         ORDER BY pt.created_at DESC
     </select>
+    <select id="findSettlements" resultType="SettlementHistory">
+        SELECT
+            s.settlement_id,
+            s.owner_id,
+            s.amount,
+            u.user_name as ownerName,
+            s.completed_at AS completedAt
+        FROM settlement s
+        JOIN owner o ON o.owner_id = s.owner_id
+        JOIN user u ON u.user_id = o.owner_id
+        <where>
+            <if test="userId != null">
+                AND u.user_id = #{userId}
+            </if>
+            <if test="startDate != null">
+                AND s.completed_at &gt;= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND s.completed_at &lt;= #{endDate}
+            </if>
+        </where>
+        ORDER BY s.completed_at DESC
+    </select>
+
 </mapper>

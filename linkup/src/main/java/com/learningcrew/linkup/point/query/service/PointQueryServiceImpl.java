@@ -81,6 +81,4 @@ public class PointQueryServiceImpl implements PointQueryService {
 
         return PageResponse.from(pageInfo);
     }
-
-
 }

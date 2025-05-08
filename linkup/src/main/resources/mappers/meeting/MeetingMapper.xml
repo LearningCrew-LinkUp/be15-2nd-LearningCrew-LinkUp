@@ -10,6 +10,7 @@
         SELECT
             a.meeting_id AS meetingId,
             b.nickname AS leaderNickname,
+            c.place_id AS placeId,
             c.place_name AS placeName,
             c.address AS placeAddress,
             d.sport_name AS sportName,
@@ -335,6 +336,19 @@
         LEFT JOIN place p ON m.place_id = p.place_id
         JOIN sport_type s ON m.sport_id = s.sport_id
         WHERE m.leader_id = #{userId}
+    </select>
+
+    <select id="countParticipantsByMeetingId" resultType="int">
+        SELECT COUNT(*)
+        FROM meeting_participation_history mph
+        WHERE mph.meeting_id = #{meetingId}
+        AND mph.status_id = 2
+    </select>
+
+    <select id="countInterestedMembersByMeetingId" resultType="int">
+        SELECT COUNT(*)
+        FROM interested_meeting im
+        WHERE im.meeting_id = #{meetingId}
     </select>
 
 <!--    <select id="selectHistoriesByMeetingId" resultType="MeetingParticipationDTO">-->

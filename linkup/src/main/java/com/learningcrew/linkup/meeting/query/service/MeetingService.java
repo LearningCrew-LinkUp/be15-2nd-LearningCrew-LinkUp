@@ -8,6 +8,7 @@ import com.learningcrew.linkup.meeting.command.domain.aggregate.MeetingStatus;
 import com.learningcrew.linkup.meeting.query.dto.request.MeetingSearchRequest;
 import com.learningcrew.linkup.meeting.query.dto.response.*;
 import com.learningcrew.linkup.meeting.query.mapper.MeetingMapper;
+import com.learningcrew.linkup.place.query.service.PlaceQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ public class MeetingService {
 
     private final MeetingMapper meetingMapper;
     private final MemberQueryClient memberQueryClient;
+    private final PlaceQueryService placeQueryService;
 
     public MeetingListResponse getMeetings(MeetingSearchRequest request) {
         List<MeetingSummaryDTO> meetings = meetingMapper.selectMeetings(request);
@@ -31,6 +33,11 @@ public class MeetingService {
         meetings.forEach(m -> {
             MeetingStatus status = MeetingStatus.fromId(m.getStatusId());
             m.setStatusName(status.getLabel());
+            if (m.getPlaceId() != null) {
+                m.setPlace(placeQueryService.getPlaceDetails(m.getPlaceId()));
+            }
+            m.setParticipantCount(getParticipantCount(m.getMeetingId()));
+            m.setInterestedCount(getInterestedCount(m.getMeetingId()));
         });
 
         return MeetingListResponse.builder()
@@ -47,6 +54,18 @@ public class MeetingService {
         // 모임 정보 조회
         MeetingDTO meeting = meetingMapper.selectMeetingById(meetingId);
         meeting.setLeader(memberQueryClient.getMemberById(meeting.getLeaderId()).getData());
+        meeting.setParticipantCount(getParticipantCount(meetingId));
+        meeting.setInterestedCount(getInterestedCount(meetingId));
+
+        Integer placeId = meeting.getPlaceId();
+        if (placeId != null) {
+            meeting.setPlace(placeQueryService.getPlaceDetails(placeId));
+            meeting.setParticipationFee((double) meeting.getPlace().getRentalCost() / meeting.getMinUser());
+        }
+        if (placeId == null) {
+            meeting.setParticipationFee(0);
+        }
+
         if (meeting == null) {
             throw new BusinessException(ErrorCode.MEETING_NOT_FOUND);
         }
@@ -164,5 +183,13 @@ public class MeetingService {
                 .meetings(meetings)
                 .pagination(null)
                 .build();
+    }
+
+    public int getParticipantCount(int meetingId) {
+        return meetingMapper.countParticipantsByMeetingId(meetingId);
+    }
+
+    public int getInterestedCount(int meetingId) {
+        return meetingMapper.countInterestedMembersByMeetingId(meetingId);
     }
 }

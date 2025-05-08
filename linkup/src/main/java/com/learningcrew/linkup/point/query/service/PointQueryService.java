@@ -20,6 +20,4 @@ public interface PointQueryService {
     PageResponse<PointTransactionResponse> getUsersPointTransactions(PointTransactionSearchCondition condition, Pageable pageable);
 
     PageResponse<UserPointTransactionResponse> getMyPointTransactions(int i, YearMonth yearMonth, String transactionType, Pageable pageable);
-
-
 }

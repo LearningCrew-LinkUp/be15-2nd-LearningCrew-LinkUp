@@ -37,7 +37,7 @@ public enum ErrorCode {
     INVALID_STATUS(HttpStatus.BAD_REQUEST, "유효하지 않은 상태입니다."),
     INVALID_ROLE(HttpStatus.BAD_REQUEST, "올바르지 않는 권한입니다. "),
     WITHDRAW_USER(HttpStatus.UNAUTHORIZED, "이미 탈퇴한 계정입니다."),
-    ACCOUNT_NOT_RECOVERABLE(HttpStatus.BAD_REQUEST, "계정을 복구할 수 없습니다 "),
+    ACCOUNT_NOT_RECOVERABLE(HttpStatus.BAD_REQUEST, "복구 가능한 계정이 아닙니다 "),
     DUPLICATE_PASSWORD(HttpStatus.BAD_REQUEST, "기존 비밀번호와 동일한 비밀번호는 사용할 수 없습니다. "),
     NOT_FOUND_MANNER_TEMPERATURE(HttpStatus.NOT_FOUND, "매너 온도 정보를 찾을 수 없습니다."),
     NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "모임 참여자 정보를 찾을 수 없습니다."),

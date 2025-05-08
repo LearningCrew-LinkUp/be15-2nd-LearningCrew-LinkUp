@@ -1,5 +1,6 @@
 package com.learningcrew.linkup.point.query.mapper;
 
+import com.learningcrew.linkup.point.query.dto.query.SettlementTransactionSearchCondition;
 import com.learningcrew.linkup.point.query.dto.query.PointTransactionSearchCondition;
 import com.learningcrew.linkup.point.query.dto.response.*;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,9 +14,12 @@ public interface PointTransactionMapper {
 
     MonthlySettlementResponse findMonthlySettlementAmount(int ownerId, int year, int month);
 
-    List<SettlementDetailResponse> findAllByOwnerId(int userId);
 
     List<PointTransactionResponse> findPointTransactions(PointTransactionSearchCondition condition);
 
     List<UserPointTransactionResponse> findUserPointTransactions(Map<String, Object> params);
+
+    SettlementHistory findSettlementByOwnerId(int userId);
+
+    List<SettlementHistory> findSettlements(SettlementTransactionSearchCondition condition);
 }
