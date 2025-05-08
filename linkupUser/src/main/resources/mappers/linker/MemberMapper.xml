@@ -3,11 +3,11 @@
 <mapper namespace="com.learningcrew.linkupuser.query.mapper.MemberMapper">
     <select id="getUserProfileByEmail" resultType="MemberProfileDTO">
         SELECT
-                m.member_id
-              , u.user_name as "user.user_name"
-              , u.contact_number as "user.contact_number"
+                m.member_id as "user.userId"
+              , u.user_name as "user.userName"
+              , u.contact_number as "user.contactNumber"
               , u.email as "user.email"
-              , u.point_balance "user.point_balance"
+              , u.point_balance "user.pointBalance"
               , m.gender
               , m.nickname
               , m.birth_date

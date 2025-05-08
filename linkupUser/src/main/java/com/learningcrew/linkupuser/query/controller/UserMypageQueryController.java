@@ -48,7 +48,7 @@ public class UserMypageQueryController {
     }
 
     /* 프로필 조회 */
-    @GetMapping("/profile")
+    @GetMapping("/profile/other")
     @Operation(summary = "프로필 조회", description = "특정 회원의 프로필을 조회합니다")
     public ResponseEntity<ApiResponse<UserProfileResponse>> getSingleUserProfile(
             @RequestParam(required = false) int targetId
@@ -82,7 +82,7 @@ public class UserMypageQueryController {
     }
 
     /* 포인트 조회 */
-    @GetMapping("/point")
+    @GetMapping("/point/other")
     @Operation(summary = "포인트 조회", description = "사용자의 현재 포인트를 조회합니다.")
     public ResponseEntity<ApiResponse<UserPointDto>> getUserPoints(@AuthenticationPrincipal String userId) {
         log.info("포인트 조회 user : {}",userId);
