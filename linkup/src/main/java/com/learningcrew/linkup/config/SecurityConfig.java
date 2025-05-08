@@ -146,8 +146,6 @@ public class SecurityConfig {
 
                 // 장소 및 예약 관리
                 "/admin/places",
-                "/owner/{ownerId}/places",
-                "/owner/{ownerId}/reserve",
 
                 "/users/accounts",
                 "/settlements/users",

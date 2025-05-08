@@ -22,4 +22,6 @@ public interface PointTransactionMapper {
     SettlementHistory findSettlementByOwnerId(int userId);
 
     List<SettlementHistory> findSettlements(SettlementTransactionSearchCondition condition);
+
+    List<SettlementDetailResponse> findAllByOwnerId(int userId);
 }

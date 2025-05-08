@@ -77,6 +77,10 @@
         <result property="description" column="description"/>
         <result property="equipment" column="equipment"/>
         <result property="rentalCost" column="rental_cost"/>
+        <result property="minUser" column="min_user"/>
+        <result property="maxUser" column="max_user"/>
+        <result property="sportId" column="sport_id"/>
+
         <!-- 하위 리스트들도 정확히 지정 -->
         <collection property="imageUrl" ofType="java.lang.String" javaType="java.util.ArrayList">
             <result column="image_url"/>
@@ -95,7 +99,7 @@
 
 
     <select id="selectBasicPlaceDetail" resultType="PlaceDetailResponse">
-        SELECT place_id, place_name, address, description, equipment, rental_cost
+        SELECT place_id, place_name, address, description, equipment, rental_cost, min_user, max_user, sport_id
         FROM place
         WHERE place_id = #{placeId}
     </select>
