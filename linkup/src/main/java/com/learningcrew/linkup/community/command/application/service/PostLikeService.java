@@ -17,20 +17,37 @@ public class PostLikeService {
     private final PostRepository postRepository;
     private final PostLikeRepository postLikeRepository;
 
-    @Transactional
+        @Transactional
     public void likePost(int postId, int userId) {
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.POST_NOT_FOUND));
+            Post post = postRepository.findById(postId)
+                    .orElseThrow(() -> new BusinessException(ErrorCode.POST_NOT_FOUND));
 
-        // 이미 좋아요를 누른 경우 예외 처리
-        boolean alreadyLiked = postLikeRepository.existsByPost_PostIdAndUserId(postId, userId);
-        if (alreadyLiked) {
-            throw new BusinessException(ErrorCode.ALREADY_LIKED);
+            postLikeRepository.findByPostAndUserId(post, userId)
+                    .ifPresentOrElse(
+                            // 이미 좋아요 했으면 삭제 (좋아요 취소)
+                            existingLike -> postLikeRepository.delete(existingLike),
+                            // 좋아요 하지 않았으면 추가
+                            () -> {
+                                PostLike newLike = PostLike.create(post, userId);
+                                postLikeRepository.save(newLike);
+                            }
+                    );
         }
 
-        PostLike postLike = PostLike.create(post, userId);
-        postLikeRepository.save(postLike);
-    }
+//    @Transactional
+//    public void likePost(int postId, int userId) {
+//        Post post = postRepository.findById(postId)
+//                .orElseThrow(() -> new BusinessException(ErrorCode.POST_NOT_FOUND));
+//
+//        // 이미 좋아요를 누른 경우 예외 처리
+//        boolean alreadyLiked = postLikeRepository.existsByPost_PostIdAndUserId(postId, userId);
+//        if (alreadyLiked) {
+//            throw new BusinessException(ErrorCode.ALREADY_LIKED);
+//        }
+//
+//        PostLike postLike = PostLike.create(post, userId);
+//        postLikeRepository.save(postLike);
+//    }
 
     @Transactional
     public void unlikePost(int postId, int userId) {

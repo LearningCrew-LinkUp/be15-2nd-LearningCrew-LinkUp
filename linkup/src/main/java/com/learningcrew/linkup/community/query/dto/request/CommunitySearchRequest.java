@@ -8,6 +8,8 @@ import lombok.Setter;
 public class CommunitySearchRequest {
     private Integer userId;   // 특정 회원 조회용
     private String keyword;   // 제목 또는 내용 키워드 검색
+    private String searchType;
+
     private Integer page = 1;
     private Integer size = 10;
     private String isDeleted;

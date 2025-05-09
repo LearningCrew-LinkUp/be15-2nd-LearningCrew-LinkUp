@@ -68,14 +68,24 @@
 
         -- 💬 댓글 수
         (SELECT COUNT(*) FROM community_comment cc WHERE cc.post_id = p.post_id) AS commentCount
-
         FROM community_post p
         JOIN member m ON p.user_id = m.member_id
         WHERE p.is_deleted = 'N' AND p.is_notice = 'N'
 
         <if test="keyword != null and keyword != ''">
-            AND (p.title LIKE CONCAT('%', #{keyword}, '%') OR p.content LIKE CONCAT('%', #{keyword}, '%'))
+            <choose>
+                <when test="searchType == 'title'">
+                    AND p.title LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+                <when test="searchType == 'content'">
+                    AND p.content LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+                <when test="searchType == 'nickname'">
+                    AND m.nickname LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+            </choose>
         </if>
+
         <if test="userId != null">
             AND p.user_id = #{userId}
         </if>

@@ -19,18 +19,37 @@ public class CommentLikeService {
 
     @Transactional
     public void likeComment(int commentId, int userId) {
-        PostComment postComment = postCommentRepository.findById(Long.valueOf(commentId))
+        PostComment postComment = postCommentRepository.findById((long) commentId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
 
-        // 중복 좋아요 방지
-        boolean alreadyLiked = commentLikeRepository.existsByPostCommentAndUserId(postComment, userId);
-        if (alreadyLiked) {
-            throw new BusinessException(ErrorCode.ALREADY_LIKED);
-        }
-
-        PostCommentLike postCommentLike = PostCommentLike.create(postComment, userId);
-        commentLikeRepository.save(postCommentLike);
+        commentLikeRepository.findByPostCommentAndUserId(postComment, userId)
+                .ifPresentOrElse(
+                        // 이미 좋아요 했으면 삭제 (취소)
+                        existingLike -> commentLikeRepository.delete(existingLike),
+                        // 없으면 새로 좋아요 등록
+                        () -> {
+                            PostCommentLike newLike = PostCommentLike.create(postComment, userId);
+                            commentLikeRepository.save(newLike);
+                        }
+                );
     }
+
+
+
+//    @Transactional
+//    public void likeComment(int commentId, int userId) {
+//        PostComment postComment = postCommentRepository.findById(Long.valueOf(commentId))
+//                .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
+//
+//        // 중복 좋아요 방지
+//        boolean alreadyLiked = commentLikeRepository.existsByPostCommentAndUserId(postComment, userId);
+//        if (alreadyLiked) {
+//            throw new BusinessException(ErrorCode.ALREADY_LIKED);
+//        }
+//
+//        PostCommentLike postCommentLike = PostCommentLike.create(postComment, userId);
+//        commentLikeRepository.save(postCommentLike);
+//    }
 
     @Transactional
     public void unlikeComment(int commentId, int userId) {
