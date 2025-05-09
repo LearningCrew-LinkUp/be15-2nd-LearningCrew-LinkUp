@@ -39,6 +39,11 @@ public class Post {
     @Column(name = "is_notice")
     private PostIsNotice postIsNotice = PostIsNotice.N;
 
+    public enum PostIsNotice {
+        Y,
+        N
+    }
+
     @Column(name = "created_at")
     private LocalDateTime postCreatedAt;
 

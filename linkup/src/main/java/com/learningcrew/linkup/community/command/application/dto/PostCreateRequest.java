@@ -6,10 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class PostCreateRequest {
+
 
     @NotNull
     private int userId;
@@ -21,4 +24,7 @@ public class PostCreateRequest {
     private String content;
 
     private String isNotice; // 공지사항 여부
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

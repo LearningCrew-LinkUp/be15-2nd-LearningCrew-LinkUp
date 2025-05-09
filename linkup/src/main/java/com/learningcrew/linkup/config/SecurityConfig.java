@@ -211,7 +211,9 @@ public class SecurityConfig {
                 "/posts/{postId}/likes",
                 "/comments/{commentId}/likes",
                 "/penalty/user/{memberId}",
-                "/objections/user/{memberId}"
+                "/objections/user/{memberId}",
+                "/posts/{postId}/images"
+
         ).hasAnyAuthority("USER", "ADMIN");
 
         // 사업자 + 관리자

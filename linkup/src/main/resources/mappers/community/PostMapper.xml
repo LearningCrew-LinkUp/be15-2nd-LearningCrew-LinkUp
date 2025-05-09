@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learningcrew.linkup.community.query.mapper.PostMapper">
-    <select id="findPostsByUserId" resultType="UserPostDto">
+
+
+    <select id="findPostsByUserId" resultType="com.learningcrew.linkup.community.query.dto.response.PostDTO">
         SELECT
                 p.post_id AS postId
+              , m.nickname AS nickname
               , p.title
               , p.content
               , p.created_at AS createdAt
               ,
-        -- 좋아요 수
+
                (SELECT
                       COUNT(*)
                   FROM post_like pl
                  WHERE pl.post_id = p.post_id) AS likeCount
               ,
-        -- 댓글 수
+
                (SELECT COUNT(*)
                   FROM community_comment cc
                  WHERE cc.post_id = p.post_id) AS commentCount
         FROM community_post p
-        WHERE p.user_id = #{ userId }
+        JOIN member m ON p.user_id = m.member_id
+        WHERE p.user_id = #{userId}
         ORDER BY p.created_at DESC
     </select>
 
@@ -66,7 +70,7 @@
         (SELECT COUNT(*) FROM community_comment cc WHERE cc.post_id = p.post_id) AS commentCount
 
         FROM community_post p
-        JOIN member m ON p.user_id = member_id
+        JOIN member m ON p.user_id = m.member_id
         WHERE p.is_deleted = 'N' AND p.is_notice = 'N'
 
         <if test="keyword != null and keyword != ''">

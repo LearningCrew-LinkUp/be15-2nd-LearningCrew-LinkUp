@@ -1,8 +1,10 @@
 package com.learningcrew.linkup.community.query.mapper;
 
+import com.learningcrew.linkup.community.command.application.dto.PostCreateRequest;
 import com.learningcrew.linkup.community.query.dto.request.CommunitySearchRequest;
 import com.learningcrew.linkup.community.query.dto.response.PostDTO;
 import com.learningcrew.linkup.community.query.dto.response.PostDetailResponse;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -46,5 +48,6 @@ public interface PostMapper {
                                     @Param("limit") int limit);
     // 특정 회원 게시글 수 조회
     long countPostsByUser(int userId);
+
 
 }

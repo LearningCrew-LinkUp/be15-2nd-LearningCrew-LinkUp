@@ -53,6 +53,8 @@ public class FileStorage {
     }
 
     public void deleteFile(String fileName) {
+        fileName = extractFileNameFromUrl(fileName);
+
         Path filePath = this.uploadDir.resolve(fileName);
         try {
             if (!Files.deleteIfExists(filePath)) {
@@ -62,5 +64,12 @@ public class FileStorage {
             log.error("파일 삭제 실패 [{}]: {}", fileName, ex.getMessage());
             throw new BusinessException(ErrorCode.NOT_FOUND);
         }
+    }
+
+    private String extractFileNameFromUrl(String urlOrName) {
+        if (urlOrName == null || urlOrName.isEmpty()) {
+            throw new BusinessException(ErrorCode.NOT_FOUND);
+        }
+        return Paths.get(urlOrName).getFileName().toString(); // 마지막 segment만 추출
     }
 }
