@@ -2,8 +2,10 @@ package com.learningcrew.linkupuser.query.controller;
 
 
 import com.learningcrew.linkupuser.common.dto.ApiResponse;
+import com.learningcrew.linkupuser.common.dto.PageResponse;
 import com.learningcrew.linkupuser.query.dto.query.*;
 import com.learningcrew.linkupuser.query.dto.response.BusinessMypageResponse;
+import com.learningcrew.linkupuser.query.dto.response.MeetingHistoryResponse;
 import com.learningcrew.linkupuser.query.dto.response.UserMypageResponse;
 import com.learningcrew.linkupuser.query.dto.response.UserProfileResponse;
 import com.learningcrew.linkupuser.query.service.*;
@@ -11,10 +13,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -43,6 +47,16 @@ public class UserMypageQueryController {
         return ResponseEntity.ok(ApiResponse.success(userProfileResponse));
     }
 
+    /* 프로필 조회 */
+    @GetMapping("/profile/other")
+    @Operation(summary = "프로필 조회", description = "특정 회원의 프로필을 조회합니다")
+    public ResponseEntity<ApiResponse<UserProfileResponse>> getSingleUserProfile(
+            @RequestParam(required = false) int targetId
+    ){
+        UserProfileResponse userProfileResponse = userQueryService.getUserProfile(targetId);
+        return ResponseEntity.ok(ApiResponse.success(userProfileResponse));
+    }
+
     /* 작성한 게시글 조회 */
     @GetMapping("/posts")
     @Operation(summary = "작성한 게시글 조회", description = "사용자가 작성한 게시글 목록을 조회합니다.")
@@ -68,7 +82,7 @@ public class UserMypageQueryController {
     }
 
     /* 포인트 조회 */
-    @GetMapping("/point")
+    @GetMapping("/point/other")
     @Operation(summary = "포인트 조회", description = "사용자의 현재 포인트를 조회합니다.")
     public ResponseEntity<ApiResponse<UserPointDto>> getUserPoints(@AuthenticationPrincipal String userId) {
         log.info("포인트 조회 user : {}",userId);
@@ -100,6 +114,17 @@ public class UserMypageQueryController {
     public ResponseEntity<ApiResponse<BusinessMypageResponse>> getBusinessMypage(@AuthenticationPrincipal String userId) {
         BusinessMypageResponse mypageResp = userQueryService.getBusinessMypage(Integer.parseInt(userId));
         return ResponseEntity.ok(ApiResponse.success(mypageResp, "사업자 마이페이지 조회에 성공했습니다. "));
+    }
+
+    @Operation(summary = "모임 이력 조회", description = "사용자의 참가/취소/예정 모임 이력을 조회합니다.")
+    @GetMapping("/mypage/meeting/history")
+    public ApiResponse<PageResponse<MeetingHistoryResponse>> getMeetingHistory(
+            @AuthenticationPrincipal String userId,
+            MeetingHistorySearchCondition condition,
+            Pageable pageable
+    ) {
+        PageResponse<MeetingHistoryResponse> response = meetingQueryService.getMeetingHistory(Integer.parseInt(userId), condition, pageable);
+        return ApiResponse.success(response, "모임 이력 조회 성공");
     }
 
 }

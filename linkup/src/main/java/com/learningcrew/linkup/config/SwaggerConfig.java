@@ -23,8 +23,9 @@ public class SwaggerConfig {
     @Bean
     public GroupedOpenApi api() {
         return GroupedOpenApi.builder()
-                .group("linkupcommon")  // 서비스별 그룹 이름
-                .pathsToMatch("/api/v1/common-service/**")
+                .group("linkupcommon")
+                .pathsToMatch("/**")  // 모든 API 경로 포함
                 .build();
     }
+
 }

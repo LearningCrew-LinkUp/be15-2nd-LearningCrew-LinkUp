@@ -338,6 +338,19 @@
         WHERE m.leader_id = #{userId}
     </select>
 
+    <select id="countParticipantsByMeetingId" resultType="int">
+        SELECT COUNT(*)
+        FROM meeting_participation_history mph
+        WHERE mph.meeting_id = #{meetingId}
+        AND mph.status_id = 2
+    </select>
+
+    <select id="countInterestedMembersByMeetingId" resultType="int">
+        SELECT COUNT(*)
+        FROM interested_meeting im
+        WHERE im.meeting_id = #{meetingId}
+    </select>
+
 <!--    <select id="selectHistoriesByMeetingId" resultType="MeetingParticipationDTO">-->
 <!--        SELECT participation_id, status_id, meeting_id, member_id, participated_at-->
 <!--        FROM meeting_participation_history-->

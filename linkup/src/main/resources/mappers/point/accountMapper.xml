@@ -9,4 +9,28 @@
          FROM account
         WHERE user_id = #{ userId }
    </select>
+    <select id="findAccounts" resultType="AccountHistory">
+        SELECT
+               a.account_id
+             , a.user_id
+             , r.role_name
+             , s.status_type
+             , a.bank_name
+             , a.account_number
+             , a.holder_name
+             , a.created_at
+        FROM account a
+        JOIN user u ON u.user_id = a.user_id
+        JOIN role r ON r.role_id = u.role_id
+        JOIN status s ON s.status_id = a.status_id
+        <where>
+            <if test="roleName != null">
+                AND r.role_name = # {roleName}
+            </if>
+            <if test="statusType != null">
+                AND s.status_type = #{statusType}
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
 </mapper>

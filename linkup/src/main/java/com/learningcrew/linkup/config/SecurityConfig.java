@@ -86,8 +86,6 @@ public class SecurityConfig {
     // 일반 사용자 권한 전용 API
     private void userEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auths) {
         auths.requestMatchers(
-                "/users/**",
-                "/accounts/**",
                 "/auth/**",
                 "/friends/**",
                 "/payments/**",
@@ -95,8 +93,6 @@ public class SecurityConfig {
                 "/members/**",
                 "/user/**",
                 "/businesses/**",
-                "/meetings",
-                "/meetings/{meetingId}",
                 "/meetings/user/{userId}/created",
                 "/meetings/user/{userId}/pending",
                 "/meetings/{meetingId}/participation_request",
@@ -138,18 +134,21 @@ public class SecurityConfig {
     // 관리자 권한 전용 API
     private void adminEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auths) {
         auths.requestMatchers(
+                "/admin/users/point/transaction",
+                "/admin/businesses",
+
                 // 모임 관리
-                "/meetings/list",
                 "/meetings",
-                "/my/meetings/{meetingId}/participation",
-//                "/meetings/list/{userId}", 시트에 없는 엔드포인트: 다른 주소로 대체되었는지 확인 필요
-                "/meetings/{meetingId}/participation",
+                "/meetings/list",
                 "/meetings/review",
+                "/my/meetings/{meetingId}/participation",
+                "/meetings/{meetingId}/participation",
 
                 // 장소 및 예약 관리
                 "/admin/places",
-                "/owner/{ownerId}/places",
-                "/owner/{ownerId}/reserve",
+
+                "/users/accounts",
+                "/settlements/users",
 
                 // 커뮤니티 관리
                 "/posts/list",
@@ -200,6 +199,9 @@ public class SecurityConfig {
     private void sharedAuthEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auths) {
         // 사용자 + 관리자
         auths.requestMatchers(
+                "/users/**",
+                "/meetings",
+                "/meetings/{meetingId}",
                 "/meetings/{meetingId}/participation",
                 "/meetings/user/{userId}",
                 "/meetings/user/{userId}/done",

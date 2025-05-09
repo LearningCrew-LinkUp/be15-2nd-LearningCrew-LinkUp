@@ -22,10 +22,12 @@ public class TokenDomainServiceImpl implements TokenDomainService {
     }
 
     public String generateRefreshToken(User user) {
+        System.out.println("refresh token을 생성합니다");
         return jwtTokenProvider.createRefreshToken(user.getUserId(), user.getRole().getRoleName());
     }
 
     public void saveRefreshToken(int userId, String email, String refreshToken) {
+        System.out.println("refresh token을 생성합니다");
         RefreshToken refreshTokenEntity = RefreshToken.builder()
                 .userId(userId)
                 .userEmail(email)

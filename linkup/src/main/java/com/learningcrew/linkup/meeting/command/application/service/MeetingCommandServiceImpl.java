@@ -522,13 +522,13 @@ public class MeetingCommandServiceImpl implements MeetingCommandService {
 
     private String convertDayOfWeek(DayOfWeek dayOfWeek) {
         return switch (dayOfWeek) {
-            case MONDAY -> "MON";
-            case TUESDAY -> "TUE";
-            case WEDNESDAY -> "WED";
-            case THURSDAY -> "THU";
-            case FRIDAY -> "FRI";
-            case SATURDAY -> "SAT";
-            case SUNDAY -> "SUN";
+            case MONDAY -> "MONDAY";
+            case TUESDAY -> "TUESDAY";
+            case WEDNESDAY -> "WEDNESDAY";
+            case THURSDAY -> "THURSDAY";
+            case FRIDAY -> "FRIDAY";
+            case SATURDAY -> "SATURDAY";
+            case SUNDAY -> "SUNDAY";
         };
     }
     private void validateTimeConflict(MeetingCreateRequest request) {

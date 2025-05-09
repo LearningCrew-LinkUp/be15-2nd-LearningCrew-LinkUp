@@ -134,11 +134,6 @@ public class AccountCommandServiceImpl implements AccountCommandService {
                 () -> new BusinessException(ErrorCode.USER_NOT_FOUND)
         );
 
-
-        // 삭제된 상태 확인
-        userValidatorService.validateUserStatus(user.getStatus().getStatusType(),LinkerStatusType.DELETED.name());
-
-
         // 비밀번호 검사
         userValidatorService.validatePassword(password, user.getPassword());
 
@@ -147,7 +142,6 @@ public class AccountCommandServiceImpl implements AccountCommandService {
 
         // 상태 활성화
         userDomainService.assignStatus(user,LinkerStatusType.ACCEPTED.name());
-
 
         // 삭제일시 초기화
         user.setDeletedAt(null);
