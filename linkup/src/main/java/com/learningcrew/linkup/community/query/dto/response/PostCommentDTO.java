@@ -16,4 +16,7 @@ public class PostCommentDTO {
     private int likeCount;
     private LocalDateTime createdAt;
     private String isDeleted;
+
+    private Boolean liked;
+
 }

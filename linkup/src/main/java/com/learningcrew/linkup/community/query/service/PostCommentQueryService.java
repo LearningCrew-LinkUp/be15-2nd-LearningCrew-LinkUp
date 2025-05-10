@@ -52,4 +52,30 @@ public class PostCommentQueryService {
                 .pagination(pagination)
                 .build();
     }
+
+    @Transactional(readOnly = true)
+    public PostCommentListResponse getCommentsWithLikes(int postId, int userId) {
+        // 댓글 목록 조회 (isDeleted = 'N'만)
+        List<PostCommentDTO> postComments = commentMapper.selectCommentsByPostId(postId);
+
+        // 각 댓글마다 liked와 likeCount 설정
+        for (PostCommentDTO dto : postComments) {
+            boolean liked = commentMapper.existsCommentLike(dto.getCommentId().longValue(), userId);
+            int likeCount = commentMapper.countCommentLikes(dto.getCommentId().longValue());
+            dto.setLiked(liked);
+            dto.setLikeCount(likeCount);
+        }
+
+        Pagination pagination = Pagination.builder()
+                .currentPage(1)
+                .totalPage(1)
+                .totalItems(postComments.size())
+                .build();
+
+        return PostCommentListResponse.builder()
+                .postComments(postComments)
+                .pagination(pagination)
+                .build();
+    }
+
 }

@@ -29,5 +29,8 @@ public interface CommentMapper {
     // 특정 게시글 댓글 조회 (PostDetailResponse용)
     List<PostCommentDTO> selectCommentsByPostId(@Param("postId") int postId);
 
+    boolean existsCommentLike(@Param("commentId") long commentId, @Param("userId") int userId);
+    int countCommentLikes(@Param("commentId") long commentId);
+
 
 }

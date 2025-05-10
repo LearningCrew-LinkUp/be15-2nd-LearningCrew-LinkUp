@@ -20,6 +20,7 @@ public interface CommentLikeRepository extends JpaRepository<PostCommentLike, In
 
     boolean existsByPostCommentAndUserId(PostComment postComment, int userId);
 
+    int countByPostComment(PostComment savedComment);
 }
 
 

@@ -14,4 +14,8 @@ public class PostCommentResponse {
     private String commentContent;
     private String isDeleted;
     private String createdAt;
+
+
+    private boolean liked;
+    private int likeCount;
 }

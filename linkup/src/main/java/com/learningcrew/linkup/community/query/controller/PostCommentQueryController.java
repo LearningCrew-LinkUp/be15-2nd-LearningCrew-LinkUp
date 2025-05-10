@@ -33,4 +33,15 @@ public class PostCommentQueryController {
     ) {
         return ResponseEntity.ok(ApiResponse.success(postCommentQueryService.getCommentsByUser(userId, page, size)));
     }
+
+    @GetMapping("/post/{postId}")
+    @Operation(summary = "게시글의 댓글 목록 조회", description = "해당 게시글에 달린 댓글들을 조회하고 좋아요 여부도 포함한다.")
+    public ResponseEntity<ApiResponse<PostCommentListResponse>> getCommentsForPost(
+            @PathVariable int postId,
+            @RequestParam int userId
+    ) {
+        return ResponseEntity.ok(ApiResponse.success(
+                postCommentQueryService.getCommentsWithLikes(postId, userId)
+        ));
+    }
 }

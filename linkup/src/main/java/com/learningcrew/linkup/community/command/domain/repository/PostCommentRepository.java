@@ -11,4 +11,7 @@ public interface PostCommentRepository extends JpaRepository<PostComment, Long> 
     Optional<PostComment> findByCommentIdAndPost_PostId(BigInteger commentId, int postId);
 
     Optional<Object> findByCommentId(BigInteger commentId);
+
+
+
 }

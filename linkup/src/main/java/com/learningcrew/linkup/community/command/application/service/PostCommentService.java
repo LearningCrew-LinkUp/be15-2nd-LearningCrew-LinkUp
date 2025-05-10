@@ -5,6 +5,7 @@ import com.learningcrew.linkup.community.command.application.dto.PostCommentCrea
 import com.learningcrew.linkup.community.command.application.dto.PostCommentResponse;
 import com.learningcrew.linkup.community.command.domain.aggregate.Post;
 import com.learningcrew.linkup.community.command.domain.aggregate.PostComment;
+import com.learningcrew.linkup.community.command.domain.repository.CommentLikeRepository;
 import com.learningcrew.linkup.community.command.domain.repository.PostCommentRepository;
 import com.learningcrew.linkup.community.command.domain.repository.PostRepository;
 import com.learningcrew.linkup.exception.BusinessException;
@@ -25,6 +26,7 @@ public class PostCommentService {
     private final PostRepository postRepository;
     private final ModelMapper modelMapper;
     private final UserFeignClient userFeignClient;
+    private final CommentLikeRepository commentLikeRepository;
 
 
     @Transactional
@@ -46,8 +48,22 @@ public class PostCommentService {
         // 4. 저장
         PostComment savedComment = postCommentRepository.save(postComment);
 
+
+
+        PostCommentResponse response = modelMapper.map(savedComment, PostCommentResponse.class);
+
+
+        int likeCount = commentLikeRepository.countByPostComment(savedComment);
+        boolean isLiked = commentLikeRepository.existsByPostCommentAndUserId(savedComment, userId);
+
+        response.setLikeCount(likeCount);
+        response.setLiked(isLiked);
+
         // 5. 반환
-        return modelMapper.map(savedComment, PostCommentResponse.class);
+        return response;
+
+//        // 5. 반환
+//        return modelMapper.map(savedComment, PostCommentResponse.class);
     }
 
     @Transactional
