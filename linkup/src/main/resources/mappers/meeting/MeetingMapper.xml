@@ -150,7 +150,7 @@
         JOIN member m ON p.member_id = m.member_id
         JOIN user u ON m.member_id = u.user_id
         WHERE p.meeting_id = #{meetingId}
-        AND p.status_id = 2
+        AND p.status_id IN (2, 5)
         AND u.status_id != 4
     </select>
 
