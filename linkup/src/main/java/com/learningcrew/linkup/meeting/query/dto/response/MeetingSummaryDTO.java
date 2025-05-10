@@ -32,4 +32,5 @@ public class MeetingSummaryDTO {
     private String customPlaceAddress;
     private int participantCount;
     private int interestedCount;
+    private double participationFee;
 }
