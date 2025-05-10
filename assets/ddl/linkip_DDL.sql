@@ -37,6 +37,7 @@ DROP TABLE IF EXISTS `user_sport`;
 -- 0-3. 포인트 테이블
 DROP TABLE IF EXISTS `account`;
 DROP TABLE IF EXISTS `point_transaction`;
+DROP TABLE IF EXISTS `settlement`;
 
 -- 0-4. 장소 관련 테이블
 DROP TABLE IF EXISTS `place`;
@@ -226,6 +227,15 @@ CREATE TABLE IF NOT EXISTS `point_transaction` (
   DEFAULT CHARSET=utf8mb4 
   COLLATE=utf8mb4_general_ci 
   COMMENT='사용자 또는 사업자의 포인트 거래 이력을 저장하는 테이블';
+  
+-- 3) 정산 테이블 생성
+CREATE TABLE IF NOT EXISTS settlement (
+    settlement_id INT AUTO_INCREMENT COMMENT 'PK: 정산 고유 ID',
+    owner_id INT NOT NULL COMMENT 'FK: 정산 요청 사업자 ID',
+    amount INT NOT NULL COMMENT '정산 금액 (원 단위)',
+    completed_at DATETIME DEFAULT NULL COMMENT '정산 완료 일시 (nullable)',
+    PRIMARY KEY (settlement_id)
+) ENGINE=InnoDB COMMENT='사업자 정산 요청 및 처리 내역 테이블';
 
 
 
@@ -241,10 +251,16 @@ CREATE TABLE IF NOT EXISTS `place` (
     `address`       TEXT         NOT NULL COMMENT '주소',
     `description`   TEXT         DEFAULT NULL COMMENT '장소 설명',
     `equipment`     TEXT         DEFAULT NULL COMMENT '장비 정보',
+    `min_user`		  INT				NOT NULL DEFAULT 2 COMMENT '최소 인원',
+    `max_user`		  INT				NOT NULL DEFAULT 2 COMMENT '최대 인원',
+    `latitude`      DECIMAL(10,6) NOT NULL COMMENT '위도',
+    `longitude`     DECIMAL(10,6) NOT NULL COMMENT '경도', 
     `is_active`     ENUM('Y', 'N') NOT NULL DEFAULT 'Y' COMMENT '활성화 여부',
     `created_at`    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록 일시',
     `rental_cost`   INT          NOT NULL DEFAULT 0 COMMENT '장소 대여비',
-    PRIMARY KEY (`place_id`)
+    PRIMARY KEY (`place_id`),
+    CHECK (`min_user` >= 2),
+    CHECK (`min_user` <= `max_user`)
 ) ENGINE=InnoDB 
   DEFAULT CHARSET=utf8mb4 
   COLLATE=utf8mb4_general_ci 
@@ -263,12 +279,14 @@ CREATE TABLE IF NOT EXISTS `place_image` (
 
 -- 3) 운영 시간 테이블 생성
 CREATE TABLE IF NOT EXISTS `operation_time` (
-    `operating_time_id`  INT   NOT NULL AUTO_INCREMENT COMMENT '운영 시간 ID',
-    `place_id`           INT   NOT NULL COMMENT '장소 ID',
-    `day_of_week`        ENUM('SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT') NOT NULL COMMENT '요일',
-    `start_time`         TIME  NOT NULL COMMENT '시작 시간',
-    `end_time`           TIME  NOT NULL COMMENT '종료 시간',
-    PRIMARY KEY (`operating_time_id`)
+    `operating_time_id`  INT   			 NOT NULL AUTO_INCREMENT COMMENT '운영 시간 ID',
+    `place_id`           INT   			 NOT NULL COMMENT '장소 ID',
+    `day_of_week`        ENUM('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'BREAK') NOT NULL COMMENT '요일',
+    `start_time`         TIME  			 NOT NULL COMMENT '시작 시간',
+    `end_time`           TIME  		 	 NOT NULL COMMENT '종료 시간',
+    `unit_time`          INT  			 NOT NULL COMMENT '단위 시간',
+    PRIMARY KEY (`operating_time_id`),
+    CHECK (`unit_time` % 10 = 0)
 ) ENGINE=InnoDB 
   DEFAULT CHARSET=utf8mb4 
   COLLATE=utf8mb4_general_ci 
@@ -308,17 +326,16 @@ CREATE TABLE IF NOT EXISTS `meeting` (
     `age_group`               SET('10', '20', '30', '40', '50', '60', '70+') NOT NULL COMMENT '연령대 제한',
     `level`                   SET('LV1', 'LV2', 'LV3') NOT NULL COMMENT '실력 제한',
     `custom_place_address`    VARCHAR(255)  DEFAULT NULL COMMENT '사용자 설정 주소',
-    `latitude`                DECIMAL       DEFAULT NULL COMMENT '사용자 설정 주소 위도',
-    `longitude`               DECIMAL       DEFAULT NULL COMMENT '사용자 설정 주소 경도',
+    `latitude`                DECIMAL(10,6) DEFAULT NULL COMMENT '사용자 설정 주소 위도',
+    `longitude`               DECIMAL(10,6) DEFAULT NULL COMMENT '사용자 설정 주소 경도',
     PRIMARY KEY (`meeting_id`),
     CHECK (`min_user` >= 1),
-    CHECK (`max_user` <= 30),
     CHECK (`min_user` <= `max_user`)
 ) ENGINE=InnoDB 
   DEFAULT CHARSET=utf8mb4 
   COLLATE=utf8mb4_general_ci 
   COMMENT='개설된 모임 정보를 저장하는 테이블';
-
+  
 -- 2) 모임 찜 테이블 생성
 CREATE TABLE IF NOT EXISTS `interested_meeting` (
     `meeting_id`  INT NOT NULL COMMENT '모임 ID',
@@ -345,13 +362,13 @@ CREATE TABLE `meeting_participation_history` (
 -- 4) 장소 예약 테이블 생성
 -- 장소 예약 테이블 생성
 CREATE TABLE `reservation` (
-    `reservation_id`    BIGINT     NOT NULL AUTO_INCREMENT COMMENT '예약 ID',
-    `place_id`          INT        NOT NULL COMMENT '장소 ID',
-    `meeting_id`        INT        DEFAULT NULL COMMENT '모임 ID',
-    `status_id`         INT        NOT NULL COMMENT '상태 ID',
-    `reservation_date`  DATE       NOT NULL COMMENT '사용일',
-    `start_time`        TIME       NOT NULL COMMENT '시작 시간',
-    `end_time`          TIME       NOT NULL COMMENT '종료 시간',
+    `reservation_id`    BIGINT     		NOT NULL AUTO_INCREMENT COMMENT '예약 ID',
+    `place_id`          INT        		NOT NULL COMMENT '장소 ID',
+    `meeting_id`        INT        					DEFAULT NULL COMMENT '모임 ID',
+    `status_id`         INT        		NOT NULL COMMENT '상태 ID',
+    `reservation_date`  DATE       		NOT NULL COMMENT '사용일',
+    `start_time`        TIME       		NOT NULL COMMENT '시작 시간',
+    `end_time`          TIME       		NOT NULL COMMENT '종료 시간',
     PRIMARY KEY (`reservation_id`)
 ) ENGINE=InnoDB 
   DEFAULT CHARSET=utf8mb4 
@@ -566,14 +583,14 @@ CREATE TABLE `report_history` (
 -- 3) 사용자 제재 이력 테이블 생성
 CREATE TABLE `user_penalty_history` (
     `penalty_id`     INT              NOT NULL AUTO_INCREMENT COMMENT '제재 ID',
-    `user_id`      INT                NOT NULL COMMENT '사용자 ID',
+    `user_id`      	INT                NOT NULL COMMENT '사용자 ID',
     `post_id`        INT                       DEFAULT NULL COMMENT '게시글 ID',
     `comment_id`     BIGINT                    DEFAULT NULL COMMENT '댓글 ID',
     `review_id`      INT                       DEFAULT NULL COMMENT '장소 후기 ID',
+    `status_id`      INT              NOT NULL COMMENT '상태 ID',
     `penalty_type`   ENUM('POST', 'COMMENT', 'REVIEW') NOT NULL COMMENT '제재 유형',
     `reason`         TEXT             NOT NULL COMMENT '사유',
     `created_at`     DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '제재 일시',
-    `is_active`      ENUM('Y','N')             DEFAULT 'Y' COMMENT '제재 여부',
     PRIMARY KEY (`penalty_id`)
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
@@ -616,11 +633,11 @@ CREATE TABLE `blacklist` (
 
 -- 인증토큰 테이블 생성
 CREATE TABLE `verification_token` (
-    `user_id` INT NOT NULL COMMENT '토큰 생성 요청자 ID',
-    `email` VARCHAR(255) NOT NULL COMMENT '인증을 요청한 이메일 주소',
-    `code` VARCHAR(20) NOT NULL COMMENT '인증 코드',
-    `expiry_date` DATETIME NOT NULL COMMENT '인증 코드 만료 시간',
-    `token_type` VARCHAR(30) DEFAULT 'SIGNUP' COMMENT '토큰 종류(SIGNUP, RESET 등)',
+    `user_id` 		INT 				NOT NULL COMMENT '토큰 생성 요청자 ID',
+    `email` 		VARCHAR(255) 	NOT NULL COMMENT '인증을 요청한 이메일 주소',
+    `code` 			VARCHAR(20) 	NOT NULL COMMENT '인증 코드',
+    `expiry_date` DATETIME 		NOT NULL COMMENT '인증 코드 만료 시간',
+    `token_type` 	VARCHAR(30) 				DEFAULT 'SIGNUP' COMMENT '토큰 종류(SIGNUP, RESET 등)',
     
     PRIMARY KEY (`user_id`),
     CONSTRAINT fk_verification_user
@@ -632,10 +649,10 @@ CREATE TABLE `verification_token` (
 
 -- 리프레시토큰 테이블 생성
 CREATE TABLE `refresh_token` (
-    `user_id` INT NOT NULL COMMENT '토큰 생성 요청자 ID',
-    `user_email` VARCHAR(255) NOT NULL COMMENT '리프레시 토큰을 발급받은 유저 이메일',
-    `token` TEXT NOT NULL COMMENT '리프레시 토큰 문자열',
-    `expiry_date` DATETIME NOT NULL COMMENT '리프레시 토큰 만료 시간',
+    `user_id` 		INT 				NOT NULL COMMENT '토큰 생성 요청자 ID',
+    `user_email` 	VARCHAR(255) 	NOT NULL COMMENT '리프레시 토큰을 발급받은 유저 이메일',
+    `token` 		TEXT 				NOT NULL COMMENT '리프레시 토큰 문자열',
+    `expiry_date` DATETIME 		NOT NULL COMMENT '리프레시 토큰 만료 시간',
 
     PRIMARY KEY (`user_id`),
     CONSTRAINT fk_refresh_user_email
@@ -775,8 +792,14 @@ ALTER TABLE `point_transaction`
     ON DELETE RESTRICT
     ON UPDATE RESTRICT;
 
-
-
+-- 3) 정산 테이블 참조 조건 추가
+-- 사업자 외래 키 제약조건
+ALTER TABLE settlement
+    ADD CONSTRAINT fk_settlement_owner
+        FOREIGN KEY (owner_id)
+        REFERENCES owner(owner_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE;
 
 
 
@@ -1235,6 +1258,14 @@ ALTER TABLE `user_penalty_history`
     REFERENCES `place_review`(`review_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
+
+-- 상태 ID 외래 키 제약 (status 테이블 참조)
+ALTER TABLE `user_penalty_history`
+    ADD CONSTRAINT `fk_penalty_status`
+    FOREIGN KEY (`status_id`)
+    REFERENCES `status`(`status_id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT;
 
 -- 4) 이의 제기 테이블 참조 조건 추가
 -- 제재 ID 외래 키 제약 (user_penalty_history 테이블 참조)

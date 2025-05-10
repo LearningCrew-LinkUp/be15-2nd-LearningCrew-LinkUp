@@ -573,10 +573,10 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 ## 6. 📊 WBS (작업 분배 및 일정)
 
 
-🔗 [WBS 명세서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS5z7lnFVoKhrHU0zT55KpMlmla72tCCbzkwDi_7PyI23dByzC5GMS2v7jT-7YjDzr9LlZDPXG-xev4/pubhtml?gid=403982901&single=true)
+🔗 [WBS 명세서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS5z7lnFVoKhrHU0zT55KpMlmla72tCCbzkwDi_7PyI23dByzC5GMS2v7jT-7YjDzr9LlZDPXG-xev4/pubhtml?gid=1932038739&single=true)
 
 
-<img src="assets/images/wbs.jpg" alt="wbs" width="550"/>
+<img src="assets/images/WBS.jpg" alt="wbs" width="550"/>
 
 <br>
 
@@ -584,7 +584,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 ## 7. 📄 요구사항 정의
 
-🔗 [요구사항 명세서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vR5o5viDNitHaRwGwl4o1biS6vLC52SPAyREVK2vDS9y13eXPo8N7CumbLhWDeejayHAh0Ji5Cmf2tf/pubhtml?gid=1583571973&single=true)
+🔗 [요구사항 명세서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS5z7lnFVoKhrHU0zT55KpMlmla72tCCbzkwDi_7PyI23dByzC5GMS2v7jT-7YjDzr9LlZDPXG-xev4/pubhtml?gid=520517258&single=true)
 
 
 <img src="assets/images/requirement_statement.jpg" alt="requirement_statement" width="550"/>
@@ -770,7 +770,7 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 ### 테이블 정의서
 
-🔗 [테이블 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vRunQplhnLkZI3XVY3Phoj7wQVirdkzOMEnkMLMfItG7qATPKMGKVSAPNOodzxhBgE6C86Ax5my7o9p/pubhtml?gid=763788645&single=true)
+🔗 [테이블 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS5z7lnFVoKhrHU0zT55KpMlmla72tCCbzkwDi_7PyI23dByzC5GMS2v7jT-7YjDzr9LlZDPXG-xev4/pubhtml?gid=829253204&single=true)
 
 <details>
 <summary>🔹 기초 테이블 정의서 </summary>
@@ -944,11 +944,9 @@ LinkUp은 모임이라는 소속에 구애받지 않고 언제든 원할 때 신
 
 <br>
 
-🔗 [테스트 케이스 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS5z7lnFVoKhrHU0zT55KpMlmla72tCCbzkwDi_7PyI23dByzC5GMS2v7jT-7YjDzr9LlZDPXG-xev4/pubhtml?gid=1875790254&single=true)
+🔗 [테스트 케이스 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS5z7lnFVoKhrHU0zT55KpMlmla72tCCbzkwDi_7PyI23dByzC5GMS2v7jT-7YjDzr9LlZDPXG-xev4/pubhtml?gid=422442986&single=true)
 
-<img src="assets/images/test_case_definition_1.jpg" alt="test_case_definition" width="550"/>
-
-<img src="assets/images/test_case_definition_2.jpg" alt="test_case_definition" width="550"/>
+<img src="assets/images/test_case_definition.jpg" alt="test_case_definition" width="550"/>
 
 <br>
 
