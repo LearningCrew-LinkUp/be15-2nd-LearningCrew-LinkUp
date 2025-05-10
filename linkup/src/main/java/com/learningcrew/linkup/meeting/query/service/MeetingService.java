@@ -33,9 +33,15 @@ public class MeetingService {
         meetings.forEach(m -> {
             MeetingStatus status = MeetingStatus.fromId(m.getStatusId());
             m.setStatusName(status.getLabel());
-            if (m.getPlaceId() != null) {
-                m.setPlace(placeQueryService.getPlaceDetails(m.getPlaceId()));
+            Integer placeId = m.getPlaceId();
+            if (placeId != null) {
+                m.setPlace(placeQueryService.getPlaceDetails(placeId));
+                m.setParticipationFee((double) m.getPlace().getRentalCost() / m.getMinUser());
             }
+            if (placeId == null) {
+                m.setParticipationFee(0);
+            }
+
             m.setParticipantCount(getParticipantCount(m.getMeetingId()));
             m.setInterestedCount(getInterestedCount(m.getMeetingId()));
         });

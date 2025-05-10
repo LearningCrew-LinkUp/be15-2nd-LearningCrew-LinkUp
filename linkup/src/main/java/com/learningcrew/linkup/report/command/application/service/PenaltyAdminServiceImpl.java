@@ -157,7 +157,7 @@ public class PenaltyAdminServiceImpl implements PenaltyAdminService {
             throw new BusinessException(ErrorCode.PENALTY_ALREADY_CANCELED);
         }
 
-        penalty.setStatusId(2);
+        penalty.setStatusId(3);
 
         switch (penalty.getPenaltyType()) {
             case POST -> {
