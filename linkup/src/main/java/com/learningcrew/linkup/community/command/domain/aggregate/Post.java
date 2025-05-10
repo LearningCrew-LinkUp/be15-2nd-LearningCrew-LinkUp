@@ -2,6 +2,7 @@ package com.learningcrew.linkup.community.command.domain.aggregate;
 
 //import com.learningcrew.linkup.common.Image;
 //import com.learningcrew.linkup.community.command.domain.constants.PostIsNotice;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learningcrew.linkup.community.command.domain.PostIsNotice;
 import jakarta.persistence.*;
 import lombok.*;
@@ -38,6 +39,11 @@ public class Post {
     @Column(name = "is_notice")
     private PostIsNotice postIsNotice = PostIsNotice.N;
 
+    public enum PostIsNotice {
+        Y,
+        N
+    }
+
     @Column(name = "created_at")
     private LocalDateTime postCreatedAt;
 
@@ -58,6 +64,7 @@ public class Post {
     }
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<PostImage> postImages;
 
 }

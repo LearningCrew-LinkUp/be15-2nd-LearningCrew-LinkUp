@@ -22,4 +22,5 @@ public class PostDTO {
     private Integer likeCount;
     private Integer commentCount;
 
+
 }

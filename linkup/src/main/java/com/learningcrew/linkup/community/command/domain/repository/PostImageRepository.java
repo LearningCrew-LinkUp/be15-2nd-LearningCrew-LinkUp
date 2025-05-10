@@ -13,4 +13,6 @@ public interface PostImageRepository extends JpaRepository<PostImage, Integer> {
 
     // 특정 게시물에 해당하는 모든 이미지를 조회
     List<PostImage> findByPost(Post post);
+
+    List<PostImage> findByPost_PostId(int postId);
 }
