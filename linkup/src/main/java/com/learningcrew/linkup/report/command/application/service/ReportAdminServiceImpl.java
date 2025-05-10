@@ -2,6 +2,7 @@ package com.learningcrew.linkup.report.command.application.service;
 
 import com.learningcrew.linkup.report.command.application.dto.request.HandleReportRequest;
 import com.learningcrew.linkup.report.command.application.dto.response.ReportHandleResponse;
+import com.learningcrew.linkup.report.command.domain.aggregate.PenaltyType;
 import com.learningcrew.linkup.report.command.domain.aggregate.ReportHistory;
 import com.learningcrew.linkup.report.command.domain.aggregate.UserPenaltyHistory;
 import com.learningcrew.linkup.report.command.domain.repository.ReportHistoryRepository;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,13 +49,22 @@ public class ReportAdminServiceImpl implements ReportAdminService {
         report.updateStatus(2); // ACCEPTED
         reportRepository.save(report);
 
+        // penaltyType 자동 판단
+        PenaltyType resolvedPenaltyType = report.getPostId() != null ? PenaltyType.POST
+                : report.getCommentId() != null ? PenaltyType.COMMENT
+                : PenaltyType.REVIEW;
+
         // 제재 이력 등록
         UserPenaltyHistory penalty = UserPenaltyHistory.builder()
                 .userId(report.getTargetId())
                 .postId(report.getPostId())
                 .commentId(report.getCommentId())
-                .penaltyType(request.getPenaltyType())
-                .reason(request.getReason())
+                .penaltyType(resolvedPenaltyType)
+                .reason(
+                        Optional.ofNullable(request.getReason())
+                                .filter(r -> !r.isBlank())
+                                .orElse("운영자 제재 처리")  // 기본 메시지
+                )
                 .createdAt(LocalDateTime.now())
                 .statusId(2)
                 .build();
@@ -66,4 +77,5 @@ public class ReportAdminServiceImpl implements ReportAdminService {
                 .message("신고가 처리되고 제재가 등록되었습니다.")
                 .build();
     }
+
 }
